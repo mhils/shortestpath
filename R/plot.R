@@ -18,7 +18,7 @@
 #' @export
 plot.spgraph = function (
   x, 
-  vertex.color="front", 
+  vertex.color="set",
   edge.label="weight",
   vertex.label="auto",
   ...
@@ -28,7 +28,7 @@ plot.spgraph = function (
   }
   graph <- x
   
-  if(is.character(vertex.color) && vertex.color == c("front")){
+  if(is.character(vertex.color) && vertex.color %in% c("set")){
     vertex.attributes(graph)$color <- 
       factor(
         vertex.attributes(graph)[[vertex.color]],
