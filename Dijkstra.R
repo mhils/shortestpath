@@ -22,7 +22,7 @@ fDijkstra = function(ig,From,To){
   #(Assumption: weight of edges has to be in the edge attribute "weight" of the given igraph)
   am = get.adjacency(ig,attr='weight',sparse=FALSE)
   #am = m
-  nVertices = dim(am)[1]
+  nVertices = length(V(ig))
   
   #Calculate the number of vertices
   
@@ -67,8 +67,8 @@ fDijkstra = function(ig,From,To){
     for(v in neighbors(ig,u)){
       # Update min_dist[v] only if:
       not_already_in_sptSet = (sptSet[v] == FALSE)# (1)is not in sptSet, 
-      smaller_dist = (min_dist[u]+am[u,v] < min_dist[v])# (3)and total weight of path from src to  v through u is smaller than current value of dist[v]
-      if(not_already_in_sptSet && smaller_dist){
+      total_dist_smaller = (min_dist[u]+am[u,v] < min_dist[v])# (3)and total weight of path from src to  v through u is smaller than current value of dist[v]
+      if(not_already_in_sptSet && total_dist_smaller){
         min_dist[v] = min_dist[u] + am[u,v]
         shortest_path_predecessor[v] = u
       }
