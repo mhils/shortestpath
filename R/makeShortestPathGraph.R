@@ -38,6 +38,7 @@ makeGraphShortestPathPredecessors <- function(graph) {
 #' @param single_source if \code{TRUE}, \code{min_dists} and \code{shortest_path_predecessors} will be
 #' cut off to a single column.
 #' @return The \code{spgraph} object.
+#' @import igraph
 makeShortestPathGraph <- function(
   graph,
   edge.weights = makeEdgeWeights,

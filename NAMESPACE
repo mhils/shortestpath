@@ -2,3 +2,5 @@
 
 S3method(plot,spgraph)
 export(is.spgraph)
+import(igraph)
+importFrom(wesanderson,wes_palette)
