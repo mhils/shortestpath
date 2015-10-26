@@ -26,6 +26,6 @@ and its currently known minimal distance.}
 convenience features for shortest path graph plotting.
 }
 \examples{
-plot(karate)
+# TODO
 }
 
