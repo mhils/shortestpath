@@ -13,7 +13,7 @@
 #' @param ... All other parameters are passed to \code{\link{plot.igraph}} as is.
 #'
 #' @examples
-#' plot(karate)
+#' # TODO
 #'
 #' @export
 plot.spgraph = function (

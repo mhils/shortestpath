@@ -9,3 +9,6 @@ Authors@R: c(person("Dennis", "Motzke", email = "d_motz02@uni-muenster.de", role
 URL: https://github.com/mhils/shortestpath
 BugReports: https://github.com/mhils/shortestpath/issues
 License: MIT | file LICENSE
+Imports: wesanderson,
+    igraph
+Suggests: testthat
