@@ -64,12 +64,11 @@ fDijkstra = function(ig,From,To){
     sptSet[u] = TRUE
 
     #Evaluate if distances to neighbouring vertices can be updated with a new shortest distance
-    for(v in 1:nVertices){
+    for(v in neighbors(ig,u)){
       # Update min_dist[v] only if:
-      is_in_# (1)is not in sptSet, 
-      # (2)there is an edge from u to v, 
-      # (3)and total weight of path from src to  v through u is smaller than current value of dist[v]
-      if(sptSet[v] == FALSE && am[u,v] > 0 && min_dist[u]+am[u,v] < min_dist[v] && min_dist[u] != Inf){
+      not_already_in_sptSet = (sptSet[v] == FALSE)# (1)is not in sptSet, 
+      smaller_dist = (min_dist[u]+am[u,v] < min_dist[v])# (3)and total weight of path from src to  v through u is smaller than current value of dist[v]
+      if(not_already_in_sptSet && smaller_dist){
         min_dist[v] = min_dist[u] + am[u,v]
         shortest_path_predecessor[v] = u
       }
