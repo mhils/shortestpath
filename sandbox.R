@@ -75,7 +75,7 @@ d = data.frame(
   weight=c(1,1,3,4,4,5,5,4,3,4,9,5,8)
 )
 example = graph_from_data_frame(d, directed=F)
-class(example) <- c("shortestpathgraph",class(example))
+class(example) <- c("spgraph",class(example))
 vertex.attributes(example)$front <- c("known","front", "known",rep("unknown",5))
 graph.attributes(example)$min_dist <- matrix(c(0,1,1,3,Inf,5,10,9),ncol=1)
 
