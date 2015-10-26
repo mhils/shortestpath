@@ -4,13 +4,13 @@
 \alias{plot.spgraph}
 \title{Plotting of shortest path graphs}
 \usage{
-\method{plot}{spgraph}(x, vertex.color = "front", edge.label = "weight",
+\method{plot}{spgraph}(x, vertex.color = "set", edge.label = "weight",
   vertex.label = "auto", ...)
 }
 \arguments{
 \item{x}{The graph to plot.}
 
-\item{vertex.color}{The vertex coloring. Passing "front" will color,
+\item{vertex.color}{The vertex coloring. Passing "set" will color,
 the vertices according to the set they are in, other values are passed to
 igraph as-is.}
 
@@ -26,6 +26,6 @@ and its currently known minimal distance.}
 convenience features for shortest path graph plotting.
 }
 \examples{
-plot(karate)
+# TODO
 }
 

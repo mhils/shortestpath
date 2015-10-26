@@ -6,6 +6,9 @@
 \usage{
 is.spgraph(graph)
 }
+\arguments{
+\item{graph}{The graph object.}
+}
 \value{
 \code{TRUE} if its argument is a shortest path graph, \code{FALSE} otherwise.
 }
