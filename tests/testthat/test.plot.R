@@ -1,12 +1,12 @@
 context("plot.spgraph")
 
 test_that("a shortest path graph plots without errors", {
-
-  spgraph <- makeShortestPathGraph(make_graph("Dodecahedron"))
-  plot(spgraph)
-
+    
+    spgraph <- makeShortestPathGraph(make_graph("Dodecahedron"))
+    plot(spgraph)
+    
 })
 
 test_that("a meaningful error is raised if the graph argument is not an spgraph", {
-  expect_error(plot.spgraph("illegal"))
-})
+    expect_error(plot.spgraph("illegal"))
+}) 
