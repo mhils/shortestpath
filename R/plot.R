@@ -16,6 +16,8 @@
 #' # TODO
 #'
 #' @export
+#' @import igraph
+#' @importFrom wesanderson wes_palette
 plot.spgraph = function (
   x,
   vertex.color="set",
@@ -41,7 +43,7 @@ plot.spgraph = function (
   }
   if(is.character(vertex.label) && vertex.label == c("auto")){
     names = vertex.attributes(graph)$name
-    dists = graph.attributes(graph)$min_dist[,1]
+    dists = graph.attributes(graph)$min_dists[,1]
     dists = vapply(dists, function(x){
       # ultra-wtf: "∞" will be printed as "8"
       ifelse(x == Inf, "?", as.character(x))
