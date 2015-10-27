@@ -20,8 +20,7 @@
 #' @rdname graph-modification
 NULL
 
-#' This function does all the heavy lifting.
-#' @param type: attribute ty
+# This function does the actual object modification by calling igraph's [set_](graph|vertex|edge)_attr.
 setAttr <- function(graph, type = c("graph", "vertex", "edge"), name, fun, overwrite) {
 
     type <- match.arg(type)

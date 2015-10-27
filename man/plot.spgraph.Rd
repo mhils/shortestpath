@@ -10,13 +10,13 @@
 \arguments{
 \item{x}{The graph to plot.}
 
-\item{vertex.color}{The vertex coloring. Passing "set" will color,
+\item{vertex.color}{The vertex coloring. Passing 'set' will color,
 the vertices according to the set they are in, other values are passed to
 igraph as-is.}
 
-\item{edge.label}{The edge label. Passing "weight" will print the edge's weight.}
+\item{edge.label}{The edge label. Passing 'weight' will print the edge's weight.}
 
-\item{vertex.label}{The vertex label. Passing "auto" will print the vertex's name
+\item{vertex.label}{The vertex label. Passing 'auto' will print the vertex's name
 and its currently known minimal distance.}
 
 \item{...}{All other parameters are passed to \code{\link{plot.igraph}} as is.}
