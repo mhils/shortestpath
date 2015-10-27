@@ -3,3 +3,5 @@
 S3method(plot,spgraph)
 export(is.spgraph)
 export(randomGraph)
+import(igraph)
+importFrom(wesanderson,wes_palette)

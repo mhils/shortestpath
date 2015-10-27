@@ -2,9 +2,9 @@
 #'
 #' \code{plot.spgraph} is a wrapper around \code{\link{plot.igraph}} providing
 #' convenience features for shortest path graph plotting.
-#' 
+#'
 #' @param x The graph to plot.
-#' @param vertex.color The vertex coloring. Passing "front" will color,
+#' @param vertex.color The vertex coloring. Passing "set" will color,
 #' the vertices according to the set they are in, other values are passed to
 #' igraph as-is.
 #' @param edge.label The edge label. Passing "weight" will print the edge's weight.
@@ -16,9 +16,11 @@
 #' # TODO
 #'
 #' @export
+#' @import igraph
+#' @importFrom wesanderson wes_palette
 plot.spgraph = function (
-  x, 
-  vertex.color="front", 
+  x,
+  vertex.color="set",
   edge.label="weight",
   vertex.label="auto",
   ...
@@ -27,9 +29,9 @@ plot.spgraph = function (
     stop("Not a spgraph object")
   }
   graph <- x
-  
-  if(is.character(vertex.color) && vertex.color == c("front")){
-    vertex.attributes(graph)$color <- 
+
+  if(is.character(vertex.color) && vertex.color %in% c("set")){
+    vertex.attributes(graph)$color <-
       factor(
         vertex.attributes(graph)[[vertex.color]],
         levels=c("unknown","front","known","start")
@@ -41,7 +43,7 @@ plot.spgraph = function (
   }
   if(is.character(vertex.label) && vertex.label == c("auto")){
     names = vertex.attributes(graph)$name
-    dists = graph.attributes(graph)$min_dist[,1]
+    dists = graph.attributes(graph)$min_dists[,1]
     dists = vapply(dists, function(x){
       # ultra-wtf: "∞" will be printed as "8"
       ifelse(x == Inf, "?", as.character(x))
@@ -51,9 +53,9 @@ plot.spgraph = function (
     })
     vertex.attributes(graph)$label <- labels
   }
-  
+
   plot.igraph(
-    graph, 
+    graph,
     palette=wes_palette("Royal1"),
     edge.label.color="black",
     vertex.label.dist=1,
