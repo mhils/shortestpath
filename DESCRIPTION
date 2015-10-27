@@ -11,5 +11,6 @@ BugReports: https://github.com/mhils/shortestpath/issues
 License: MIT + file LICENSE
 Imports: wesanderson,
     igraph,
-    magrittr
+    magrittr,
+    pryr
 Suggests: testthat
