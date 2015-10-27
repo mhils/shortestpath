@@ -16,8 +16,6 @@
 #' # TODO
 #'
 #' @export
-#' @import igraph
-#' @importFrom wesanderson wes_palette
 plot.spgraph = function (
   x,
   vertex.color="set",

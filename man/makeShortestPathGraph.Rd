@@ -6,6 +6,11 @@
 \usage{
 makeShortestPathGraph(graph, singleSource = TRUE)
 }
+\arguments{
+\item{graph}{The \code{igraph} object.}
+
+\item{singleSource}{If \code{TRUE}, min_dists and}
+}
 \value{
 The \code{spgraph} object.
 }
