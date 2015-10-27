@@ -4,7 +4,7 @@
 \alias{randomGraph}
 \title{Random Graph Generation}
 \usage{
-randomGraph(no.of.nodes = 12, k = 3, euclidean = FALSE)
+randomGraph(no.of.nodes = 12, k = 2.5, euclidean = FALSE)
 }
 \arguments{
 \item{no.of.nodes}{Integer scalar, the number of vertices in the generated
