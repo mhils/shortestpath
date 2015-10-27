@@ -4,13 +4,12 @@ Title: Shortest Path Algorithm Visualization
 Description: Visualization of Shortest Path Algorithms such as Dijkstra and Floyd-Warshall.
 Version: 1.0
 Date: 2015-10-22
-Authors@R: c(person("Dennis", "Motzke", email = "d_motz02@uni-muenster.de", role = c("aut")), 
+Authors@R: c(person("Dennis", "Motzke", email = "d_motz02@uni-muenster.de", role = c("aut")),
              person("Maximilian", "Hils", email = "shortestpath@maximilianhils.com", role = c("aut", "cre")))
 URL: https://github.com/mhils/shortestpath
 BugReports: https://github.com/mhils/shortestpath/issues
 License: MIT + file LICENSE
 Imports: wesanderson,
     igraph,
-    magrittr,
-    pryr
+    magrittr
 Suggests: testthat
