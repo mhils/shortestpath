@@ -1,10 +1,11 @@
 #' Random Shortest Path Problem Graph Generation
 #'
 #' @export
+#' @import igraph
 randomGraph = function () {
-  
-  g <- random.graph.game(10,0.5)
-  graph <- makeShortestPathGraph(g)
-  
-  graph
+
+  random.graph.game(10,0.5) %>%
+    makeShortestPathGraph() %>%
+    setRandomEdgeWeights()
+
 }

@@ -4,27 +4,7 @@
 \alias{makeShortestPathGraph}
 \title{Convert an igraph into a shortest path graph}
 \usage{
-makeShortestPathGraph(graph, edge.weights = makeEdgeWeights,
-  vertex.names = makeVertexNames, vertex.fronts = makeVertexFronts,
-  graph.min_dists = makeGraphMinDists,
-  graph.shortest_path_predecessors = makeGraphShortestPathPredecessors,
-  single_source = FALSE)
-}
-\arguments{
-\item{graph}{The \code{igraph} object.}
-
-\item{edge.weights}{A factory function returning edge weights. Uniform weight by default.}
-
-\item{vertex.names}{A factory function returning vertex names. A-Z by default.}
-
-\item{vertex.fronts}{A factory function returning the front each vertex is in. NA by default.}
-
-\item{graph.min_dists}{The minimum distance matrix. Filled with Inf (and 0 on the diagonal) by default.}
-
-\item{graph.shortest_path_predecessors}{The shortest path predecessor information. NA by default.}
-
-\item{single_source}{if \code{TRUE}, \code{min_dists} and \code{shortest_path_predecessors} will be
-cut off to a single column.}
+makeShortestPathGraph(graph, singleSource = TRUE)
 }
 \value{
 The \code{spgraph} object.

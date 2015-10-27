@@ -10,5 +10,6 @@ URL: https://github.com/mhils/shortestpath
 BugReports: https://github.com/mhils/shortestpath/issues
 License: MIT + file LICENSE
 Imports: wesanderson,
-    igraph
+    igraph,
+    magrittr
 Suggests: testthat
