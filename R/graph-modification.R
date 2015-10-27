@@ -7,8 +7,8 @@
 #' library(igraph)
 #'
 #' g <- random.graph.game(10, 0.5) %>%
-#'  setAlphabeticalVertexNames %>%
-#'  setRandomEdgeWeights()
+#'   setAlphabeticalVertexNames %>%
+#'   setRandomEdgeWeights()
 #'
 #' plot(g)
 #' E(g)$weight

@@ -17,7 +17,7 @@ context("makeShortestPathGraph")
 
 
 test_that("makeShortestPathGraph adds all required attributes", {
-    spgraph <- makeShortestPathGraph(make_graph("Tetrahedral"), singleSource = "B")
+    spgraph <- makeShortestPathGraph(make_graph("Tetrahedral"), source = "B")
     expect_true(is.spgraph(spgraph))
     expect_equal(vertex.attributes(spgraph)$name[1], "A")
     expect_equal(edge.attributes(spgraph)$weight[1], 1)
@@ -27,4 +27,4 @@ test_that("makeShortestPathGraph adds all required attributes", {
     expect_equal(graph.attributes(spgraph)$min_dists[, 1], dists)
     expect_equal(graph.attributes(spgraph)$shortest_path_predecessors[1, 1], NA)
     expect_equal(ncol(graph.attributes(spgraph)$min_dists), 1)
-}) 
+})

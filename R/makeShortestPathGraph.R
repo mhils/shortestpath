@@ -4,22 +4,17 @@
 #' Instead, supply an igraph to one of the algorithms, which then outputs suitable spgraph objects.
 #'
 #' @param graph The \code{igraph} object.
-#' @param singleSource If \code{TRUE}, min_dists and
+#' @inheritParams setSingleSource
 #' @return The \code{spgraph} object.
 #' @export
-makeShortestPathGraph <- function(graph, singleSource = TRUE) {
+makeShortestPathGraph <- function(graph, source = TRUE) {
     graph %>%
         setAlphabeticalVertexNames(overwrite = FALSE) %>%
         setUniformEdgeWeights(overwrite = FALSE) %>%
         setEmptyVertexFronts(overwrite = FALSE) %>%
         setInfiniteMinDists(overwrite = FALSE) %>%
         setEmptyShortestPathPredecessors(overwrite = FALSE) %>%
-        {
-            if (singleSource != FALSE)
-                setSingleSource(., singleSource)
-            else
-                .
-        } %>%
+        setSingleSource(source) %>%
         {
         class(.) <- c("spgraph", class(.))
         .

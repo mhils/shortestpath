@@ -62,6 +62,8 @@ shortestpath provides various graph modification functions that are used interna
 26 vertices, vertices will be numbered 1 to N.
 }}
 \examples{
+library(igraph)
+
 g <- random.graph.game(10, 0.5) \%>\%
  setAlphabeticalVertexNames \%>\%
  setRandomEdgeWeights()
