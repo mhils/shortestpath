@@ -98,7 +98,7 @@ setSingleSource <- function(graph, source = FALSE) {
 #' @describeIn graph-modification Initialize each vertex front as \code{NA}.
 #' @export
 setEmptyVertexFronts <- function(graph, overwrite = TRUE) {
-    setAttr(graph, "vertex", "front", function(graph) {
+    setAttr(graph, "vertex", "set", function(graph) {
         rep(NA, length(V(graph)))
     }, overwrite)
 }
