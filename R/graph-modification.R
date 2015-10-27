@@ -4,6 +4,8 @@
 #'
 #' @examples
 #'
+#' library(igraph)
+#'
 #' g <- random.graph.game(10, 0.5) %>%
 #'  setAlphabeticalVertexNames %>%
 #'  setRandomEdgeWeights()
