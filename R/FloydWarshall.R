@@ -16,32 +16,27 @@ floydWarshall = function(graph)
   am = get.adjacency(graph,attr='weight',sparse=FALSE)
   nVertices = length(V(graph))
   
+  #initialization of a ShortestPathGraph (spg)
+  spg = makeShortestPathGraph(graph, single_source = FALSE)
   
   #initialization of the matrix "min_dists"
-  #Initialize the solution matrix same as input graph matrix.
-  #Or we can say the initial values of shortest distances
-  #are based on shortest paths considering no intermediate vertex.
-  min_dists = matrix(data = 0, nrow = nVertices, ncol = nVertices)
-  for(i in 1:nVertices){
-    for(j in 1:nVertices){
-      #Replace 0 with INF if there is no edge between the 2 vertices and if not distance to the vertex itself
-      min_dists[i,j] = ifelse(am[i,j] > 0 | i == j , am[i,j], Inf) 
-    }  
-  }
-  
+  min_dists = get.graph.attribute(spg,"min_dists")
+  #add the already existing distances
+  min_dists[am > 0] = am[am > 0]
+
   #initialization of the matrix "shortest_path_predecessors"
-  ##Creating the predecessor matrix 
-  shortest_path_predecessors = matrix(data = 0, nrow = nVertices, ncol = nVertices)
+  shortest_path_predecessors = get.graph.attribute(spg,"shortest_path_predecessors")
+  
+  #Modify shortest_path_predecessor by adding the already existing edges
   for (i in 1:nVertices) {
       for (j in 1:nVertices) {
           shortest_path_predecessors[i,j] = ifelse(min_dists[i,j] != 0 && min_dists[i,j] != Inf, i,0)
         }
     }
   
-  #initialization of a ShortestPathGraph (spg)
-  spg = makeShortestPathGraph(graph, single_source = FALSE)
+  #Update modyfied attributes
   graph.attributes(spg)$min_dists <- min_dists
-  graph.attributes(spg)$shortest_path_predecessors <- shortest_path_predecessors
+  graph.attributes(spg)$shortest_path_predecessors <- t(shortest_path_predecessors)
   
   #initialization of a list which contains the spg graphs 
   result = list(spg)
@@ -61,15 +56,16 @@ floydWarshall = function(graph)
         {
           #If vertex k is on the shortest path from
           #i to j, then update the value of dist[i][j] 
-          if (min_dists[i,k] + min_dists[k,j] < min_dists[i,j]){ #Doesnt work with INF anymore
+          if (min_dists[i,k] + min_dists[k,j] < min_dists[i,j]){ 
             min_dists[i,j] = min_dists[i,k] + min_dists[k,j]
             shortest_path_predecessors[i,j] = shortest_path_predecessors[k,j]
           }
         }
       }
       #Updating attributes
+      print(t(shortest_path_predecessors))
       graph.attributes(spg)$min_dists <- min_dists
-      graph.attributes(spg)$shortest_path_predecessors <- shortest_path_predecessors
+      graph.attributes(spg)$shortest_path_predecessors <- t(shortest_path_predecessors)
       result = c(result,list(spg))
     }  
 return(result)
