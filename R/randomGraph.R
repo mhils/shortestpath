@@ -1,4 +1,3 @@
-
 #' Create a random regular graph
 #'
 #' Generate a random graph with a fixed average vertex degree
@@ -27,15 +26,15 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
 #' @export
 randomGraph <- function(no.of.nodes=12, k=2.5, euclidean=FALSE) {
 
-    if(euclidean == TRUE){
-        stop("random euclidean graphs are unimplemented") # nocov
-    }
-
     from <- sample(1:no.of.nodes,1)
     to <- sample(1:no.of.nodes,1)
 
-    sample_average_k_connected_graph(no.of.nodes, k) %>%
-        makeShortestPathGraph(from, to) %>%
-        setRandomEdgeWeights()
+    g <- sample_average_k_connected_graph(no.of.nodes, k) %>%
+        makeShortestPathGraph(from, to)
 
+    if(euclidean == TRUE) {
+        g %>% setVertexCoordinatesFromLayout() %>% setEuclideanEdgeWeights()
+    } else {
+        g %>% setRandomEdgeWeights()
+    }
 }

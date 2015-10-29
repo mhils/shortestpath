@@ -43,9 +43,9 @@ test_that("setRoute works as expected", {
     expect_equal(colnames(g$min_dists), c("B"))
 })
 
-test_that("setUniformVertexSets works as expected", {
+test_that("setVertexSets works as expected", {
     g <- make_graph('Dodecahedron') %>%
-        setUniformVertexSets(val="front")
+        setVertexSets(val="front")
     expect_equal(vertex.attributes(g)$set, rep("front", 20))
 })
 

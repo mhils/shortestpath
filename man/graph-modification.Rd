@@ -10,7 +10,7 @@
 \alias{setRandomVertexCoordinates}
 \alias{setRoute}
 \alias{setUniformEdgeWeights}
-\alias{setUniformVertexSets}
+\alias{setVertexSets}
 \title{Graph Modification}
 \usage{
 setInfiniteMinDists(graph, overwrite = TRUE)
@@ -28,7 +28,7 @@ setEmptyShortestPathPredecessors(graph, overwrite = TRUE)
 
 setRoute(graph, from, to)
 
-setUniformVertexSets(graph, val = NA, overwrite = TRUE)
+setVertexSets(graph, val = NA, overwrite = TRUE)
 
 setAlphabeticalVertexNames(graph, overwrite = TRUE)
 }
@@ -44,8 +44,10 @@ and returns a vector of weights of the given length.}
 \item{from}{The graph's source vertex for single-source algorithms.
 For all-shortest-paths algorithms, \code{FALSE} should be passed.}
 
-\item{from}{The graph's target vertex for single-source algorithms.
+\item{to}{The graph's target vertex for single-source algorithms.
 For all-shortest-paths algorithms, \code{FALSE} should be passed.}
+
+\item{val}{the default vertex set value.}
 }
 \value{
 The updated graph object.
@@ -71,7 +73,7 @@ shortestpath provides various graph modification functions that are used interna
 truncate both \code{min_dists} and \code{shortest_path_predecessors}
 matrices to the specified source.
 
-\item \code{setUniformVertexSets}: Initialize each vertex front as \code{val}.
+\item \code{setVertexSets}: Initialize each vertex front as \code{val}.
 
 \item \code{setAlphabeticalVertexNames}: Set vertex names as A-Z. For graphs with more than
 26 vertices, vertices will be numbered 1 to N.

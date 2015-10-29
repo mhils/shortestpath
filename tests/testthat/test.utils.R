@@ -7,18 +7,18 @@ test_that("is.spgraph is working as expected", {
 })
 
 
-test_that("euc.dist is working as expected", {
+test_that("euclidean.vertex.distance is working as expected", {
     g <- make_graph('Tetrahedral') %>%
         set_vertex_attr("x", value=1:4) %>%
         set_vertex_attr("y", value=rep(42,4))
 
-    dists <- euc.dist(g, V(g)[1], V(g))
+    dists <- euclidean.vertex.distance(g, V(g)[1], V(g))
     expect_equal(dists, 0:3)
 })
 
-test_that("euc.dist stops if no coordinates are given", {
+test_that("euclidean.vertex.distance stops if no coordinates are given", {
     g <- make_graph('Tetrahedral')
-    expect_error(euc.dist(g, V(g)[1], V(g)))
+    expect_error(euclidean.vertex.distance(g, V(g)[1], V(g)))
 })
 
 test_that("get.vertex returns vertex objects as-is", {

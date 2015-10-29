@@ -7,7 +7,11 @@ is.spgraph <- function(graph) {
     "spgraph" %in% class(graph)
 }
 
-euc.dist <- function(graph, v1, v2) {
+#' Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
+#' @param graph The igraph object
+#' @param v1 The first vertice vector
+#' @param v2 The second vertice vector.
+euclidean.vertex.distance <- function(graph, v1, v2) {
     if(!has.vertex.coordinates(graph)) {
         stop("Cannot compute euclidean distance for vertices without position.")
     }
@@ -18,16 +22,20 @@ euc.dist <- function(graph, v1, v2) {
     sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
 }
 
+#' Returns \code{TRUE} if the graph's vertices have non-null coordinates.
+#' @param graph The graph to check
 has.vertex.coordinates <- function(graph){
     (
         !is.null(V(graph)$x)
         &&
-        !is.null(V(graph)$y)
+            !is.null(V(graph)$y)
     )
 }
 
-# convenience function that returns the vertex object associated with the
-# given input, which is either the vertex object itself or a vertex identifier
+#' Convenience function that returns the vertex object associated with the
+#' given identifier, which is either the vertex object itself or a vertex id.
+#' @param graph The igraph object
+#' @param x the identifier
 get.vertex <- function(graph, x){
     if(inherits(x, "igraph.vs")){
         x

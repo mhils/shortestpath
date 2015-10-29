@@ -11,6 +11,9 @@ makeShortestPathGraph(graph, from, to)
 
 \item{from}{The graph's source vertex for single-source algorithms.
 For all-shortest-paths algorithms, \code{FALSE} should be passed.}
+
+\item{to}{The graph's target vertex for single-source algorithms.
+For all-shortest-paths algorithms, \code{FALSE} should be passed.}
 }
 \value{
 The \code{spgraph} object.

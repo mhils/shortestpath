@@ -1,8 +1,8 @@
-aStarSearch <- function (graph, from, to, min.dist.fun=euc.dist){
+aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.distance){
 
     graph %<>%
         makeShortestPathGraph(from, to) %>%
-        setUniformVertexSets(val="unknown")
+        setVertexSets(val="unknown")
 
     from <- get.vertex(graph, from)
     to <- get.vertex(graph, to)
@@ -10,7 +10,7 @@ aStarSearch <- function (graph, from, to, min.dist.fun=euc.dist){
     steps = list(graph)
 
     while(TRUE) {
-        front <- aStarNextFront(graph, from, min.dist.fun)
+        front <- aStarNextFront(graph, from, distance.heuristic)
         if(to == front) {
             break
         }
@@ -43,7 +43,7 @@ aStarStep <- function(graph, front){
     graph
 }
 
-aStarNextFront <- function(graph, from, min.dist.fun){
+aStarNextFront <- function(graph, from, distance.heuristic){
 
     # In the first iteration, we start with the source vertex
     if(length(V(graph)[set == "known"]) == 0){
@@ -52,7 +52,7 @@ aStarNextFront <- function(graph, from, min.dist.fun){
         front_candidates <- V(graph)[set == "unknown"]
 
         dist <- function(vertex){
-            graph$min_dists[vertex] + min.dist.fun(graph, from, vertex)
+            graph$min_dists[vertex] + distance.heuristic(graph, from, vertex)
         }
 
         shortest_distance <- which.min(dist(front_candidates))
@@ -60,23 +60,3 @@ aStarNextFront <- function(graph, from, min.dist.fun){
         front_candidates[shortest_distance]
     }
 }
-
-
-# graph <- sample_average_k_connected_graph(8, 2.5) %>%
-#     setAlphabeticalVertexNames() %>%
-#     setRandomVertexCoordinates() %>%
-#     setEuclideanEdgeWeights()
-# graph <- thegraph
-# plot(graph)
-# r <- aStarSearch(graph,"A","G")
-# par(mfrow=c(3,2))
-# for(p in r){
-#     plot(p)
-# }
-#
-# list(
-#     steps=list(),
-#     from=,
-#     to=,
-#     algorithm=,
-# )
