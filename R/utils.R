@@ -11,13 +11,14 @@ euc.dist <- function(graph, v1, v2) {
     if(!has.vertex.coordinates(graph)) {
         stop("Cannot compute euclidean distance for vertices without position.")
     }
-    x <- vertex_attr(graph, "x", c(v1,v2))
-    y <- vertex_attr(graph, "y", c(v1,v2))
-    d <- sqrt((x[1] - x[2]) ^ 2 + (y[1] - y[2]) ^ 2)
-    d
+    x1 <- vertex_attr(graph, "x", v1)
+    y1 <- vertex_attr(graph, "y", v1)
+    x2 <- vertex_attr(graph, "x", v2)
+    y2 <- vertex_attr(graph, "y", v2)
+    sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
 }
 
-has.vertex.coordinates <- function(x){
+has.vertex.coordinates <- function(graph){
     (
         !is.null(V(graph)$x)
         &&
@@ -34,9 +35,6 @@ get.vertex <- function(graph, x){
         V(graph)[1]
     } else {
         v <- V(graph)[x]
-        if(is.null(v)){
-            stop(paste("Unknown vertex", x))
-        }
         if(length(v) > 1){
             stop(paste("More than one vertex:", x))
         }
