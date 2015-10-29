@@ -9,6 +9,6 @@ test_that("makeShortestPathGraph adds all required attributes", {
     dists <- c(Inf, 0, Inf, Inf)
     names(dists) <- c("A", "B", "C", "D")
     expect_equal(graph.attributes(spgraph)$min_dists[, 1], dists)
-    expect_equal(graph.attributes(spgraph)$shortest_path_predecessors[1, 1], NA)
+    expect_equal(graph.attributes(spgraph)$shortest_path_predecessors[[1, 1]], NULL)
     expect_equal(ncol(graph.attributes(spgraph)$min_dists), 1)
 })

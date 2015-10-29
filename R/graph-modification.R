@@ -71,7 +71,7 @@ setUniformEdgeWeights <- function(graph, overwrite = TRUE) {
 setEmptyShortestPathPredecessors <- function(graph, overwrite = TRUE) {
     setAttr(graph, "graph", "shortest_path_predecessors", function(graph) {
         n <- length(V(graph))
-        mat <- matrix(NA, ncol = n, nrow = n)
+        mat <- matrix(list(), ncol = n, nrow = n)
         colnames(mat) <- V(graph)$name
         rownames(mat) <- V(graph)$name
         mat
@@ -96,11 +96,11 @@ setSingleSource <- function(graph, source = FALSE) {
     graph
 }
 
-#' @describeIn graph-modification Initialize each vertex front as \code{NA}.
+#' @describeIn graph-modification Initialize each vertex front as \code{val}.
 #' @export
-setEmptyVertexFronts <- function(graph, overwrite = TRUE) {
+setUniformVertexSets <- function(graph, val=NA, overwrite = TRUE) {
     setAttr(graph, "vertex", "set", function(graph) {
-        rep(NA, length(V(graph)))
+        rep(val, length(V(graph)))
     }, overwrite)
 }
 

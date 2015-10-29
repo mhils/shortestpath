@@ -11,7 +11,7 @@ makeShortestPathGraph <- function(graph, source = TRUE) {
     graph %>%
         setAlphabeticalVertexNames(overwrite = FALSE) %>%
         setUniformEdgeWeights(overwrite = FALSE) %>%
-        setEmptyVertexFronts(overwrite = FALSE) %>%
+        setUniformVertexSets(overwrite = FALSE) %>%
         setInfiniteMinDists(overwrite = FALSE) %>%
         setEmptyShortestPathPredecessors(overwrite = FALSE) %>%
         setSingleSource(source) %>%
