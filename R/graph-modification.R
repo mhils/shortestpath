@@ -47,6 +47,32 @@ setInfiniteMinDists <- function(graph, overwrite = TRUE) {
     }, overwrite)
 }
 
+#' @describeIn graph-modification Set random vertex positions for euclidean algorithms.
+#' @export
+setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
+    graph %>%
+        setAttr("vertex", "x", function(graph) {
+            runif(length(V(graph)), 0, 10)
+        }, overwrite) %>%
+        setAttr("vertex", "y", function(graph) {
+            runif(length(V(graph)), 0, 10)
+        }, overwrite)
+}
+
+#' @describeIn graph-modification Set rounded euclidean edge weights
+#' @export
+setEuclideanEdgeWeights <- function(graph, overwrite = TRUE) {
+    if(!has.vertex.coordinates(graph)){
+        stop("Cannot compute edge weights for graph without x,y coordinates.")
+    }
+    setAttr(graph, "edge", "weight", function(graph) {
+        vapply(E(graph), function(edge){
+            e <- ends(graph, edge)
+            ceiling(euc.dist(graph, e[1], e[2]))
+        }, 0)
+    }, overwrite)
+}
+
 #' @param dist.fun A function that accepts the required vector length as an argument
 #' and returns a vector of weights of the given length.
 #' @describeIn graph-modification Set random edge weights.
