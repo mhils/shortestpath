@@ -43,10 +43,10 @@ test_that("setSingleSource works as expected", {
     expect_equal(colnames(g$min_dists), c("B"))
 })
 
-test_that("setEmptyVertexFronts works as expected", {
+test_that("setUniformVertexFronts works as expected", {
     g <- make_graph('Dodecahedron') %>%
-        setEmptyVertexFronts()
-    expect_equal(vertex.attributes(g)$set, rep(NA, 20))
+        setUniformVertexFronts(val="front")
+    expect_equal(vertex.attributes(g)$set, rep("front", 20))
 })
 
 test_that("setAlphabeticalVertexNames works as expected", {
