@@ -3,15 +3,15 @@ library(igraph)
 #' Calculates the shortest path from a starting vertex to an ending vertex
 #'  
 #' @param graph The \code{igraph} object.
-#' @param From The starting vertex from which the shortest path need to be calculated.
-#' @param To The ending vertex which wants to be reached from the starting vertex by the shortest path.
+#' @param from The starting vertex from which the shortest path need to be calculated.
+#' @param to The ending vertex which wants to be reached from the starting vertex by the shortest path.
 #' @return A list of \code{spgraph} objects. Each \code{spgraph} object contains information about 
 #' a certain step in the optimization process representing by its attributes 
 #' @import igraph
 #' 
 
-#Parameter: igraph object as graph, starting vertex as From, ending vertex as To
-fDijkstra = function(graph,From,To){
+#Parameter: igraph object as graph, starting vertex as from, ending vertex as to
+dijkstra = function(graph,from,to){
   nVertices = length(V(graph))
 
   #initialization of the adjacency matrix with weighted edges
@@ -19,7 +19,7 @@ fDijkstra = function(graph,From,To){
   am = get.adjacency(graph,attr='weight',sparse=FALSE)
 
   #initialization of a ShortestPathGraph (spg)
-  spg = makeShortestPathGraph(graph,single_source = TRUE)
+  spg = makeShortestPathGraph(graph,source = TRUE)
 
   #initialization of the matrix "min_dists"
   min_dists = get.graph.attribute(spg, "min_dists")
@@ -48,13 +48,15 @@ fDijkstra = function(graph,From,To){
     #Evaluate if distances to neighbouring vertices can be updated with a new shortest distance
     for(v in neighbors(graph,u)){
       # Update min_dists[v] only if:
-      # (1)is not in sptSet,
-      not_already_in_sptSet = (sptSet[v] == FALSE)
-      # (3)and total weight of path from src to  v through u is smaller than current value of dist[v]
+      # (1)and total weight of path from src to  v through u is smaller than current value of dist[v]
       total_dist_smaller = (min_dists[u]+am[u,v] < min_dists[v])
-      if(not_already_in_sptSet && total_dist_smaller){
+      total_dist_equal = (min_dists[u]+am[u,v] == min_dists[v])
+      if(total_dist_smaller){
         min_dists[v] = min_dists[u] + am[u,v]
-        shortest_path_predecessors[v] = u
+        shortest_path_predecessors[[v,1]] = u
+      }
+      else if(total_dist_equal){
+        shortest_path_predecessors[[v,1]] = c(u,shortest_path_predecessors[[v,1]]))
       }
     }
     set[set[] == "front"] = "known"
@@ -69,7 +71,7 @@ fDijkstra = function(graph,From,To){
     result = c(result,list(spg))
 
     #stop criterion when target vertex is reached
-    if(u == To){break}
+    if(u == to){break}
   }
   return(result)
 }
