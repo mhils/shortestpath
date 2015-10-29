@@ -2,19 +2,17 @@ aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.di
 
     graph %<>%
         makeShortestPathGraph(from, to) %>%
-        setVertexSets(val="unknown")
+        setVertexSets("unknown")
 
-    from <- get.vertex(graph, from)
-    to <- get.vertex(graph, to)
-
-    steps = list(graph)
+    steps = list()
 
     while(TRUE) {
-        front <- aStarNextFront(graph, from, distance.heuristic)
-        if(to == front) {
+        front <- aStarNextFront(graph, graph$from, graph$to, distance.heuristic)
+        graph %<>% set_vertex_attr("set", front, "front")
+        if(graph$to == front) {
+            steps <- c(steps, list(graph))
             break
         }
-        graph %<>% set_vertex_attr("set", front, "front")
         graph %<>% aStarStep(front)
         steps <- c(steps, list(graph))
         graph %<>% set_vertex_attr("set", front, "known")
@@ -43,7 +41,7 @@ aStarStep <- function(graph, front){
     graph
 }
 
-aStarNextFront <- function(graph, from, distance.heuristic){
+aStarNextFront <- function(graph, from, to, distance.heuristic){
 
     # In the first iteration, we start with the source vertex
     if(length(V(graph)[set == "known"]) == 0){
@@ -52,8 +50,10 @@ aStarNextFront <- function(graph, from, distance.heuristic){
         front_candidates <- V(graph)[set == "unknown"]
 
         dist <- function(vertex){
-            graph$min_dists[vertex] + distance.heuristic(graph, from, vertex)
+            graph$min_dists[vertex] + distance.heuristic(graph, to, vertex)
         }
+
+        print(rbind(front_candidates, dist(front_candidates)))
 
         shortest_distance <- which.min(dist(front_candidates))
 

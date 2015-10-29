@@ -16,16 +16,35 @@
 #' # TODO
 #'
 #' @export
-plot.spgraph <- function(x, vertex.color = "set", edge.label = "weight", vertex.label = "auto", ...) {
+plot.spgraph <- function(x,
+                         vertex.color = wes_palette("Royal1")[c(3,4,1)],
+                         vertex.color.by = c("set","manual"),
+                         vertex.frame.color = wes_palette("Rushmore")[c(4,3,5)],
+                         vertex.frame.color.by = c("type","manual"),
+                         edge.label = "weight",
+                         vertex.label = "auto",
+                         ...) {
     if (!is.spgraph(x)) {
         stop("Not a spgraph object")
     }
     graph <- x
-    
-    if (is.character(vertex.color) && vertex.color %in% c("set")) {
-        vertex.attributes(graph)$color <- factor(vertex.attributes(graph)[[vertex.color]], levels = c("unknown", 
-            "front", "known", "start"))
-        vertex.attributes(graph)$color[1] <- "start"
+
+    if(match.arg(vertex.color.by) == "set"){
+        V(graph)$color <- vertex.color[1]
+        V(graph)[V(graph)$set=="front"]$color <- vertex.color[2]
+        V(graph)[V(graph)$set=="unknown"]$color <- vertex.color[3]
+    } else {
+        V(graph)$color <- vertex.color
+    }
+    if(match.arg(vertex.frame.color.by) == "type"){
+        V(graph)$size <- 15
+        V(graph)[c(graph$from, graph$to)]$size <- 20
+
+        V(graph)$frame.color <- vertex.frame.color[1]
+        V(graph)[graph$from]$frame.color <- vertex.frame.color[2]
+        V(graph)[graph$to]$frame.color <- vertex.frame.color[3]
+    } else {
+        V(graph)$frame.color <- vertex.frame.color
     }
     if (is.character(edge.label) && edge.label %in% c("weight")) {
         edge.attributes(graph)$label <- edge.attributes(graph)[[edge.label]]
@@ -42,7 +61,10 @@ plot.spgraph <- function(x, vertex.color = "set", edge.label = "weight", vertex.
         })
         vertex.attributes(graph)$label <- labels
     }
-    
-    plot.igraph(graph, palette = wes_palette("Royal1"), edge.label.color = "black", vertex.label.dist = 1, 
+
+    plot.igraph(graph,
+                palette = wes_palette("Royal1"),
+                edge.label.color = "black",
+                vertex.label.dist = 1,
         ...)
-} 
+}

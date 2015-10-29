@@ -35,16 +35,16 @@ has.vertex.coordinates <- function(graph){
 #' Convenience function that returns the vertex object associated with the
 #' given identifier, which is either the vertex object itself or a vertex id.
 #' @param graph The igraph object
-#' @param x the identifier
-get.vertex <- function(graph, x){
-    if(inherits(x, "igraph.vs")){
-        x
-    } else if(x == TRUE){
+#' @param identifier the identifier
+get.vertex <- function(graph, identifier){
+    if(inherits(identifier, "igraph.vs")){
+        identifier
+    } else if(identifier == TRUE){
         V(graph)[1]
     } else {
-        v <- V(graph)[x]
+        v <- V(graph)[identifier]
         if(length(v) > 1){
-            stop(paste("More than one vertex:", x))
+            stop(paste("More than one vertex:", identifier))
         }
         v
     }

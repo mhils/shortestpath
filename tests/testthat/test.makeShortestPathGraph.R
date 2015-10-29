@@ -5,7 +5,6 @@ test_that("makeShortestPathGraph adds all required attributes", {
     expect_true(is.spgraph(spgraph))
     expect_equal(vertex.attributes(spgraph)$name[1], "A")
     expect_equal(edge.attributes(spgraph)$weight[1], 1)
-    expect_equal(vertex.attributes(spgraph)$set[1], NA)
     dists <- c(Inf, 0, Inf, Inf)
     names(dists) <- c("A", "B", "C", "D")
     expect_equal(graph.attributes(spgraph)$min_dists[, 1], dists)

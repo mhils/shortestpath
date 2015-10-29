@@ -26,11 +26,8 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
 #' @export
 randomGraph <- function(no.of.nodes=12, k=2.5, euclidean=FALSE) {
 
-    from <- sample(1:no.of.nodes,1)
-    to <- sample(1:no.of.nodes,1)
-
     g <- sample_average_k_connected_graph(no.of.nodes, k) %>%
-        makeShortestPathGraph(from, to)
+        makeShortestPathGraph(FALSE, FALSE)
 
     if(euclidean == TRUE) {
         g %>% setVertexCoordinatesFromLayout() %>% setEuclideanEdgeWeights()
