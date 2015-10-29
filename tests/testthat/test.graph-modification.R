@@ -33,12 +33,12 @@ test_that("setEmptyShortestPathPredecessors works as expected", {
     expect_equal(g$shortest_path_predecessors, matrix(list(), ncol=4, nrow=4))
 })
 
-test_that("setSingleSource works as expected", {
+test_that("setRoute works as expected", {
     g <- make_graph('Tetrahedral') %>%
         setAlphabeticalVertexNames() %>%
         setInfiniteMinDists() %>%
         setEmptyShortestPathPredecessors() %>%
-        setSingleSource("B")
+        setRoute("B", "D")
     expect_equal(rownames(g$min_dists), LETTERS[1:4])
     expect_equal(colnames(g$min_dists), c("B"))
 })

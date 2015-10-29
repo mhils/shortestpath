@@ -4,19 +4,19 @@
 #' Instead, supply an igraph to one of the algorithms, which then outputs suitable spgraph objects.
 #'
 #' @param graph The \code{igraph} object.
-#' @inheritParams setSingleSource
+#' @inheritParams setRoute
 #' @return The \code{spgraph} object.
 #' @export
-makeShortestPathGraph <- function(graph, source = TRUE) {
+makeShortestPathGraph <- function(graph, from, to) {
     graph %>%
         setAlphabeticalVertexNames(overwrite = FALSE) %>%
         setUniformEdgeWeights(overwrite = FALSE) %>%
         setUniformVertexSets(overwrite = FALSE) %>%
         setInfiniteMinDists(overwrite = FALSE) %>%
         setEmptyShortestPathPredecessors(overwrite = FALSE) %>%
-        setSingleSource(source) %>%
+        setRoute(from, to) %>%
         {
-        class(.) <- c("spgraph", class(.))
-        .
+            class(.) <- c("spgraph", class(.))
+            .
         }
 }

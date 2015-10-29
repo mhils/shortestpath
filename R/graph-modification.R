@@ -104,22 +104,29 @@ setEmptyShortestPathPredecessors <- function(graph, overwrite = TRUE) {
     }, overwrite)
 }
 
-#' @param source The graph's source vertex for single-source algorithms.
-#' @describeIn graph-modification Truncate \code{min_dists} and
-#' \code{shortest_path_predecessors} matrices to the selected column.
+#' @param from The graph's source vertex for single-source algorithms.
+#' For all-shortest-paths algorithms, \code{FALSE} should be passed.
+#' @param from The graph's target vertex for single-source algorithms.
+#' For all-shortest-paths algorithms, \code{FALSE} should be passed.
+#' @describeIn graph-modification Set \code{from} and \code{to} and
+#' truncate both \code{min_dists} and \code{shortest_path_predecessors}
+#' matrices to the specified source.
 #' @export
-setSingleSource <- function(graph, source = FALSE) {
-    if (source != FALSE) {
-        if (source == TRUE) {
-            source <- V(graph)[1]
-        }
+setRoute <- function(graph, from, to) {
+    if (from != FALSE) {
+        from <- get.vertex(graph, from)
         graph %<>%
-          set_graph_attr("min_dists",
-                         graph.attributes(graph)$min_dists[, source, drop = FALSE]) %>%
-          set_graph_attr("shortest_path_predecessors",
-                         graph.attributes(graph)$shortest_path_predecessors[, source, drop = FALSE])
+            set_graph_attr("min_dists",
+                           graph$min_dists[, from, drop = FALSE]) %>%
+            set_graph_attr("shortest_path_predecessors",
+                           graph$shortest_path_predecessors[, from, drop = FALSE])
     }
-    graph
+    if (to != FALSE) {
+        to <- get.vertex(graph, to)
+    }
+    graph %>%
+        set_graph_attr("from", from) %>%
+        set_graph_attr("to", to)
 }
 
 #' @describeIn graph-modification Initialize each vertex front as \code{val}.

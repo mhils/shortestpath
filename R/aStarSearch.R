@@ -1,7 +1,7 @@
 aStarSearch <- function (graph, from, to, min.dist.fun=euc.dist){
 
     graph %<>%
-        makeShortestPathGraph(source=from) %>%
+        makeShortestPathGraph(from, to) %>%
         setUniformVertexSets(val="unknown")
 
     from <- get.vertex(graph, from)
@@ -24,11 +24,11 @@ aStarSearch <- function (graph, from, to, min.dist.fun=euc.dist){
 
 aStarStep <- function(graph, front){
 
-    front_dist <- graph$min_dists[front]
+    dist_to_front <- graph$min_dists[front]
 
     for(neighbor in neighbors(graph, front)){
         edge <- E(graph)[front %--% neighbor]
-        dist_over_front <- front_dist + edge$weight
+        dist_over_front <- dist_to_front + edge$weight
 
         # path over front is better than the best known path
         if(dist_over_front < graph$min_dists[neighbor]){
@@ -45,18 +45,20 @@ aStarStep <- function(graph, front){
 
 aStarNextFront <- function(graph, from, min.dist.fun){
 
+    # In the first iteration, we start with the source vertex
     if(length(V(graph)[set == "known"]) == 0){
-        return(from)
+        from
+    } else {
+        front_candidates <- V(graph)[set == "unknown"]
+
+        dist <- function(vertex){
+            graph$min_dists[vertex] + min.dist.fun(graph, from, vertex)
+        }
+
+        shortest_distance <- which.min(dist(front_candidates))
+
+        front_candidates[shortest_distance]
     }
-
-    front_candidates <- V(graph)[set == "unknown"]
-
-    dist <- function(vertex){
-        graph$min_dists[vertex] + min.dist.fun(graph, from, vertex)
-    }
-
-    new_front <- front_candidates[which.min(dist(front_candidates))]
-    new_front
 }
 
 
@@ -64,13 +66,13 @@ aStarNextFront <- function(graph, from, min.dist.fun){
 #     setAlphabeticalVertexNames() %>%
 #     setRandomVertexCoordinates() %>%
 #     setEuclideanEdgeWeights()
-graph <- thegraph
-plot(graph)
-r <- aStarSearch(graph,"A","G")
-par(mfrow=c(3,2))
-for(p in r){
-    plot(p)
-}
+# graph <- thegraph
+# plot(graph)
+# r <- aStarSearch(graph,"A","G")
+# par(mfrow=c(3,2))
+# for(p in r){
+#     plot(p)
+# }
 #
 # list(
 #     steps=list(),

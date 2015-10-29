@@ -18,17 +18,28 @@ euc.dist <- function(graph, v1, v2) {
 }
 
 has.vertex.coordinates <- function(x){
-    !(
-        is.null(V(graph)$x)
-        ||
-            is.null(V(graph)$y)
+    (
+        !is.null(V(graph)$x)
+        &&
+        !is.null(V(graph)$y)
     )
 }
 
+# convenience function that returns the vertex object associated with the
+# given input, which is either the vertex object itself or a vertex identifier
 get.vertex <- function(graph, x){
     if(inherits(x, "igraph.vs")){
         x
+    } else if(x == TRUE){
+        V(graph)[1]
     } else {
-        V(graph)[x]
+        v <- V(graph)[x]
+        if(is.null(v)){
+            stop(paste("Unknown vertex", x))
+        }
+        if(length(v) > 1){
+            stop(paste("More than one vertex:", x))
+        }
+        v
     }
 }

@@ -27,12 +27,15 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
 #' @export
 randomGraph <- function(no.of.nodes=12, k=2.5, euclidean=FALSE) {
 
-  if(euclidean == TRUE){
-    stop("random euclidean graphs are unimplemented") # nocov
-  }
+    if(euclidean == TRUE){
+        stop("random euclidean graphs are unimplemented") # nocov
+    }
 
-  sample_average_k_connected_graph(no.of.nodes, k) %>%
-      makeShortestPathGraph() %>%
-      setRandomEdgeWeights()
+    from <- sample(1:no.of.nodes,1)
+    to <- sample(1:no.of.nodes,1)
+
+    sample_average_k_connected_graph(no.of.nodes, k) %>%
+        makeShortestPathGraph(from, to) %>%
+        setRandomEdgeWeights()
 
 }
