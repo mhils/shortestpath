@@ -30,7 +30,7 @@ test_that("setUniformEdgeWeights works as expected", {
 test_that("setEmptyShortestPathPredecessors works as expected", {
     g <- make_graph('Tetrahedral') %>%
         setEmptyShortestPathPredecessors()
-    expect_equal(g$shortest_path_predecessors, matrix(c(NA), ncol=4, nrow=4))
+    expect_equal(g$shortest_path_predecessors, matrix(list(), ncol=4, nrow=4))
 })
 
 test_that("setSingleSource works as expected", {
@@ -43,9 +43,9 @@ test_that("setSingleSource works as expected", {
     expect_equal(colnames(g$min_dists), c("B"))
 })
 
-test_that("setUniformVertexFronts works as expected", {
+test_that("setUniformVertexSets works as expected", {
     g <- make_graph('Dodecahedron') %>%
-        setUniformVertexFronts(val="front")
+        setUniformVertexSets(val="front")
     expect_equal(vertex.attributes(g)$set, rep("front", 20))
 })
 

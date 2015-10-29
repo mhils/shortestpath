@@ -8,7 +8,7 @@
 \alias{setRandomEdgeWeights}
 \alias{setSingleSource}
 \alias{setUniformEdgeWeights}
-\alias{setUniformVertexFronts}
+\alias{setUniformVertexSets}
 \title{Graph Modification}
 \usage{
 setInfiniteMinDists(graph, overwrite = TRUE)
@@ -22,7 +22,7 @@ setEmptyShortestPathPredecessors(graph, overwrite = TRUE)
 
 setSingleSource(graph, source = FALSE)
 
-setUniformVertexFronts(graph, val = NA, overwrite = TRUE)
+setUniformVertexSets(graph, val = NA, overwrite = TRUE)
 
 setAlphabeticalVertexNames(graph, overwrite = TRUE)
 }
@@ -56,7 +56,7 @@ shortestpath provides various graph modification functions that are used interna
 \item \code{setSingleSource}: Truncate \code{min_dists} and
 \code{shortest_path_predecessors} matrices to the selected column.
 
-\item \code{setUniformVertexFronts}: Initialize each vertex front as \code{val}.
+\item \code{setUniformVertexSets}: Initialize each vertex front as \code{val}.
 
 \item \code{setAlphabeticalVertexNames}: Set vertex names as A-Z. For graphs with more than
 26 vertices, vertices will be numbered 1 to N.
