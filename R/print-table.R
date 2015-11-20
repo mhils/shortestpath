@@ -5,18 +5,18 @@ library(igraph)
 
 #' This function creates a data frame out of the shortest_path_graphs in order to show the optimization steps
 #'
-#' @param The \code{spgraph} object
+#' @param \code{spgraph} object
 #' @return If Dijkstra :The data frame consisting of mininum distance from source node, shortest path predecessor and front.
 #'         If FloydWarshall :The data frame consisting of mininum distance between all nodes and their shortest path predecessor.
-toDataFrame = function(spGraph){
-  nodes = V(spGraph)$name
-  if(ncol(spGraph$min_dists) == 1){
-    predecessor = lapply(spGraph$shortest_path_predecessors, function(x) ifelse(is.null(x),"-",toString(nodes[x])))
+as.data.frame.spgraph = function(spgraph){
+  nodes = V(spgraph)$name
+  if(ncol(spgraph$min_dists) == 1){
+    predecessor = lapply(spgraph$shortest_path_predecessors, function(x) ifelse(is.null(x),"-",toString(nodes[x])))
     predecessor = rapply(predecessor,c) 
-    table = data.frame(spGraph$min_dists,spGraph$shortest_path_predecessors,V(spGraph)$set)
-    colnames(table) <- c(paste("minDist from",colnames(spGraph$min_dists)) , "shortest_Predecessor", "front")
+    table = data.frame(spgraph$min_dists,spgraph$shortest_path_predecessors,V(spgraph)$set)
+    colnames(table) <- c(paste("minDist from",colnames(spgraph$min_dists)) , "shortest_Predecessor", "front")
     rownames(table) <- nodes  
-  }else if (ncol(spGraph$min_dists) > 1){
+  }else if (ncol(spgraph$min_dists) > 1){
     
   }
   return(table)
@@ -26,6 +26,9 @@ toDataFrame = function(spGraph){
 #'
 #' @param The data frame
 #' @return Latex table
-toLatexTable = function(dataFrame,title = ""){
-  stargazer(dataFrame,title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE)
+toLatexTable = function(data,title = ""){
+  if(class(data) == "list"){
+    lapply(data, function (x) stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE))
+  } 
+  stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE)   
 }
