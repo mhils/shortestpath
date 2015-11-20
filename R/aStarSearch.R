@@ -57,8 +57,26 @@ aStarNextFront <- function(graph, from, to, distance.heuristic){
             graph$min_dists[vertex] + distance.heuristic(graph, to, vertex)
         }
 
-        shortest_distance <- which.min(dist(front_candidates))
+        best_case_distances <- dist(front_candidates)
+        lowest_best_case_distances <- which(best_case_distances == min(best_case_distances))
+        # We just take the first vertex with lowest best case distance.
+        pick <- front_candidates[lowest_best_case_distances[1]]
 
-        front_candidates[shortest_distance]
+        # Tricky: Consider a rectangle with perfect euclidean distances.
+        #
+        # A---B
+        # |   |
+        # D---C
+        #
+        # From A to C:
+        # - First, we evaluate A, second we evaluate B (D works to, but we pick the first).
+        # - Now, we have two front candidates with equal min_dist: C and D.
+        #   C is already the destination, we could return this and stop thereby;
+        #   however, we want _all_ shortest paths. Thus, we must not return C
+        #   if there is a second alternative with equal best case distance.
+        if(pick == to && length(lowest_best_case_distances) > 1){
+            pick <- front_candidates[lowest_best_case_distances[2]]
+        }
+        pick
     }
 }
