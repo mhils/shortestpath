@@ -35,7 +35,11 @@ aStarStep <- function(graph, front){
 
         # path over front is as good as the best known path
         } else if (dist_over_front == graph$min_dists[neighbor]){
-            graph$shortest_path_predecessors[[neighbor]] <- c(graph$shortest_path_predecessors, front)
+            graph$shortest_path_predecessors[[neighbor]] <-
+              c(
+                graph$shortest_path_predecessors[[neighbor]],
+                front
+              )
         }
     }
     graph
