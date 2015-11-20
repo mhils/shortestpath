@@ -42,6 +42,8 @@ setAlphabeticalVertexNames(graph, overwrite = TRUE)
 \item{overwrite}{If \code{FALSE}, graphs with an existing attribute will not
 be updated.}
 
+\item{layout}{An igraph layout function. See \code{igraph::\link[igraph]{layout}}.}
+
 \item{dist.fun}{A function that accepts the required vector length as an argument
 and returns a vector of weights of the given length.}
 
