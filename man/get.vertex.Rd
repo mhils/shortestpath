@@ -5,12 +5,12 @@
 \title{Convenience function that returns the vertex object associated with the
 given identifier, which is either the vertex object itself or a vertex id.}
 \usage{
-get.vertex(graph, x)
+get.vertex(graph, identifier)
 }
 \arguments{
 \item{graph}{The igraph object}
 
-\item{x}{the identifier}
+\item{identifier}{the identifier}
 }
 \description{
 Convenience function that returns the vertex object associated with the

@@ -10,12 +10,16 @@
 \alias{setRandomVertexCoordinates}
 \alias{setRoute}
 \alias{setUniformEdgeWeights}
+\alias{setVertexCoordinatesFromLayout}
 \alias{setVertexSets}
 \title{Graph Modification}
 \usage{
 setInfiniteMinDists(graph, overwrite = TRUE)
 
 setRandomVertexCoordinates(graph, overwrite = TRUE)
+
+setVertexCoordinatesFromLayout(graph, layout = layout_with_fr,
+  overwrite = TRUE)
 
 setEuclideanEdgeWeights(graph, overwrite = TRUE)
 
@@ -60,6 +64,9 @@ shortestpath provides various graph modification functions that are used interna
 \item \code{setInfiniteMinDists}: Set the minimum distance matrix to infinity.
 
 \item \code{setRandomVertexCoordinates}: Set random vertex positions for euclidean algorithms.
+
+\item \code{setVertexCoordinatesFromLayout}: Run the given layout algorithm,
+and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
 
 \item \code{setEuclideanEdgeWeights}: Set rounded euclidean edge weights
 

@@ -4,7 +4,10 @@
 \alias{plot.spgraph}
 \title{Plotting of shortest path graphs}
 \usage{
-\method{plot}{spgraph}(x, vertex.color = "set", edge.label = "weight",
+\method{plot}{spgraph}(x, vertex.color = wes_palette("Royal1")[c(3, 4, 1)],
+  vertex.color.by = c("set", "manual"),
+  vertex.frame.color = wes_palette("Rushmore")[c(4, 3, 5)],
+  vertex.frame.color.by = c("type", "manual"), edge.label = "weight",
   vertex.label = "auto", ...)
 }
 \arguments{

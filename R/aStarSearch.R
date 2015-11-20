@@ -48,16 +48,14 @@ aStarStep <- function(graph, front){
 aStarNextFront <- function(graph, from, to, distance.heuristic){
 
     # In the first iteration, we start with the source vertex
-    if(length(V(graph)[set == "known"]) == 0){
+    if(length(V(graph)[V(graph)$set == "known"]) == 0){
         from
     } else {
-        front_candidates <- V(graph)[set == "unknown"]
+        front_candidates <- V(graph)[V(graph)$set == "unknown"]
 
         dist <- function(vertex){
             graph$min_dists[vertex] + distance.heuristic(graph, to, vertex)
         }
-
-        print(rbind(front_candidates, dist(front_candidates)))
 
         shortest_distance <- which.min(dist(front_candidates))
 
