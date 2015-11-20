@@ -55,7 +55,7 @@ plot.spgraph <- function(x,
         names <- vertex.attributes(graph)$name
         dists <- graph.attributes(graph)$min_dists[, 1]
         dists <- vapply(dists, function(x) {
-            # ultra-wtf: '∞' will be printed as '8'
+            # wtf: '\u221e' (the infinity symbol) will be printed as '8'
             ifelse(x == Inf, "?", as.character(x))
         }, "")
         labels <- sapply(1:length(dists), function(i) {
