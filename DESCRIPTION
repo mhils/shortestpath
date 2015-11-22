@@ -1,7 +1,8 @@
 Package: shortestpath
 Type: Package
 Title: Shortest Path Algorithm Visualization
-Description: Visualization of Shortest Path Algorithms such as Dijkstra and Floyd-Warshall.
+Description: Visualization of Shortest Path Algorithms such as Dijkstra and
+    Floyd-Warshall.
 Version: 1.0
 Date: 2015-10-22
 Authors@R: c(person("Dennis", "Motzke", email = "d_motz02@uni-muenster.de", role = c("aut")),
@@ -9,7 +10,10 @@ Authors@R: c(person("Dennis", "Motzke", email = "d_motz02@uni-muenster.de", role
 URL: https://github.com/mhils/shortestpath
 BugReports: https://github.com/mhils/shortestpath/issues
 License: MIT + file LICENSE
-Imports: wesanderson,
+Imports:
+    wesanderson,
     igraph,
     magrittr
-Suggests: testthat
+Suggests:
+    testthat
+RoxygenNote: 5.0.0
