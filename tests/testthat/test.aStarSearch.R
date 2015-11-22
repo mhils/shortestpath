@@ -3,13 +3,7 @@ context("aStarSearch")
 test_that("aStarSearch runs without errors", {
 
     graph <- randomGraph(n=20,euclidean=TRUE)
-    par(mfrow=c(1,2))
-
     r <- aStarSearch(graph,"A","K")
-    plot(r[[length(r)]])
-    rDijsktra <- aStarSearch(graph,"A","K", distance.heuristic = function(g,v1,v2) 0 )
-    plot(rDijsktra[[length(rDijsktra)]])
-    par(mfrow=c(1,1))
 })
 
 test_that("aStarSearch finds the minimal distance", {
