@@ -8,7 +8,6 @@ library(igraph)
 #' a certain step in the optimization process representing by its attributes 
 #' @import igraph
 #' 
-
 floydWarshall = function(graph)
 {
   graph <- makeShortestPathGraph(graph, FALSE,FALSE)
@@ -19,14 +18,12 @@ floydWarshall = function(graph)
   am = get.adjacency(graph,attr='weight',sparse=FALSE)
   
   #Update modyfied attributes
-  graph.attributes(graph)$min_dists <- replace(get.graph.attribute(graph,"min_dists"),which(am > 0),am[which(am > 0)])
-  graph.attributes(graph)$shortest_path_predecessors <- t(replace(get.graph.attribute(graph,"shortest_path_predecessors"),
+  graph$min_dists <- replace(graph$min_dists,which(am > 0),am[which(am > 0)])
+  graph$shortest_path_predecessors <- replace(graph$shortest_path_predecessors,
                                                                 which(am > 0),
-                                                                which(am > 0, arr.ind = TRUE)[,2]))
-  
+                                                                which(am > 0, arr.ind = TRUE)[,2])
   #initialization of a list which contains the spg graphs 
   result = list(graph)
-  
   #Add all vertices one by one to the set of intermediate vertices.
   #---> Before start of a iteration, we have shortest distances between all pairs of vertices such that
   #the shortest distances consider only the vertices in set {0, 1, 2, .. k-1} as intermediate vertices.
@@ -39,9 +36,18 @@ floydWarshall = function(graph)
         for(j in 1:nVertices){
           #If vertex k is on the shortest path from
           #i to j, then update the value of dist[i][j] 
-          if (graph.attributes(graph)$min_dists[i,k] + graph.attributes(graph)$min_dists[k,j] < graph.attributes(graph)$min_dists[i,j]){ 
-            graph.attributes(graph)$min_dists[i,j] = graph.attributes(graph)$min_dists[i,k] + graph.attributes(graph)$min_dists[k,j]
-            graph.attributes(graph)$shortest_path_predecessors[i,j] = graph.attributes(graph)$shortest_path_predecessors[k,j]
+          if (graph$min_dists[i,k] + graph$min_dists[k,j] < graph$min_dists[i,j]){ 
+            graph$min_dists[i,j] = graph$min_dists[i,k] + graph$min_dists[k,j]
+            graph$shortest_path_predecessors[i,j] = k 
+          }else if(graph$min_dists[i,k] + graph$min_dists[k,j] == graph$min_dists[i,j]){
+            #überprüfen ob shortest_path_predecessor bereits in shortest_path_predecessor
+            if(!is.null (graph$shortest_path_predecessors[[i,j]]) &&
+               !(k %in% graph$shortest_path_predecessors[[i,j]]) &&
+                (k != i)
+               ){ 
+              graph$shortest_path_predecessors[[i,j]] =c(graph$shortest_path_predecessors[[i,j]],k)
+            }
+            
           }
         }
       }
@@ -50,3 +56,6 @@ floydWarshall = function(graph)
 return(result)
 }
 
+steps = floydWarshall(graph)
+test = steps[[5]]$shortest_path_predecessors
+test
