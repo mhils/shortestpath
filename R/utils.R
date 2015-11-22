@@ -40,3 +40,15 @@ get.vertex <- function(graph, identifier){
         v
     }
 }
+
+get.shortest.paths <- function(graph, from=NULL, to=NULL) {
+    if(is.null(from)){
+        from <- graph$from
+    }
+    if(is.null(to)){
+        to <- graph$to
+    }
+    predecessors <- unlist(result$shortest_path_predecessors[to,])
+
+
+}
