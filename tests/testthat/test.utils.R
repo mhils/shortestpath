@@ -1,12 +1,5 @@
 context("utils")
 
-test_that("is.spgraph is working as expected", {
-    expect_true(is.spgraph(randomGraph()))
-    expect_false(is.spgraph(make_graph('Tetrahedral')))
-    expect_false(is.spgraph(NULL))
-})
-
-
 test_that("euclidean.vertex.distance is working as expected", {
     g <- make_graph('Tetrahedral') %>%
         set_vertex_attr("x", value=1:4) %>%
