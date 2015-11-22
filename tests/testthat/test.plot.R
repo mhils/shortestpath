@@ -1,7 +1,7 @@
 context("plot.spgraph")
 
 test_that("a shortest path graph plots without errors", {
-    spgraph <- makeShortestPathGraph(make_graph("Dodecahedron"))
+    spgraph <- makeShortestPathGraph(make_graph("Dodecahedron"), "A", "D")
     plot(spgraph)
 })
 

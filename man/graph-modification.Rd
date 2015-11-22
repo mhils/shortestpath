@@ -4,14 +4,24 @@
 \alias{Graph Modification}
 \alias{setAlphabeticalVertexNames}
 \alias{setEmptyShortestPathPredecessors}
+\alias{setEuclideanEdgeWeights}
 \alias{setInfiniteMinDists}
 \alias{setRandomEdgeWeights}
-\alias{setSingleSource}
+\alias{setRandomVertexCoordinates}
+\alias{setRoute}
 \alias{setUniformEdgeWeights}
-\alias{setUniformVertexSets}
+\alias{setVertexCoordinatesFromLayout}
+\alias{setVertexSets}
 \title{Graph Modification}
 \usage{
 setInfiniteMinDists(graph, overwrite = TRUE)
+
+setRandomVertexCoordinates(graph, overwrite = TRUE)
+
+setVertexCoordinatesFromLayout(graph, layout = layout_with_fr,
+  overwrite = TRUE)
+
+setEuclideanEdgeWeights(graph, overwrite = TRUE)
 
 setRandomEdgeWeights(graph, dist.fun = function(n) ceiling(runif(n, 0, 10)),
   overwrite = TRUE)
@@ -20,9 +30,9 @@ setUniformEdgeWeights(graph, overwrite = TRUE)
 
 setEmptyShortestPathPredecessors(graph, overwrite = TRUE)
 
-setSingleSource(graph, source = FALSE)
+setRoute(graph, from, to)
 
-setUniformVertexSets(graph, val = NA, overwrite = TRUE)
+setVertexSets(graph, val = NA, overwrite = TRUE)
 
 setAlphabeticalVertexNames(graph, overwrite = TRUE)
 }
@@ -32,10 +42,18 @@ setAlphabeticalVertexNames(graph, overwrite = TRUE)
 \item{overwrite}{If \code{FALSE}, graphs with an existing attribute will not
 be updated.}
 
+\item{layout}{An igraph layout function. See \code{igraph::\link[igraph]{layout}}.}
+
 \item{dist.fun}{A function that accepts the required vector length as an argument
 and returns a vector of weights of the given length.}
 
-\item{source}{The graph's source vertex for single-source algorithms.}
+\item{from}{The graph's source vertex for single-source algorithms.
+For all-shortest-paths algorithms, \code{FALSE} should be passed.}
+
+\item{to}{The graph's target vertex for single-source algorithms.
+For all-shortest-paths algorithms, \code{FALSE} should be passed.}
+
+\item{val}{the default vertex set value.}
 }
 \value{
 The updated graph object.
@@ -47,16 +65,24 @@ shortestpath provides various graph modification functions that are used interna
 \itemize{
 \item \code{setInfiniteMinDists}: Set the minimum distance matrix to infinity.
 
+\item \code{setRandomVertexCoordinates}: Set random vertex positions for euclidean algorithms.
+
+\item \code{setVertexCoordinatesFromLayout}: Run the given layout algorithm,
+and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
+
+\item \code{setEuclideanEdgeWeights}: Set rounded euclidean edge weights
+
 \item \code{setRandomEdgeWeights}: Set random edge weights.
 
 \item \code{setUniformEdgeWeights}: Set each edge weight to 1.
 
 \item \code{setEmptyShortestPathPredecessors}: Initialize an empty predecessor matrix.
 
-\item \code{setSingleSource}: Truncate \code{min_dists} and
-\code{shortest_path_predecessors} matrices to the selected column.
+\item \code{setRoute}: Set \code{from} and \code{to} and
+truncate both \code{min_dists} and \code{shortest_path_predecessors}
+matrices to the specified source.
 
-\item \code{setUniformVertexSets}: Initialize each vertex front as \code{val}.
+\item \code{setVertexSets}: Initialize each vertex front as \code{val}.
 
 \item \code{setAlphabeticalVertexNames}: Set vertex names as A-Z. For graphs with more than
 26 vertices, vertices will be numbered 1 to N.
