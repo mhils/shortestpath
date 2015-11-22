@@ -23,7 +23,6 @@ floydWarshall = function(graph)
                                                                 which(am > 0),
                                                                 which(am > 0, arr.ind = TRUE)[,2])
 
-  print(graph$shortest_path_predecessors)
   #initialization of a list which contains the spg graphs
   result = list(graph)
   #Add all vertices one by one to the set of intermediate vertices.
@@ -44,23 +43,15 @@ floydWarshall = function(graph)
             if(min_dist_over_k < min_dist_current) {
                 graph$min_dists[i,j] <- min_dist_over_k
                 graph$shortest_path_predecessors[[i,j]] <- k
-
-                print(paste("# Set predecessor", "dist:", min_dist_over_k, "k:", k, "i:", i, "j:", j))
-
+                
             } else if (min_dist_over_k == min_dist_current){
                 if(!(k %in% graph$shortest_path_predecessors[[i,j]])){
-                    print(paste("# Add predecessor", "dist:", min_dist_over_k, "k:", k, "i:", i, "j:", j))
                     graph$shortest_path_predecessors[[i,j]] <- c(graph$shortest_path_predecessors[[i,j]],k)
                 }
             }
         }
       }
-      print(graph$shortest_path_predecessors)
       result = c(result,list(graph))
     }
 return(result)
 }
-
-steps = floydWarshall(graph)
-test = steps[[5]]$shortest_path_predecessors
-test
