@@ -1,12 +1,3 @@
-#' Plotting of shortest path graphs
-#'
-#' @param graph The graph object.
-#' @return \code{TRUE} if its argument is a shortest path graph, \code{FALSE} otherwise.
-#' @export
-is.spgraph <- function(graph) {
-    "spgraph" %in% class(graph)
-}
-
 #' Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
 #' @param graph The igraph object
 #' @param v1 The first vertice vector
@@ -28,7 +19,7 @@ has.vertex.coordinates <- function(graph){
     (
         !is.null(V(graph)$x)
         &&
-        !is.null(V(graph)$y)
+            !is.null(V(graph)$y)
     )
 }
 

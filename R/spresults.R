@@ -12,3 +12,11 @@ spresults <- function(lst=list()){
 `$<-.spresults` <- function(x, name, value) {
     stop("Cannot modify spresults objects - please work with the underlying spgraphs directly.")
 }
+
+#' Check whether an object is a shortest path result object
+#'
+#' @return \code{TRUE} if its argument is a shortest path result object, \code{FALSE} otherwise.
+#' @export
+is.spresults <- function(x) {
+    "spresults" %in% class(x)
+}

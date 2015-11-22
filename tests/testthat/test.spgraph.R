@@ -1,4 +1,4 @@
-context("as.spgraph")
+context("spgraph")
 
 test_that("as.spgraph.igraph adds all required attributes", {
     spgraph <- as.spgraph(make_graph("Tetrahedral"))
@@ -12,4 +12,10 @@ test_that("as.spgraph.igraph adds all required attributes", {
     expect_equal(graph.attributes(spgraph)$shortest_path_predecessors[[1, 1]], NULL)
     expect_equal(spgraph$from, FALSE)
     expect_equal(spgraph$to, FALSE)
+})
+
+test_that("is.spgraph is working as expected", {
+    expect_true(is.spgraph(randomGraph()))
+    expect_false(is.spgraph(make_graph('Tetrahedral')))
+    expect_false(is.spgraph(NULL))
 })
