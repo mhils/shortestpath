@@ -6,6 +6,9 @@
 \usage{
 is.spresults(x)
 }
+\arguments{
+\item{x}{The object to check.}
+}
 \value{
 \code{TRUE} if its argument is a shortest path result object, \code{FALSE} otherwise.
 }

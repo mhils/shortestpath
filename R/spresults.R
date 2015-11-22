@@ -16,6 +16,7 @@ spresults <- function(lst=list()){
 #' Check whether an object is a shortest path result object
 #'
 #' @return \code{TRUE} if its argument is a shortest path result object, \code{FALSE} otherwise.
+#' @param x The object to check.
 #' @export
 is.spresults <- function(x) {
     "spresults" %in% class(x)

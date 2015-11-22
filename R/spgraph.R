@@ -23,6 +23,7 @@ as.spgraph.igraph <- function(x) {
 #' Check whether an object is a shortest path graph
 #'
 #' @return \code{TRUE} if its argument is a shortest path graph, \code{FALSE} otherwise.
+#' @param x The object to check.
 #' @export
 is.spgraph <- function(x) {
     "spgraph" %in% class(x)
