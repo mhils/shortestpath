@@ -1,7 +1,8 @@
 aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.distance){
 
     graph %<>%
-        makeShortestPathGraph(from, to) %>%
+        as.spgraph() %>%
+        setRoute(from, to) %>%
         setVertexSets("unknown")
 
     steps = list()
@@ -17,7 +18,7 @@ aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.di
         steps <- c(steps, list(graph))
         graph %<>% set_vertex_attr("set", front, "known")
     }
-    steps
+    spresults(steps)
 }
 
 aStarStep <- function(graph, front){
@@ -25,7 +26,7 @@ aStarStep <- function(graph, front){
     dist_to_front <- graph$min_dists[front]
 
     for(neighbor in neighbors(graph, front)){
-        edge <- E(graph)[front %--% neighbor]
+        edge <- E(graph)[front %->% neighbor]
         dist_over_front <- dist_to_front + edge$weight
 
         # path over front is better than the best known path
