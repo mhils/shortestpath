@@ -1,6 +1,7 @@
 #' @import igraph
 #' @importFrom magrittr %<>%
 #' @importFrom wesanderson wes_palette
+#' @importFrom stats runif
 NULL
 
 # https://github.com/smbache/magrittr/issues/29

@@ -4,15 +4,22 @@
 \alias{plot.spgraph}
 \title{Plotting of shortest path graphs}
 \usage{
-\method{plot}{spgraph}(x, vertex.color = "set", edge.label = "weight",
+\method{plot}{spgraph}(x, vertex.color = wes_palette("Royal1")[c(3, 4, 1)],
+  vertex.color.by = c("set", "manual"),
+  vertex.frame.color = wes_palette("Rushmore")[c(4, 3, 5)],
+  vertex.frame.color.by = c("type", "manual"), edge.label = "weight",
   vertex.label = "auto", ...)
 }
 \arguments{
 \item{x}{The graph to plot.}
 
-\item{vertex.color}{The vertex coloring. Passing 'set' will color,
-the vertices according to the set they are in, other values are passed to
-igraph as-is.}
+\item{vertex.color}{Color palette for the vertices}
+
+\item{vertex.color.by}{Characteristic which should be used to color vertices}
+
+\item{vertex.frame.color}{Color palette for the vertices' frame.}
+
+\item{vertex.frame.color.by}{Characteristic which should be used to color vertex frames}
 
 \item{edge.label}{The edge label. Passing 'weight' will print the edge's weight.}
 

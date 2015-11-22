@@ -13,7 +13,7 @@ graph.}
 \item{k}{The average degree of each vertex in the graph}
 }
 \description{
-Generate a random graph with a fixed average vertex degree
+Generate a "nice" random graph with a fixed average vertex degree
 and at most one cluster.
 }
 

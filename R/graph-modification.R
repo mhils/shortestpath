@@ -47,6 +47,47 @@ setInfiniteMinDists <- function(graph, overwrite = TRUE) {
     }, overwrite)
 }
 
+#' @describeIn graph-modification Set random vertex positions for euclidean algorithms.
+#' @export
+setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
+    graph %>%
+        setAttr("vertex", "x", function(graph) {
+            runif(length(V(graph)), 0, 10)
+        }, overwrite) %>%
+        setAttr("vertex", "y", function(graph) {
+            runif(length(V(graph)), 0, 10)
+        }, overwrite)
+}
+
+#' @describeIn graph-modification Run the given layout algorithm,
+#' and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
+#' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout}}.
+#' @export
+setVertexCoordinatesFromLayout <- function(graph, layout=layout_nicely, overwrite = TRUE) {
+    p <- layout(graph)
+    graph %>%
+        setAttr("vertex", "x", function(graph) {
+            p[,1]
+        }, overwrite) %>%
+        setAttr("vertex", "y", function(graph) {
+            p[,2]
+        }, overwrite)
+}
+
+#' @describeIn graph-modification Set rounded euclidean edge weights
+#' @export
+setEuclideanEdgeWeights <- function(graph, overwrite = TRUE) {
+    if(!has.vertex.coordinates(graph)){
+        stop("Cannot compute edge weights for graph without x,y coordinates.")
+    }
+    setAttr(graph, "edge", "weight", function(graph) {
+        vapply(E(graph), function(edge){
+            e <- ends(graph, edge)
+            ceiling(euclidean.vertex.distance(graph, e[1], e[2]))
+        }, 0)
+    }, overwrite)
+}
+
 #' @param dist.fun A function that accepts the required vector length as an argument
 #' and returns a vector of weights of the given length.
 #' @describeIn graph-modification Set random edge weights.
@@ -78,27 +119,35 @@ setEmptyShortestPathPredecessors <- function(graph, overwrite = TRUE) {
     }, overwrite)
 }
 
-#' @param source The graph's source vertex for single-source algorithms.
-#' @describeIn graph-modification Truncate \code{min_dists} and
-#' \code{shortest_path_predecessors} matrices to the selected column.
+#' @param from The graph's source vertex for single-source algorithms.
+#' For all-shortest-paths algorithms, \code{FALSE} should be passed.
+#' @param to The graph's target vertex for single-source algorithms.
+#' For all-shortest-paths algorithms, \code{FALSE} should be passed.
+#' @describeIn graph-modification Set \code{from} and \code{to} and
+#' truncate both \code{min_dists} and \code{shortest_path_predecessors}
+#' matrices to the specified source.
 #' @export
-setSingleSource <- function(graph, source = FALSE) {
-    if (source != FALSE) {
-        if (source == TRUE) {
-            source <- V(graph)[1]
-        }
+setRoute <- function(graph, from, to) {
+    if (from != FALSE) {
+        from <- get.vertex(graph, from)
         graph %<>%
-          set_graph_attr("min_dists",
-                         graph.attributes(graph)$min_dists[, source, drop = FALSE]) %>%
-          set_graph_attr("shortest_path_predecessors",
-                         graph.attributes(graph)$shortest_path_predecessors[, source, drop = FALSE])
+            set_graph_attr("min_dists",
+                           graph$min_dists[, from, drop = FALSE]) %>%
+            set_graph_attr("shortest_path_predecessors",
+                           graph$shortest_path_predecessors[, from, drop = FALSE])
     }
-    graph
+    if (to != FALSE) {
+        to <- get.vertex(graph, to)
+    }
+    graph %>%
+        set_graph_attr("from", from) %>%
+        set_graph_attr("to", to)
 }
 
 #' @describeIn graph-modification Initialize each vertex front as \code{val}.
+#' @param val the default vertex set value.
 #' @export
-setUniformVertexSets <- function(graph, val=NA, overwrite = TRUE) {
+setVertexSets <- function(graph, val=NA, overwrite = TRUE) {
     setAttr(graph, "vertex", "set", function(graph) {
         rep(val, length(V(graph)))
     }, overwrite)

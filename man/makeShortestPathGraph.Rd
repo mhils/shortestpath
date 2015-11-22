@@ -4,12 +4,16 @@
 \alias{makeShortestPathGraph}
 \title{Convert an igraph into a shortest path graph}
 \usage{
-makeShortestPathGraph(graph, source = TRUE)
+makeShortestPathGraph(graph, from, to)
 }
 \arguments{
 \item{graph}{The \code{igraph} object.}
 
-\item{source}{The graph's source vertex for single-source algorithms.}
+\item{from}{The graph's source vertex for single-source algorithms.
+For all-shortest-paths algorithms, \code{FALSE} should be passed.}
+
+\item{to}{The graph's target vertex for single-source algorithms.
+For all-shortest-paths algorithms, \code{FALSE} should be passed.}
 }
 \value{
 The \code{spgraph} object.
