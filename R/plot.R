@@ -35,7 +35,7 @@ plot.spgraph <- function(x,
         V(graph)[V(graph)$set=="front"]$color <- vertex.color[2]
         V(graph)[V(graph)$set=="unknown"]$color <- vertex.color[3]
     } else {
-        V(graph)$color <- vertex.color
+        V(graph)$color <- vertex.color # nocov
     }
     if(match.arg(vertex.frame.color.by) == "type"){
         # FIXME: This is not color.
@@ -46,7 +46,7 @@ plot.spgraph <- function(x,
         V(graph)[graph$from]$frame.color <- vertex.frame.color[2]
         V(graph)[graph$to]$frame.color <- vertex.frame.color[3]
     } else {
-        V(graph)$frame.color <- vertex.frame.color
+        V(graph)$frame.color <- vertex.frame.color # nocov
     }
     if (is.character(edge.label) && edge.label %in% c("weight")) {
         edge.attributes(graph)$label <- edge.attributes(graph)[[edge.label]]

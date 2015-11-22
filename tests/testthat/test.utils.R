@@ -21,6 +21,15 @@ test_that("euclidean.vertex.distance stops if no coordinates are given", {
     expect_error(euclidean.vertex.distance(g, V(g)[1], V(g)))
 })
 
+test_that("has.vertex.coordinates works as expected", {
+    g <- make_graph('Tetrahedral')
+    expect_false(has.vertex.coordinates(g))
+    g %<>%
+        set_vertex_attr("x", value=1:4) %>%
+        set_vertex_attr("y", value=rep(42,4))
+    expect_true(has.vertex.coordinates(g))
+})
+
 test_that("get.vertex returns vertex objects as-is", {
     g <- make_graph('Tetrahedral')
     v <- V(g)[1]
@@ -39,7 +48,7 @@ test_that("get.vertex stops if identifier is invalid", {
 
 test_that("get.vertex stops if more than one vertex is selected", {
     g <- make_graph('Tetrahedral')
-    expect_error(get.vertex(g, nei(1)))
+    expect_error(get.vertex(g, c(1,2)), "Identifier '1 2' selected more than one vertex: 1 2")
 })
 
 test_that("get.vertex correctly selects vertices by their id", {

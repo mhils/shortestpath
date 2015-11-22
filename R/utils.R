@@ -28,7 +28,7 @@ has.vertex.coordinates <- function(graph){
     (
         !is.null(V(graph)$x)
         &&
-            !is.null(V(graph)$y)
+        !is.null(V(graph)$y)
     )
 }
 
@@ -39,12 +39,12 @@ has.vertex.coordinates <- function(graph){
 get.vertex <- function(graph, identifier){
     if(inherits(identifier, "igraph.vs")){
         identifier
-    } else if(identifier == TRUE){
+    } else if(is.logical(identifier) && identifier == TRUE){
         V(graph)[1]
     } else {
         v <- V(graph)[identifier]
         if(length(v) > 1){
-            stop(paste("More than one vertex:", identifier))
+            stop(paste0("Identifier '",paste(identifier,collapse=" "), "' selected more than one vertex: ", paste(v,collapse=" ")))
         }
         v
     }

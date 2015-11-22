@@ -1,14 +1,9 @@
 context("randomGraph")
 
 test_that("randomGraph generates random graphs", {
-    a <- randomGraph()
-    for(i in 1:100){
-        b <- randomGraph()
-        if(edge_attr(a)$weight != edge_attr(b)$weight){
-            expect_true(TRUE)
-            break
-        }
-    }
+    set.seed(1)
+    g <- randomGraph()
+    expect_equal(E(g)$weight, c(4, 6, 7, 1, 2, 1, 10, 7, 1, 5, 5, 4, 10, 2, 9))
 })
 
 test_that("randomGraph stops for invalid values of k", {
@@ -23,4 +18,10 @@ test_that("randomGraph works for large valid values of k", {
 
 test_that("randomGraph works for small valid values of k", {
     expect_equal(length(E(randomGraph(10,1.8))), 9)
+})
+
+test_that("randomGraph does produce a graph with a single cluster", {
+    set.seed(53569) # this was found by brute-force - turns out these cases are *very* rare!
+    g <- randomGraph(8,2*7/8)
+    expect_equal(no.clusters(g), 1)
 })
