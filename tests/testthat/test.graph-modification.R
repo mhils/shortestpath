@@ -26,9 +26,9 @@ test_that("setRandomVertexCoordinates works as expected", {
 test_that("setVertexCoordinatesFromLayout works as expected", {
     set.seed(1)
     g <- make_graph('Tetrahedral') %>%
-        setVertexCoordinatesFromLayout()
-    expect_true(max(V(g)$x-c(5.526905, 4.896643, 5.480451, 6.111025)) < 1e-5)
-    expect_true(max(V(g)$y-c(3.412718, 2.835455, 2.214065, 2.787972)) < 1e-5)
+        setVertexCoordinatesFromLayout(layout=function(...) matrix(1:8, ncol=2))
+    expect_equal(V(g)$x, 1:4)
+    expect_equal(V(g)$y, 5:8)
 })
 
 test_that("setEuclideanEdgeWeights works as expected", {
