@@ -63,8 +63,8 @@ setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
 #' and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
 #' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout}}.
 #' @export
-setVertexCoordinatesFromLayout <- function(graph, layout=layout_nicely, overwrite = TRUE) {
-    p <- layout(graph)
+setVertexCoordinatesFromLayout <- function(graph, layout=layout_nicely, layout_args=list(), overwrite = TRUE) {
+    p <- do.call(layout, c(list(graph), layout_args))
     graph %>%
         setAttr("vertex", "x", function(graph) {
             p[,1]
@@ -132,9 +132,9 @@ setRoute <- function(graph, from, to) {
         from <- get.vertex(graph, from)
         graph %<>%
             set_graph_attr("min_dists",
-                           graph$min_dists[, from, drop = FALSE]) %>%
+                           graph$min_dists[from, , drop = FALSE]) %>%
             set_graph_attr("shortest_path_predecessors",
-                           graph$shortest_path_predecessors[, from, drop = FALSE])
+                           graph$shortest_path_predecessors[from, , drop = FALSE])
     }
     if (to != FALSE) {
         to <- get.vertex(graph, to)

@@ -18,12 +18,8 @@ setInfiniteMinDists(graph, overwrite = TRUE)
 
 setRandomVertexCoordinates(graph, overwrite = TRUE)
 
-<<<<<<< HEAD
-setVertexCoordinatesFromLayout(graph, layout = layout_with_fr,
-=======
 setVertexCoordinatesFromLayout(graph, layout = layout_nicely,
->>>>>>> master
-  overwrite = TRUE)
+  layout_args = list(), overwrite = TRUE)
 
 setEuclideanEdgeWeights(graph, overwrite = TRUE)
 

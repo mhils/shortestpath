@@ -24,23 +24,32 @@ test_that("floydWarshall finds the minimal distances", {
 })
 
 test_that("FloydWarshall produces valid shortest_path_predecessors", {
-    ring <- make_ring(4)
-    E(ring)$weight <- c(1, 2, 2, 1)
-    results <- floydWarshall(ring)
-    spp <- results$shortest_path_predecessors
-    ref <- matrix(list(), ncol = 4, nrow = 4)
-    ref[[1, 2]] <- V(ring)[[2]]
-    ref[[1, 3]] <- c(V(ring)[[2]], V(ring)[[4]])
-    ref[[1, 4]] <- V(ring)[[4]]
-    ref[[2, 1]] <- V(ring)[[1]]
-    ref[[2, 3]] <- V(ring)[[3]]
-    ref[[2, 4]] <- V(ring)[[1]]
-    ref[[3, 1]] <- c(V(ring)[[2]], V(ring)[[4]])
-    ref[[3, 2]] <- V(ring)[[2]]
-    ref[[3, 4]] <- V(ring)[[4]]
-    ref[[4, 1]] <- V(ring)[[1]]
-    ref[[4, 2]] <- V(ring)[[1]]
-    ref[[4, 3]] <- V(ring)[[3]]
+    # Example graph from http://nptel.ac.in/courses/105104098/TransportationII/mod13/16slide.htm
 
-    expect_equivalent(unlist(spp), unlist(ref))
+    adj <- matrix(c(
+        0,8,3,5,0,
+        8,0,2,0,5,
+        0,1,0,3,4,
+        6,0,0,0,7,
+        0,5,0,0,0
+    ), ncol=5, byrow=T)
+    graph <- graph_from_adjacency_matrix(adj, weighted=T)
+
+    A <- 1 #V(graph)[[1]]
+    B <- 2 #V(graph)[[2]]
+    C <- 3 #V(graph)[[3]]
+    D <- 4 #V(graph)[[4]]
+    E <- 5 #V(graph)[[5]]
+    spp <- matrix(list(
+        NULL,C,A,A,C,
+        B,NULL,B,C,B,
+        c(B,D),C,NULL,C,C,
+        D,C,A,NULL,D,
+        B,E,B,C,NULL
+    ),ncol=5,byrow=T)
+    colnames(spp) <- rownames(spp) <- LETTERS[1:5]
+
+    results <- floydWarshall(graph)
+
+    expect_equal(spp, results$shortest_path_predecessors)
 })
