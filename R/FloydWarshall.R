@@ -17,7 +17,7 @@ floydWarshall <- function(graph) {
     # Update modyfied attributes
     graph$min_dists <- replace(graph$min_dists, which(am > 0), am[which(am > 0)])
     graph$shortest_path_predecessors <-
-        replace(graph$shortest_path_predecessors, which(am > 0), which(am > 0, arr.ind = TRUE)[, 2])
+        replace(graph$shortest_path_predecessors, which(am > 0), which(am > 0, arr.ind = TRUE)[, 1])
 
     # initialization of a list which contains the spg graphs
     steps = list(graph)

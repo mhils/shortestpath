@@ -28,15 +28,15 @@ aStarStep <- function(graph, front){
     for(neighbor in neighbors(graph, front)){
         edge <- E(graph)[front %->% neighbor]
         dist_over_front <- dist_to_front + edge$weight
-        current_best_dist <- graph$min_dists[1,neighbor]
+        current_dist <- graph$min_dists[1,neighbor]
 
         # path over front is better than the best known path
-        if(dist_over_front < current_best_dist){
+        if(dist_over_front < current_dist){
             graph$min_dists[1,neighbor] <- dist_over_front
             graph$shortest_path_predecessors[[1, neighbor]] <- c(front)
 
         # path over front is as good as the best known path
-        } else if (dist_over_front == current_best_dist){
+        } else if (dist_over_front == current_dist){
             graph$shortest_path_predecessors[[1, neighbor]] <-
               c(
                 graph$shortest_path_predecessors[[1, neighbor]],
