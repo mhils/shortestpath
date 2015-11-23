@@ -1,12 +1,3 @@
-#' Plotting of shortest path graphs
-#'
-#' @param graph The graph object.
-#' @return \code{TRUE} if its argument is a shortest path graph, \code{FALSE} otherwise.
-#' @export
-is.spgraph <- function(graph) {
-    "spgraph" %in% class(graph)
-}
-
 #' Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
 #' @param graph The igraph object
 #' @param v1 The first vertice vector
@@ -39,13 +30,25 @@ has.vertex.coordinates <- function(graph){
 get.vertex <- function(graph, identifier){
     if(inherits(identifier, "igraph.vs")){
         identifier
-    } else if(identifier == TRUE){
+    } else if(is.logical(identifier) && identifier == TRUE){
         V(graph)[1]
     } else {
         v <- V(graph)[identifier]
         if(length(v) > 1){
-            stop(paste("More than one vertex:", identifier))
+            stop(paste0("Identifier '",paste(identifier,collapse=" "), "' selected more than one vertex: ", paste(v,collapse=" ")))
         }
         v
     }
+}
+
+get.shortest.paths <- function(graph, from=NULL, to=NULL) {
+    if(is.null(from)){
+        from <- graph$from
+    }
+    if(is.null(to)){
+        to <- graph$to
+    }
+    predecessors <- unlist(result$shortest_path_predecessors[to,])
+
+
 }

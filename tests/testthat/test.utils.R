@@ -1,12 +1,5 @@
 context("utils")
 
-test_that("is.spgraph is working as expected", {
-    expect_true(is.spgraph(randomGraph()))
-    expect_false(is.spgraph(make_graph('Tetrahedral')))
-    expect_false(is.spgraph(NULL))
-})
-
-
 test_that("euclidean.vertex.distance is working as expected", {
     g <- make_graph('Tetrahedral') %>%
         set_vertex_attr("x", value=1:4) %>%
@@ -19,6 +12,15 @@ test_that("euclidean.vertex.distance is working as expected", {
 test_that("euclidean.vertex.distance stops if no coordinates are given", {
     g <- make_graph('Tetrahedral')
     expect_error(euclidean.vertex.distance(g, V(g)[1], V(g)))
+})
+
+test_that("has.vertex.coordinates works as expected", {
+    g <- make_graph('Tetrahedral')
+    expect_false(has.vertex.coordinates(g))
+    g %<>%
+        set_vertex_attr("x", value=1:4) %>%
+        set_vertex_attr("y", value=rep(42,4))
+    expect_true(has.vertex.coordinates(g))
 })
 
 test_that("get.vertex returns vertex objects as-is", {
@@ -39,7 +41,7 @@ test_that("get.vertex stops if identifier is invalid", {
 
 test_that("get.vertex stops if more than one vertex is selected", {
     g <- make_graph('Tetrahedral')
-    expect_error(get.vertex(g, nei(1)))
+    expect_error(get.vertex(g, c(1,2)), "Identifier '1 2' selected more than one vertex: 1 2")
 })
 
 test_that("get.vertex correctly selects vertices by their id", {

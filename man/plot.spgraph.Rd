@@ -13,9 +13,13 @@
 \arguments{
 \item{x}{The graph to plot.}
 
-\item{vertex.color}{The vertex coloring. Passing 'set' will color,
-the vertices according to the set they are in, other values are passed to
-igraph as-is.}
+\item{vertex.color}{Color palette for the vertices}
+
+\item{vertex.color.by}{Characteristic which should be used to color vertices}
+
+\item{vertex.frame.color}{Color palette for the vertices' frame.}
+
+\item{vertex.frame.color.by}{Characteristic which should be used to color vertex frames}
 
 \item{edge.label}{The edge label. Passing 'weight' will print the edge's weight.}
 
