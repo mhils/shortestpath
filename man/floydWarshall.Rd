@@ -4,10 +4,12 @@
 \alias{floydWarshall}
 \title{Calculates the shortest path of all pairs of vertices in a graph}
 \usage{
-floydWarshall(graph)
+floydWarshall(graph, weight.attr = "weight")
 }
 \arguments{
 \item{graph}{The \code{igraph} object.}
+
+\item{weight.attr}{Either \code{NULL} or a character string giving an edge attribute name for the edge cost.}
 }
 \value{
 A list of \code{spgraph} objects. Each \code{spgraph} object contains information about

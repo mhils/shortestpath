@@ -68,8 +68,10 @@ test_that("setRoute works as expected", {
         setInfiniteMinDists() %>%
         setEmptyShortestPathPredecessors() %>%
         setRoute("B", "D")
-    expect_equal(rownames(g$min_dists), LETTERS[1:4])
-    expect_equal(colnames(g$min_dists), c("B"))
+    expect_equal(colnames(g$min_dists), LETTERS[1:4])
+    expect_equal(rownames(g$min_dists), c("B"))
+    expect_equal(colnames(g$shortest_path_predecessors), LETTERS[1:4])
+    expect_equal(rownames(g$shortest_path_predecessors), c("B"))
 })
 
 test_that("setVertexSets works as expected", {
