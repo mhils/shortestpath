@@ -22,7 +22,7 @@ test_that("aStarSearch finds the minimal distance", {
         graph <- randomGraph(no.of.nodes=args$n, k=args$k, euclidean=TRUE)
         r <- aStarSearch(graph,start,stop)
         reference_value <- distances(graph, v=start, to=stop)[1,1]
-        expect_equal(r$min_dists[stop,], reference_value)
+        expect_equal(r$min_dists[1,stop], reference_value)
     }
 })
 
@@ -48,24 +48,28 @@ make_square <- function(){
 }
 
 test_that("aStarSearch produces valid min_dists", {
+    min_dists <- matrix(c(0,1,Inf,1),nrow=1)
+    rownames(min_dists) <- "A"
+    colnames(min_dists) <- LETTERS[1:4]
     r <- aStarSearch(make_square(),"A","B")
-    expect_equal( as.vector(r$min_dists), c(0,1,Inf,1))
+    expect_equal(r$min_dists, min_dists)
 
+    min_dists[1,3] <- 2
     r <- aStarSearch(make_square(),"A","C")
-    expect_equal( as.vector(r$min_dists), c(0,1,2,1))
+    expect_equal(r$min_dists, min_dists)
 })
 
 test_that("aStarSearch produces valid shortest_path_predecessors", {
     square <- make_square()
     r <- aStarSearch(square,"A","B")
     spp <- r$shortest_path_predecessors
-    ref <- matrix(list(), ncol=1, nrow=4)
-    ref[[2]] <- V(square)[[1]]
-    ref[[4]] <- V(square)[[1]]
+    ref <- matrix(list(), ncol=4, nrow=1)
+    ref[[1,2]] <- V(square)[[1]]
+    ref[[1,4]] <- V(square)[[1]]
     expect_equivalent(spp, ref)
 
     r <- aStarSearch(square,"A","C")
     spp <- r$shortest_path_predecessors
-    ref[[3]] <- c(V(square)[[2]],V(square)[[4]])
+    ref[[1,3]] <- c(V(square)[[2]],V(square)[[4]])
     expect_equivalent(spp, ref)
 })

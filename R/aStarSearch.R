@@ -23,22 +23,23 @@ aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.di
 
 aStarStep <- function(graph, front){
 
-    dist_to_front <- graph$min_dists[front]
+    dist_to_front <- graph$min_dists[1,front]
 
     for(neighbor in neighbors(graph, front)){
         edge <- E(graph)[front %->% neighbor]
         dist_over_front <- dist_to_front + edge$weight
+        current_best_dist <- graph$min_dists[1,neighbor]
 
         # path over front is better than the best known path
-        if(dist_over_front < graph$min_dists[neighbor]){
-            graph$min_dists[neighbor] <- dist_over_front
-            graph$shortest_path_predecessors[[neighbor]] <- c(front)
+        if(dist_over_front < current_best_dist){
+            graph$min_dists[1,neighbor] <- dist_over_front
+            graph$shortest_path_predecessors[[1, neighbor]] <- c(front)
 
         # path over front is as good as the best known path
-        } else if (dist_over_front == graph$min_dists[neighbor]){
-            graph$shortest_path_predecessors[[neighbor]] <-
+        } else if (dist_over_front == current_best_dist){
+            graph$shortest_path_predecessors[[1, neighbor]] <-
               c(
-                graph$shortest_path_predecessors[[neighbor]],
+                graph$shortest_path_predecessors[[1, neighbor]],
                 front
               )
         }
@@ -55,7 +56,7 @@ aStarNextFront <- function(graph, from, to, distance.heuristic){
         front_candidates <- V(graph)[V(graph)$set == "unknown"]
 
         dist <- function(vertex){
-            graph$min_dists[vertex] + distance.heuristic(graph, to, vertex)
+            graph$min_dists[1, vertex] + distance.heuristic(graph, to, vertex)
         }
 
         best_case_distances <- dist(front_candidates)
