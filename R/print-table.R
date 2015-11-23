@@ -13,10 +13,10 @@ as.data.frame.spgraph = function(spgraph){
   numCol = ncol(spgraph$min_dists)
   if(numCol == 1){
     predecessor = lapply(spgraph$shortest_path_predecessors, function(x) ifelse(is.null(x),"--",toString(nodes[x])))
-    predecessor = rapply(predecessor,c) 
+    predecessor = rapply(predecessor,c)
     table = data.frame(spgraph$min_dists,spgraph$shortest_path_predecessors,V(spgraph)$set)
     colnames(table) <- c(paste("minDist from",colnames(spgraph$min_dists)) , "shortest_Predecessor", "front")
-    rownames(table) <- nodes  
+    rownames(table) <- nodes
   }else if (numCol > 1){
     mPred = createPredMatrix(spgraph, nodes, numCol)
     colnames(mPred) = sapply(nodes,function(x) paste(x,".pred",sep=""))
@@ -31,7 +31,7 @@ as.data.frame.spgraph = function(spgraph){
 }
 
 as.data.frame.spresults = function(steps){
-  as.data.frame(steps[[length(steps)]])  
+  as.data.frame(steps[[length(steps)]])
 }
 
 toLatexTable <- function(x,...) UseMethod("toLatexTable")
@@ -39,63 +39,75 @@ toLatexTable <- function(x,...) UseMethod("toLatexTable")
 #'
 #' @param The data frame
 #' @return Latex table
-toLatexTable.spgraph = function(spgraph,title = ""){
+toLatexTable.spgraph = function(spgraph,title = "", includeCommand = TRUE){
   nodes = V(spgraph)$name
-  numCol = ncol(spgraph$min_dists) 
+  numCol = ncol(spgraph$min_dists)
   mPred = createPredMatrix(spgraph, nodes, numCol)
   mDist = createDistMatrix(spgraph, nodes, numCol)
 
-  docHeader = paste("
-  \\newcommand{\\sppCost}[1]{#1}
-  \\newcommand{\\sppPred}[1]{\\textit{(#1)}}
-  \\begin{table}
-  \\caption{",title,"}
-  \\begin{tabular}{ c *{",numCol,"}{|r@{ }l} }", sep = "")
+  docHeader = paste0(
+  "\\begin{table}\n",
+  "\\caption{",title,"}\n",
+  "\\begin{tabular}{ c *{",numCol,"}{|r@{ }l} }\n",
+  "\\backslashbox{source}{target}\n",
+  collapse = "")
+
+  if (includeCommand == TRUE){
+    docHeader = paste0(
+    "\\newcommand{\\sppCost}[1]{#1}\n",
+    "\\newcommand{\\sppPred}[1]{\\textit{(#1)}}\n",
+    docHeader, collapse = "")
+  }
   tableHeader = vapply(1:numCol,function(x) paste0("& \\multicolumn{2}{c|}{", nodes[x] ,"}", collapse=" "),"")
   tableHeader[numCol] = sub("\\{c\\|\\}\\{(.+)\\}$","{c}{\\1} \\\\\\\\\\\\hline \n",tableHeader[numCol])
   tableBody = NULL
-  
-  for(i in 1:numCol){
-    content = paste0(vapply(1:numCol, function(x) paste0("& \\sppCost{",mDist[i,x],"} & \\sppPred{",mPred[i,x],"}",collapse = ""),""), collapse="")  
-    tableBody = paste(tableBody,paste(nodes[i], content),"\\\\ \n") 
+
+  for(i in 1:nrow(spgraph$min_dists)){
+    content = paste0(vapply(1:numCol, function(x) paste0("& \\sppCost{",mDist[i,x],"} & \\sppPred{",mPred[i,x],"}",collapse = ""),""), collapse="")
+    tableBody = paste(tableBody,paste(nodes[i], content),"\\\\ \n")
   }
-  
-  docBottom = paste("
-  \\end{tabular}
-  \\end{table}
-  ", sep ="")
-  
+
+  docBottom = paste0(
+  "\\end{tabular}\n",
+  "\\end{table}\n",
+  collapse ="")
+
   result = c(docHeader,tableHeader,tableBody,docBottom)
   cat(result)
-     
+
 }
 
 toLatexTable.spresults = function(steps){
   for(i in 1:length(steps)){
-    toLatexTable(steps[[i]],paste("Step",i))  
+    if(i == 1){
+    toLatexTable(steps[[i]],paste("Step",i),TRUE)
+    }
+    else{
+    toLatexTable(steps[[i]],paste("Step",i),FALSE)
   }
+ }
 }
 
 createPredMatrix = function(spgraph, nodes, numCol){
-  predecessor = apply(spgraph$shortest_path_predecessors,1, 
-                      function(x) lapply(x, function(x) ifelse(is.null(x),"--",toString(nodes[x])))) 
+  predecessor = apply(spgraph$shortest_path_predecessors,1,
+                      function(x) lapply(x, function(x) ifelse(is.null(x),"--",toString(nodes[x]))))
   mPredecessor = matrix(unlist(predecessor),ncol = 5, byrow=T)
   mPredecessor
 }
 
 createDistMatrix = function(spgraph, nodes, numCol){
-  dist = apply(spgraph$min_dists,2, 
-               function(x) lapply(x,function(x) ifelse(x == Inf,"\\infty",x)))
-  
-  mDist = matrix(unlist(dist),ncol = numCol, byrow = T) 
+  dist = apply(spgraph$min_dists,2,
+               function(x) lapply(x,function(x) ifelse(x == Inf,"$\\infty$",x)))
+
+  mDist = matrix(unlist(dist),ncol = numCol, byrow = T)
   mDist
 }
 
 #if(is.spresults(data)){
 #  lapply(data, function (x) stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE))
-#} 
-#stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE)   
-                    
+#}
+#stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE)
+
 
 
 
