@@ -19,7 +19,7 @@ setInfiniteMinDists(graph, overwrite = TRUE)
 setRandomVertexCoordinates(graph, overwrite = TRUE)
 
 setVertexCoordinatesFromLayout(graph, layout = layout_nicely,
-  overwrite = TRUE)
+  layout_args = list(), overwrite = TRUE)
 
 setEuclideanEdgeWeights(graph, overwrite = TRUE)
 

@@ -35,11 +35,11 @@ test_that("FloydWarshall produces valid shortest_path_predecessors", {
     ), ncol=5, byrow=T)
     graph <- graph_from_adjacency_matrix(adj, weighted=T)
 
-    A <- V(graph)[[1]]
-    B <- V(graph)[[2]]
-    C <- V(graph)[[3]]
-    D <- V(graph)[[4]]
-    E <- V(graph)[[5]]
+    A <- 1 #V(graph)[[1]]
+    B <- 2 #V(graph)[[2]]
+    C <- 3 #V(graph)[[3]]
+    D <- 4 #V(graph)[[4]]
+    E <- 5 #V(graph)[[5]]
     spp <- matrix(list(
         NULL,C,A,A,C,
         B,NULL,B,C,B,
