@@ -36,39 +36,9 @@ get.vertex <- function(graph, identifier){
         v <- V(graph)[identifier]
         if(length(v) > 1){
             stop(paste0("Identifier '",paste(identifier,collapse=" "), "' selected more than one vertex: ", paste(v,collapse=" ")))
+        } else if(length(v) == 0){
+            stop(paste0("Identifier '",paste(identifier,collapse=" "), "' selected no vertices."))
         }
         v
     }
 }
-
-# get.shortest.paths <- function(graph, from=NULL, to=NULL) {
-#     print(paste(from,to))
-#     if(!is.spgraph(graph) && !is.spresults(graph)){
-#         stop("graph is neither an spgraph nor an spresults object.")
-#     }
-#     if(is.null(from)){
-#         from <- graph$from
-#     }
-#     if(is.null(to)){
-#         to <- graph$to
-#     }
-#     if(from == to){
-#         return(c(to))
-#     }
-#     predecessors <- graph$shortest_path_predecessors[[to,from]]
-#     lapply(predecessors, function(p) {
-#         print(paste("Run for",p))
-#         c(get.shortest.paths(graph, from, p), to)
-#     })
-# }
-#
-#set.seed(20)
-#graph <- randomGraph() %>%
-#    setVertexCoordinatesFromLayout(layout.fruchterman.reingold, list(niter=10000)) %>%
-#    setEuclideanEdgeWeights()
-#plot(graph)
-#
-#
-#?aStarSearch
-#result <- aStarSearch(graph,"C","J")
-#get.shortest.paths(result)

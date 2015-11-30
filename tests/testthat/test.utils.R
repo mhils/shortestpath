@@ -44,6 +44,11 @@ test_that("get.vertex stops if more than one vertex is selected", {
     expect_error(get.vertex(g, c(1,2)), "Identifier '1 2' selected more than one vertex: 1 2")
 })
 
+test_that("get.vertex stops if no vertex is selected", {
+    g <- make_graph('Tetrahedral')
+    expect_error(get.vertex(g, c()), "Identifier '' selected no vertices")
+})
+
 test_that("get.vertex correctly selects vertices by their id", {
     g <- make_graph('Tetrahedral') %>% setAlphabeticalVertexNames()
     expect_equal(V(g)[2], get.vertex(g, "B"))
