@@ -9,24 +9,18 @@ library(igraph)
 #' @return If Dijkstra :The data frame consisting of mininum distance from source node, shortest path predecessor and front.
 #'         If FloydWarshall :The data frame consisting of mininum distance between all nodes and their shortest path predecessor.
 as.data.frame.spgraph = function(spgraph){
+  spgraph = test2[[8]]
   nodes = V(spgraph)$name
   numCol = ncol(spgraph$min_dists)
-  if(numCol == 1){
-    predecessor = lapply(spgraph$shortest_path_predecessors, function(x) ifelse(is.null(x),"--",toString(nodes[x])))
-    predecessor = rapply(predecessor,c)
-    table = data.frame(spgraph$min_dists,spgraph$shortest_path_predecessors,V(spgraph)$set)
-    colnames(table) <- c(paste("minDist from",colnames(spgraph$min_dists)) , "shortest_Predecessor", "front")
-    rownames(table) <- nodes
-  }else if (numCol > 1){
-    mPred = createPredMatrix(spgraph, nodes, numCol)
-    colnames(mPred) = sapply(nodes,function(x) paste(x,".pred",sep=""))
-    mDist = createDistMatrix(spgraph, nodes, numCol)
-    colnames(mDist) = sapply(nodes,function(x) paste(x,".dist",sep=""))
-    m = cbind(mDist,mPred)
-    table = as.data.frame(m)
-    table = table[,order(names(table))]
-    rownames(table) <- nodes
-  }
+  mPred = createPredMatrix(spgraph, nodes, numCol)
+  colnames(mPred) = sapply(nodes,function(x) paste(x,".pred",sep=""))
+  mDist = createDistMatrix(spgraph, nodes, numCol)
+  colnames(mDist) = sapply(nodes,function(x) paste(x,".dist",sep=""))
+  m = cbind(mDist,mPred)
+  table = as.data.frame(m)
+  table = table[,order(names(table))]
+  colnames(table) <- nodes
+
   return(table)
 }
 
@@ -35,7 +29,7 @@ as.data.frame.spresults = function(steps){
 }
 
 toLatexTable <- function(x,...) UseMethod("toLatexTable")
-#' This function creates the LaTex code out of the data frame
+#' This function creates the LaTex code out of an spgraph
 #'
 #' @param The data frame
 #' @return Latex table
@@ -48,27 +42,32 @@ toLatexTable.spgraph = function(spgraph,title = "", includeCommand = TRUE){
   docHeader = paste0(
   "\\begin{table}\n",
   "\\caption{",title,"}\n",
+  "\\setlength{\\tabcolsep}{2pt}\n",
+  "\\resizebox{\\columnwidth}{!}{\n",
   "\\begin{tabular}{ c *{",numCol,"}{|r@{ }l} }\n",
-  "\\backslashbox{source}{target}\n",
   collapse = "")
 
   if (includeCommand == TRUE){
     docHeader = paste0(
-    "\\newcommand{\\sppCost}[1]{#1}\n",
-    "\\newcommand{\\sppPred}[1]{\\textit{(#1)}}\n",
+    "\\newcommand{\\spp}[2]{\n",
+    "#1 & \\textit{\\hspace{-2pt}(#2)} \n",
+    "}\n",
     docHeader, collapse = "")
   }
   tableHeader = vapply(1:numCol,function(x) paste0("& \\multicolumn{2}{c|}{", nodes[x] ,"}", collapse=" "),"")
   tableHeader[numCol] = sub("\\{c\\|\\}\\{(.+)\\}$","{c}{\\1} \\\\\\\\\\\\hline \n",tableHeader[numCol])
+  tableHeader = c("$\\Rightarrow$",tableHeader)
+
   tableBody = NULL
 
   for(i in 1:nrow(spgraph$min_dists)){
-    content = paste0(vapply(1:numCol, function(x) paste0("& \\sppCost{",mDist[i,x],"} & \\sppPred{",mPred[i,x],"}",collapse = ""),""), collapse="")
+    content = paste0(vapply(1:numCol, function(x) paste0("& \\spp{",mDist[i,x],"}{",mPred[i,x],"}",collapse = ""),""), collapse="")
     tableBody = paste(tableBody,paste(nodes[i], content),"\\\\ \n")
   }
 
   docBottom = paste0(
   "\\end{tabular}\n",
+  "}\n",
   "\\end{table}\n",
   collapse ="")
 
@@ -91,7 +90,7 @@ toLatexTable.spresults = function(steps){
 createPredMatrix = function(spgraph, nodes, numCol){
   predecessor = apply(spgraph$shortest_path_predecessors,1,
                       function(x) lapply(x, function(x) ifelse(is.null(x),"--",toString(nodes[x]))))
-  mPredecessor = matrix(unlist(predecessor),ncol = 5, byrow=T)
+  mPredecessor = matrix(unlist(predecessor),ncol = numCol, byrow=T)
   mPredecessor
 }
 
