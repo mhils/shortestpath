@@ -1,3 +1,31 @@
+#' A*-Search Algorithm
+#'
+#' Use the A*-Search algorithm to solve a shortest path problem.
+#'
+#' A*-Search is a single-source algorithm which cannot deal with negative edge weights.
+#' Compared to Dijkstra's algorithm, it uses an euclidean distance heuristic to estimate
+#' the minimum distance to the target vertex and thereby rule out solutions.
+#' Thus, it is usually vastly faster than Dijkstra, but requires an euclidean problem instance.
+#'
+#' @param graph The graph object.
+#' @param from The source vertex
+#' @param to The target vertex
+#' @param distance.heuristic The A* distance heuristic.
+#' @examples
+#' g <- randomGraph(6, euclidean=TRUE)
+#' d <- aStarSearch(g, "A", "F")
+#'
+#' plot(d)
+#'
+#' for(step in d){
+#'   print(step$min_dists)
+#' }
+#'
+#' @export
+#' @seealso
+#' \code{\link{setRandomVertexCoordinates}} and \code{\link{setVertexCoordinatesFromLayout}}
+#' to set vertex coordinates for a graph object.
+#' \code{\link{euclidean.vertex.distance}} for the default distance heuristic.
 aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.distance){
 
     graph %<>%

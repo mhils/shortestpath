@@ -14,6 +14,7 @@ as.spgraph.igraph <- function(x) {
         setInfiniteMinDists(overwrite = FALSE) %>%
         setEmptyShortestPathPredecessors(overwrite = FALSE) %>%
         setRoute(FALSE, FALSE) %>%
+        setVertexCoordinatesFromLayout() %>%
         {
             class(.) <- c("spgraph", class(.))
             .

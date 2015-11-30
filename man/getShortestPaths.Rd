@@ -18,8 +18,6 @@ getShortestPaths(x, from = x$from, to = x$to)
 \item{from}{Source node}
 
 \item{to}{Target node}
-
-\item{...}{Additional arguments passed to \code{getShortestPaths.spgraph}}
 }
 \description{
 Get the shortest path between two nodes.

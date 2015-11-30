@@ -4,27 +4,57 @@
 \alias{plot.spgraph}
 \title{Plotting of shortest path graphs}
 \usage{
-\method{plot}{spgraph}(x, vertex.color = wes_palette("Royal1")[c(3, 4, 1)],
-  vertex.color.by = c("set", "manual"),
+\method{plot}{spgraph}(x, vertex.color.by = c("set", "type", "manual"),
+  vertex.color = wes_palette("Royal1")[c(3, 4, 1)],
+  vertex.frame.color.by = c("type", "set", "manual"),
   vertex.frame.color = wes_palette("Rushmore")[c(4, 3, 5)],
-  vertex.frame.color.by = c("type", "manual"), edge.label = "weight",
-  vertex.label = "auto", ...)
+  vertex.size.by = c("type", "set", "manual"), vertex.size = c(15, 25, 25),
+  edge.color.by = c("shortestpath", "manual"), edge.color = c("darkgrey",
+  wes_palette("Darjeeling")[4]), vertex.label = nice_vertex_labels(x),
+  edge.label = E(graph)$weight, edge.label.family = "sans",
+  edge.label.color = "#444444", edge.label.cex = 0.75,
+  vertex.label.color = nice_vertex_label_colors(x),
+  vertex.label.dist = 1.25, vertex.label.cex = 0.8,
+  vertex.label.family = "sans", vertex.label.degree = -pi/7, ...)
 }
 \arguments{
 \item{x}{The graph to plot.}
 
-\item{vertex.color}{Color palette for the vertices}
-
 \item{vertex.color.by}{Characteristic which should be used to color vertices}
 
-\item{vertex.frame.color}{Color palette for the vertices' frame.}
+\item{vertex.color}{Color palette for the vertices}
 
 \item{vertex.frame.color.by}{Characteristic which should be used to color vertex frames}
 
-\item{edge.label}{The edge label. Passing 'weight' will print the edge's weight.}
+\item{vertex.frame.color}{Color palette for the vertices' frame.}
 
-\item{vertex.label}{The vertex label. Passing 'auto' will print the vertex's name
-and its currently known minimal distance.}
+\item{vertex.size.by}{Characteristic which should be used to determine vertex sizes}
+
+\item{vertex.size}{The size options}
+
+\item{edge.color.by}{Characteristic which should be used to color edges}
+
+\item{edge.color}{Color palette for the edges}
+
+\item{vertex.label}{The vertex label.}
+
+\item{edge.label}{The edge label.}
+
+\item{edge.label.family}{See \code{\link{igraph.plotting}}}
+
+\item{edge.label.color}{See \code{\link{igraph.plotting}}}
+
+\item{edge.label.cex}{See \code{\link{igraph.plotting}}}
+
+\item{vertex.label.color}{See \code{\link{igraph.plotting}},}
+
+\item{vertex.label.dist}{See \code{\link{igraph.plotting}}}
+
+\item{vertex.label.cex}{See \code{\link{igraph.plotting}}}
+
+\item{vertex.label.family}{See \code{\link{igraph.plotting}}}
+
+\item{vertex.label.degree}{See \code{\link{igraph.plotting}}}
 
 \item{...}{All other parameters are passed to \code{\link{plot.igraph}} as is.}
 }
@@ -33,6 +63,9 @@ and its currently known minimal distance.}
 convenience features for shortest path graph plotting.
 }
 \examples{
-# TODO
+library(igraph)
+g <- randomGraph()
+d <- dijkstra(g, "A", "B")
+plot(d)
 }
 
