@@ -4,7 +4,7 @@ library(igraph)
 #' @param x The \code{spgraph} object
 #' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
 #' @export
-toLatexTable <- function(x,...) UseMethod("toLatexTable")
+toLatexTable <- function(x) UseMethod("toLatexTable")
 
 #' @param title Title of the latex table
 #' @param includeCommand Additional arguments passed to \code{toLatexTable.spgraph}
@@ -56,10 +56,10 @@ toLatexTable.spresults = function(x){
     steps = x
     for(i in 1:length(steps)){
     if(i == 1){
-    toLatexTable(steps[[i]],paste("Step",i),TRUE)
+    toLatexTable.spgraph(steps[[i]],paste("Step",i),TRUE)
     }
     else{
-    toLatexTable(steps[[i]],paste("Step",i),FALSE)
+    toLatexTable.spgraph(steps[[i]],paste("Step",i),FALSE)
   }
  }
 }
