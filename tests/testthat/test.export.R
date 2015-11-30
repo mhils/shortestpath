@@ -9,9 +9,3 @@ test_that("toLatexTable runs without errors", {
     toLatexTable(fw)
 })
 
-test_that("as.data.frame runs without errors", {
-    toLatexTable(a)
-    toLatexTable(fw)
-})
-
-as.data.frame
