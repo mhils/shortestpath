@@ -28,6 +28,11 @@ getShortestPaths.spgraph <- function(x, from=x$from, to=x$to) {
         ))
     }
     to_ <- to  # "to" is a reserved word in graph <3
+
+    if(!(from$name %in% rownames(graph$shortest_path_predecessors))){
+        stop("The spgraph has been generated using a single-source algorithm, but the given `from` parameter does not match the single source.")
+    }
+
     predecessors <- graph$shortest_path_predecessors[[from$name, to_$name]]
 
 
