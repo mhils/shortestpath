@@ -5,7 +5,7 @@ a <- aStarSearch(graph,"A","K")
 fw <- floydWarshall(graph)
 
 test_that("toLatexTable runs without errors", {
-    toLatexTable(a)
-    toLatexTable(fw)
+    expect_output(toLatexTable(a),"multicolumn")
+    expect_output(toLatexTable(fw),"multicolumn")
 })
 
