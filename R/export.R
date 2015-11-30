@@ -1,10 +1,12 @@
 library(igraph)
-#' @export
-toLatexTable <- function(x,...) UseMethod("toLatexTable")
-#' This function creates the LaTex code out of an spgraph
+
+#' This function creates the LaTeX code out of a given object
 #' @param x The \code{spgraph} object
 #' @param title Title of the latex table
 #' @param includeCommand blabala
+#' @export
+toLatexTable <- function(x,...) UseMethod("toLatexTable")
+
 toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE){
   spgraph = x
   nodes = V(spgraph)$name
