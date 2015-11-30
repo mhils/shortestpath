@@ -4,17 +4,14 @@
 \alias{toLatexTable.spgraph}
 \title{This function creates the LaTex code out of an spgraph}
 \usage{
-\method{toLatexTable}{spgraph}(spgraph, title = "", includeCommand = TRUE)
+\method{toLatexTable}{spgraph}(x, title = "", includeCommand = TRUE)
 }
 \arguments{
-\item{spgraph}{The \code{spgraph} object}
+\item{x}{The \code{spgraph} object}
 
 \item{title}{Title of the latex table}
 
 \item{includeCommand}{blabala}
-}
-\value{
-Latex table
 }
 \description{
 This function creates the LaTex code out of an spgraph

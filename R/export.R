@@ -1,13 +1,12 @@
 library(igraph)
-
+#' @export
 toLatexTable <- function(x,...) UseMethod("toLatexTable")
 #' This function creates the LaTex code out of an spgraph
-#' @param spgraph The \code{spgraph} object
+#' @param x The \code{spgraph} object
 #' @param title Title of the latex table
 #' @param includeCommand blabala
-#' @return Latex table
-#' @export
-toLatexTable.spgraph = function(spgraph,title = "", includeCommand = TRUE){
+toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE){
+  spgraph = x
   nodes = V(spgraph)$name
   numCol = ncol(spgraph$min_dists)
   mPred = createPredMatrix(spgraph, nodes, numCol)
@@ -50,8 +49,9 @@ toLatexTable.spgraph = function(spgraph,title = "", includeCommand = TRUE){
 
 }
 
-toLatexTable.spresults = function(steps){
-  for(i in 1:length(steps)){
+toLatexTable.spresults = function(x){
+    steps = x
+    for(i in 1:length(steps)){
     if(i == 1){
     toLatexTable(steps[[i]],paste("Step",i),TRUE)
     }
