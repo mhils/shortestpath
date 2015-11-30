@@ -3,6 +3,7 @@
 S3method(getShortestPaths,spgraph)
 S3method(getShortestPaths,spresults)
 S3method(plot,spgraph)
+S3method(toLatexTable,spgraph)
 export(as.spgraph)
 export(getShortestPaths)
 export(is.spgraph)
