@@ -1,11 +1,25 @@
-getShortestPaths <- function(...) UseMethod("getShortestPaths")
+#' Get the shortest path between two nodes.
+#' @param x A spgraph or a spresults object.
+#' @export
+getShortestPaths <- function(x, from=x$from, to=x$to) UseMethod("getShortestPaths")
 
-getShortestPaths.spresults <- function(spresults, ...){
-    graph <- spresults[[length(spresults)]]
-    getShortestPaths(graph, ...)
+#' @method getShortestPaths spresults
+#' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
+#' @describeIn getShortestPaths Get the shortest path given final spgraph.
+#' @export
+getShortestPaths.spresults <- function(x, from=x$from, to=x$to){
+    graph <- x[[length(x)]]
+    getShortestPaths.spgraph(graph, from=from, to=to)
 }
 
-getShortestPaths.spgraph <- function(graph, from=graph$from, to=graph$to) {
+#' @method getShortestPaths spgraph
+#' @param from Source node
+#' @param to Target node
+#' @describeIn getShortestPaths Get the shortest path given the
+#' knowledge of the provided spgraph instance.
+#' @export
+getShortestPaths.spgraph <- function(x, from=x$from, to=x$to) {
+    graph <- x
     from <- get.vertex(graph, from)
     to <- get.vertex(graph, to)
     if(from == to){
@@ -22,7 +36,7 @@ getShortestPaths.spgraph <- function(graph, from=graph$from, to=graph$to) {
     # (You don't die. But the predecessors loose its type.)
     for(i in seq_along(predecessors)){
         p <- V(graph)[predecessors[i]]
-        routes <- lapply(getShortestPaths(graph, from, p), function(x) {
+        routes <- lapply(getShortestPaths.spgraph(graph, from, p), function(x) {
             edge <- E(graph)[p$name %->% to_$name]
 
             if(length(x$edges) == 0){

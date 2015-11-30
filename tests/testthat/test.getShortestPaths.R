@@ -8,7 +8,7 @@ test_that("getShortestPaths runs without errors", {
     getShortestPaths(b,"A","K")
 })
 
-test_that("getShortestPaths returns valid results" {
+test_that("getShortestPaths returns valid results", {
     set.seed(20)
     graph <- randomGraph() %>%
         setVertexCoordinatesFromLayout(layout.fruchterman.reingold, list(niter=10000)) %>%
