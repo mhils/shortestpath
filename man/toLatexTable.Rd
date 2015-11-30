@@ -9,9 +9,7 @@ toLatexTable(x, ...)
 \arguments{
 \item{x}{The \code{spgraph} object}
 
-\item{title}{Title of the latex table}
-
-\item{includeCommand}{blabala}
+\item{...}{Additional arguments passed to \code{getShortestPaths.spgraph}}
 }
 \description{
 This function creates the LaTeX code out of a given object
