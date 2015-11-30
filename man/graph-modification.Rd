@@ -44,6 +44,8 @@ be updated.}
 
 \item{layout}{An igraph layout function. See \code{igraph::\link[igraph]{layout}}.}
 
+\item{layout_args}{Additional arguments passed to \code{layout}}
+
 \item{dist.fun}{A function that accepts the required vector length as an argument
 and returns a vector of weights of the given length.}
 

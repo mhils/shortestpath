@@ -48,7 +48,7 @@ floydWarshall <- function(graph, weight.attr="weight") {
                     shortest_path_predecessors[[i, j]] <- k
 
                 # Check if we are as good as the current best solution
-                } else if (min_dist_over_k == min_dist_current) {
+                } else if (min_dist_over_k == min_dist_current && !is.infinite(min_dist_current)) {
                     # In this case, we still add it as a spp (if not already present)
                     if (!(k %in% shortest_path_predecessors[[i, j]])) {
                         shortest_path_predecessors[[i, j]] <-
