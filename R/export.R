@@ -1,32 +1,4 @@
-library(stargazer)
-library(data.table)
-library(plyr)
 library(igraph)
-
-#' This function creates a data frame out of the shortest_path_graphs in order to show the optimization steps
-#'
-#' @param \code{spgraph} object
-#' @return If Dijkstra :The data frame consisting of mininum distance from source node, shortest path predecessor and front.
-#'         If FloydWarshall :The data frame consisting of mininum distance between all nodes and their shortest path predecessor.
-as.data.frame.spgraph = function(spgraph){
-  spgraph = test2[[8]]
-  nodes = V(spgraph)$name
-  numCol = ncol(spgraph$min_dists)
-  mPred = createPredMatrix(spgraph, nodes, numCol)
-  colnames(mPred) = sapply(nodes,function(x) paste(x,".pred",sep=""))
-  mDist = createDistMatrix(spgraph, nodes, numCol)
-  colnames(mDist) = sapply(nodes,function(x) paste(x,".dist",sep=""))
-  m = cbind(mDist,mPred)
-  table = as.data.frame(m)
-  table = table[,order(names(table))]
-  colnames(table) <- nodes
-
-  return(table)
-}
-
-as.data.frame.spresults = function(steps){
-  as.data.frame(steps[[length(steps)]])
-}
 
 toLatexTable <- function(x,...) UseMethod("toLatexTable")
 #' This function creates the LaTex code out of an spgraph
