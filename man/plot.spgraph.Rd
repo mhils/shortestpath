@@ -63,7 +63,6 @@
 convenience features for shortest path graph plotting.
 }
 \examples{
-library(igraph)
 g <- randomGraph()
 d <- dijkstra(g, "A", "B")
 plot(d)

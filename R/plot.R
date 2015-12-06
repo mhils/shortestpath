@@ -103,7 +103,7 @@ set_edge_attr_by <- function(graph, attr, by=c("shortestpath", "manual"), value)
     if(match.arg(by) == "shortestpath") {
         sp_edges = c()
 
-        if(!is.null(graph$from) && graph$from != FALSE){
+        if(graph$from != FALSE){
             for(shortest_path in getShortestPaths(graph)){
                 sp_edges <- c(sp_edges, shortest_path$edges)
             }
@@ -126,8 +126,8 @@ set_edge_attr_by <- function(graph, attr, by=c("shortestpath", "manual"), value)
 #' @param colors A \code{c(normal, infinite distance, highlight)} color tuple
 #' @export
 nice_vertex_label_colors <- function(graph, previous=NULL, colors=c("black", "darkgray", wes_palette("Royal1")[2])) {
-    if(is.null(graph$from) || graph$from == FALSE){
-        return(colors[2])
+    if(graph$from == FALSE){
+        return(colors[1])
     }
 
     label_colors <- rep(colors[2], vcount(graph))
@@ -149,14 +149,14 @@ nice_vertex_label_colors <- function(graph, previous=NULL, colors=c("black", "da
 #' @param graph The spgraph object.
 #' @export
 nice_vertex_labels <- function(graph) {
-    if(is.null(graph$from) || graph$from == FALSE){
+    if(graph$from == FALSE){
         return(V(graph)$name)
     }
     names <- V(graph)$name
     dists <- graph$min_dists[graph$from$name,]
     dists <- vapply(dists, function(x) {
         if(x == Inf){
-            "\u221e"
+            Encoding("\u221e")
         } else {
             as.character(x)
         }

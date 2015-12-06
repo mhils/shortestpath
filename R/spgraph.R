@@ -29,3 +29,20 @@ as.spgraph.igraph <- function(x) {
 is.spgraph <- function(x) {
     "spgraph" %in% class(x)
 }
+
+#' Print graphs to the terminal
+#' @param x The graph to print.
+#' @param ... Further arguments passed to \code{\link[igraph]{print.igraph}}
+#' @export
+print.spgraph <- function(x, ...) {
+    out <- capture.output(print.igraph(x, ...))
+    cat(sub("IGRAPH", "SPGRAPH", out), sep="\n")
+    invisible(x)
+}
+
+summary.spgraph <- function(object, ...) {
+    # summary.igraph is currently not exported.
+    out <- capture.output(print.igraph(object, full=F, ...))
+    cat(sub("IGRAPH", "SPGRAPH", out), sep="\n")
+    invisible(object)
+}
