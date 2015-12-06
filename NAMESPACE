@@ -8,11 +8,8 @@ S3method(print,spgraph)
 S3method(print,spresults)
 export(aStarSearch)
 export(as.spgraph)
-<<<<<<< HEAD
 export(bellmanFord)
-=======
 export(dijkstra)
->>>>>>> master
 export(getShortestPaths)
 export(is.spgraph)
 export(is.spresults)
