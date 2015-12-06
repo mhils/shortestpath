@@ -130,11 +130,11 @@ nice_vertex_label_colors <- function(graph, previous=NULL, colors=c("black", "da
         return(colors[1])
     }
 
-    label_colors <- rep(colors[2], vcount(graph))
+    label_colors <- rep(colors[1], vcount(graph))
 
     dists <- graph$min_dists[graph$from$name,]
     if(!all(dists==Inf)) {
-        label_colors[dists==Inf] <- colors[1]
+        label_colors[dists==Inf] <- colors[2]
     }
 
     if(!is.null(previous)){

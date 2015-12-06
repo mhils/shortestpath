@@ -33,7 +33,7 @@ test_that("is.spresults is working as expected", {
     expect_false(is.spresults(NULL))
 })
 
-test_that("print is customized", {
+test_that("print.spresults is working as expected", {
     d <- dijkstra(make_graph("Bull"), "A", "E")
     expect_output(print(d), "A->E")
     fw <- floydWarshall(make_graph("Bull"))
