@@ -22,3 +22,13 @@ test_that("is.spgraph is working as expected", {
     expect_false(is.spgraph(make_graph('Tetrahedral')))
     expect_false(is.spgraph(NULL))
 })
+
+test_that("print.spgraph is customized", {
+    r <- randomGraph()
+    expect_output(print(r), "SPGRAPH")
+})
+
+test_that("summary.spgraph is customized", {
+    r <- randomGraph()
+    expect_output(summary(r), "SPGRAPH")
+})

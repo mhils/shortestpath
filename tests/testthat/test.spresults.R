@@ -33,7 +33,9 @@ test_that("is.spresults is working as expected", {
     expect_false(is.spresults(NULL))
 })
 
-test_that("print is overwritten", {
-    results <- dijkstra(make_graph("Bull"), "A", "E")
-    expect_output(print(results), "min dist: 2")
+test_that("print is customized", {
+    d <- dijkstra(make_graph("Bull"), "A", "E")
+    expect_output(print(d), "A->E")
+    fw <- floydWarshall(make_graph("Bull"))
+    expect_output(print(fw), "all shortest paths")
 })
