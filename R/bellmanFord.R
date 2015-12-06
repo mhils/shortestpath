@@ -15,7 +15,7 @@ graph %<>%
     graph = as.directed(graph)
 # Step 2: Relax all edges |V| - 1 times. A simple shortest
 # path from src to any other vertex can have at-most |V| - 1 edges
-    for(i in 1:(vcount(graph)-1))
+    for(i in 1:(vcount(graph)))
     {
         for (edge in E(graph))
         {
@@ -28,9 +28,9 @@ graph %<>%
             if(graph$min_dists[1,src] != Inf &&
                    dist_over_edge < current_dist )
             {   #identify negative cycles
+
                 if(i == vcount(graph)){
-                    print("graph has a negative cycle ")
-                    break
+                    stop("graph has a negative cycle ")
                 }
                 graph$min_dists[1,dest] = dist_over_edge
                 graph$shortest_path_predecessors[[1, dest]] <- as.numeric(src)

@@ -52,3 +52,17 @@ test_that("bellmanFord produces valid shortest_path_predecessors", {
     expect_equal(spp, results$shortest_path_predecessors)
 })
 
+test_that("bellmanFord detects negative cycles", {
+
+    adj <- matrix(
+        c(
+         #A B C D E
+          0,1,0,0,0, #A
+          1,0,-2,4,0, #B
+          0,-2,0,-3,0, #C
+          0,4,-3,0,1, #D
+          0,0,0,1,0  #E
+        ), ncol=5)
+    graph <- graph_from_adjacency_matrix(adj, weighted=T)
+    expect_error(bellmanFord(graph,1,5),"graph has a negative cycle")
+})
