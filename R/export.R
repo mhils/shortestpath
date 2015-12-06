@@ -1,12 +1,15 @@
 library(igraph)
 
+
 #' This function creates the LaTeX code out of a given object
 #' @param x The \code{spgraph} object
 #' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
 #' @export
 toLatexTable <- function(x) UseMethod("toLatexTable")
 
-#' @param title Title of the latex table
+#' This function creates the LaTeX code out of a spgraph
+#' @param x The \code{spgraph} object
+#' @param title The Title of the latex table
 #' @param includeCommand Additional arguments passed to \code{toLatexTable.spgraph}
 toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE){
   spgraph = x

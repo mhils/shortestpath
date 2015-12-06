@@ -4,7 +4,7 @@
 \alias{toLatexTable}
 \title{This function creates the LaTeX code out of a given object}
 \usage{
-toLatexTable(x, ...)
+toLatexTable(x)
 }
 \arguments{
 \item{x}{The \code{spgraph} object}

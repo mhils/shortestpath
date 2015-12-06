@@ -2,12 +2,18 @@
 % Please edit documentation in R/export.R
 \name{toLatexTable.spgraph}
 \alias{toLatexTable.spgraph}
+\title{This function creates the LaTeX code out of a spgraph}
 \usage{
 \method{toLatexTable}{spgraph}(x, title = "", includeCommand = TRUE)
 }
 \arguments{
-\item{title}{Title of the latex table}
+\item{x}{The \code{spgraph} object}
+
+\item{title}{The Title of the latex table}
 
 \item{includeCommand}{Additional arguments passed to \code{toLatexTable.spgraph}}
+}
+\description{
+This function creates the LaTeX code out of a spgraph
 }
 
