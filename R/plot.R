@@ -4,69 +4,179 @@
 #' convenience features for shortest path graph plotting.
 #'
 #' @param x The graph to plot.
-#' @param edge.label The edge label. Passing 'weight' will print the edge's weight.
-#' @param vertex.label The vertex label. Passing 'auto' will print the vertex's name
-#' and its currently known minimal distance.
-#' @param vertex.color Color palette for the vertices
 #' @param vertex.color.by Characteristic which should be used to color vertices
-#' @param vertex.frame.color Color palette for the vertices' frame.
+#' @param vertex.color Color palette for the vertices
 #' @param vertex.frame.color.by Characteristic which should be used to color vertex frames
+#' @param vertex.frame.color Color palette for the vertices' frame.
+#' @param vertex.size.by Characteristic which should be used to determine vertex sizes
+#' @param vertex.size The size options
+#' @param edge.color.by Characteristic which should be used to color edges
+#' @param edge.color Color palette for the edges
+#' @param vertex.label The vertex label.
+#' @param edge.label The edge label.
+#' @param edge.label.family See \code{\link{igraph.plotting}}
+#' @param edge.label.color See \code{\link{igraph.plotting}}
+#' @param edge.label.cex See \code{\link{igraph.plotting}}
+#' @param vertex.label.color See \code{\link{igraph.plotting}},
+#' @param vertex.label.dist See \code{\link{igraph.plotting}}
+#' @param vertex.label.cex See \code{\link{igraph.plotting}}
+#' @param vertex.label.family See \code{\link{igraph.plotting}}
+#' @param vertex.label.degree See \code{\link{igraph.plotting}}
 #' @param ... All other parameters are passed to \code{\link{plot.igraph}} as is.
 #'
 #' @examples
-#' # TODO
+#' g <- randomGraph()
+#' d <- dijkstra(g, "A", "B")
+#' plot(d)
 #'
 #' @export
 plot.spgraph <- function(x,
+                         # Colors
+                         vertex.color.by = c("set", "type", "manual"),
                          vertex.color = wes_palette("Royal1")[c(3,4,1)],
-                         vertex.color.by = c("set","manual"),
+                         vertex.frame.color.by = c("type", "set", "manual"),
                          vertex.frame.color = wes_palette("Rushmore")[c(4,3,5)],
-                         vertex.frame.color.by = c("type","manual"),
-                         edge.label = "weight",
-                         vertex.label = "auto",
+                         vertex.size.by = c("type", "set", "manual"),
+                         vertex.size = c(15, 25, 25),
+                         edge.color.by = c("shortestpath", "manual"),
+                         edge.color = c("darkgrey", wes_palette("Darjeeling")[4]),
+                         vertex.label = nice_vertex_labels(x),
+                         edge.label = E(graph)$weight,
+                         # Reasonable defaults for igraph builtins.
+                         edge.label.family="sans",
+                         edge.label.color = "#444444",
+                         edge.label.cex = 0.75,
+                         vertex.label.color = nice_vertex_label_colors(x),
+                         vertex.label.dist = 1.25,
+                         vertex.label.cex = 0.8,
+                         vertex.label.family="sans",
+                         vertex.label.degree = -pi/7,
                          ...) {
-    if (!is.spgraph(x)) {
-        stop("Not a spgraph object")
-    }
     graph <- x
 
-    if(match.arg(vertex.color.by) == "set"){
-        V(graph)$color <- vertex.color[1]
-        V(graph)[V(graph)$set=="front"]$color <- vertex.color[2]
-        V(graph)[V(graph)$set=="unknown"]$color <- vertex.color[3]
-    } else {
-        V(graph)$color <- vertex.color # nocov
-    }
-    if(match.arg(vertex.frame.color.by) == "type"){
-        # FIXME: This is not color.
-        V(graph)$size <- 15
-        V(graph)[c(graph$from, graph$to)]$size <- 20
+    # We need to do this, otherwhise R's lazy-eval screws it up.
+    vertex.color.by <- match.arg(vertex.color.by)
+    vertex.frame.color.by <- match.arg(vertex.frame.color.by)
+    vertex.size.by <- match.arg(vertex.size.by)
+    edge.color.by <- match.arg(edge.color.by)
 
-        V(graph)$frame.color <- vertex.frame.color[1]
-        V(graph)[graph$from]$frame.color <- vertex.frame.color[2]
-        V(graph)[graph$to]$frame.color <- vertex.frame.color[3]
-    } else {
-        V(graph)$frame.color <- vertex.frame.color # nocov
-    }
-    if (is.character(edge.label) && edge.label %in% c("weight")) {
-        edge.attributes(graph)$label <- edge.attributes(graph)[[edge.label]]
-    }
-    if (is.character(vertex.label) && vertex.label == c("auto")) {
-        names <- vertex.attributes(graph)$name
-        dists <- graph.attributes(graph)$min_dists[, 1]
-        dists <- vapply(dists, function(x) {
-            # wtf: '\u221e' (the infinity symbol) will be printed as '8'
-            ifelse(x == Inf, "?", as.character(x))
-        }, "")
-        labels <- sapply(1:length(dists), function(i) {
-            paste(names[i], " (", dists[i], ")", sep = "")
-        })
-        vertex.attributes(graph)$label <- labels
-    }
+    # Start coloring
+    graph %<>%
+        set_vertex_attr_by("color", by=vertex.color.by, vertex.color) %>%
+        set_vertex_attr_by("frame.color", vertex.frame.color.by, vertex.frame.color) %>%
+        set_vertex_attr_by("size", vertex.size.by, vertex.size) %>%
+        set_edge_attr_by("color", edge.color.by, edge.color) %>%
+        set_vertex_attr("label", value=vertex.label) %>%
+        set_edge_attr("label", value=edge.label)
 
     plot.igraph(graph,
-                palette = wes_palette("Royal1"),
-                edge.label.color = "black",
-                vertex.label.dist = 1,
-        ...)
+                edge.label.family=edge.label.family,
+                edge.label.color = edge.label.color,
+                edge.label.cex = edge.label.cex,
+                vertex.label.color = vertex.label.color,
+                vertex.label.dist = vertex.label.dist,
+                vertex.label.cex = vertex.label.cex,
+                vertex.label.family= vertex.label.family,
+                vertex.label.degree = vertex.label.degree,
+                ...
+    )
 }
+
+set_vertex_attr_by <- function(graph, name, by=c("type", "set", "manual"), value) {
+    if(match.arg(by) == "type") {
+        graph %>%
+            set_vertex_attr(name, value=value[1]) %>%
+            set_vertex_attr(name, graph$from, value[2]) %>%
+            set_vertex_attr(name, graph$to, value[3])
+    } else if(match.arg(by) == "set") {
+        graph %>%
+            set_vertex_attr(name, value=value[1]) %>%
+            set_vertex_attr(name, V(graph)[V(graph)$set=="front"], value[2]) %>%
+            set_vertex_attr(name, V(graph)[V(graph)$set=="unknown"], value[3])
+    } else {
+        graph %>%
+            set_vertex_attr(name, value=value)
+    }
+}
+
+set_edge_attr_by <- function(graph, attr, by=c("shortestpath", "manual"), value) {
+    if(match.arg(by) == "shortestpath") {
+        sp_edges = c()
+
+        if(graph$from != FALSE){
+            for(shortest_path in getShortestPaths(graph)){
+                sp_edges <- c(sp_edges, shortest_path$edges)
+            }
+        }
+
+        graph %>%
+            set_edge_attr(attr, value=value[1]) %>%
+            set_edge_attr(attr, E(graph)[sp_edges], value[2])
+
+    } else {
+        graph %>%
+            set_edge_attr(attr, value=value)
+    }
+}
+
+#' Produce a vector of suitable vector colors depending on the vertex' state.
+#' @param graph The spgraph object.
+#' @param previous The spgraph object of the last iteration. If provided, changed min_dists
+#' will be highlighted.
+#' @param colors A \code{c(normal, infinite distance, highlight)} color tuple
+#' @export
+nice_vertex_label_colors <- function(graph, previous=NULL, colors=c("black", "darkgray", wes_palette("Royal1")[2])) {
+    if(graph$from == FALSE){
+        return(colors[1])
+    }
+
+    label_colors <- rep(colors[1], vcount(graph))
+
+    dists <- graph$min_dists[graph$from$name,]
+    if(!all(dists==Inf)) {
+        label_colors[dists==Inf] <- colors[2]
+    }
+
+    if(!is.null(previous)){
+        old_dists <- previous$min_dists[graph$from$name,]
+        label_colors[dists!=old_dists] <- colors[3]
+    }
+
+    label_colors
+}
+
+#' Produce "name (current min dist)" labels for all vertices.
+#' @param graph The spgraph object.
+#' @export
+nice_vertex_labels <- function(graph) {
+    if(graph$from == FALSE){
+        return(V(graph)$name)
+    }
+    names <- V(graph)$name
+    dists <- graph$min_dists[graph$from$name,]
+    dists <- vapply(dists, function(x) {
+        if(x == Inf){
+            Encoding("\u221e")
+        } else {
+            as.character(x)
+        }
+    }, "")
+    labels <- sapply(1:length(dists), function(i) {
+        paste(names[i], " (", dists[i], ")", sep = "")
+    })
+    labels
+}
+
+#' @export
+plot.spresults <- function(x, ...){
+    prev <- x[[1]] %>% setInfiniteMinDists()
+    for(graph in x){
+        plot.spgraph(
+            graph,
+            vertex.label.color=nice_vertex_label_colors(graph, prev),
+            ...
+        )
+        prev <- graph
+    }
+}
+#plot(a)

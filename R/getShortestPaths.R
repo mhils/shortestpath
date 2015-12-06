@@ -1,10 +1,10 @@
 #' Get the shortest path between two nodes.
 #' @param x A spgraph or a spresults object.
+#' @param from Source node
+#' @param to Target node
 #' @export
 getShortestPaths <- function(x, from=x$from, to=x$to) UseMethod("getShortestPaths")
 
-#' @method getShortestPaths spresults
-#' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
 #' @describeIn getShortestPaths Get the shortest path given final spgraph.
 #' @export
 getShortestPaths.spresults <- function(x, from=x$from, to=x$to){
@@ -12,9 +12,6 @@ getShortestPaths.spresults <- function(x, from=x$from, to=x$to){
     getShortestPaths.spgraph(graph, from=from, to=to)
 }
 
-#' @method getShortestPaths spgraph
-#' @param from Source node
-#' @param to Target node
 #' @describeIn getShortestPaths Get the shortest path given the
 #' knowledge of the provided spgraph instance.
 #' @export
