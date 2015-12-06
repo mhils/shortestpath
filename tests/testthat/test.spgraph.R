@@ -1,8 +1,9 @@
 context("spgraph")
 
 test_that("as.spgraph.igraph adds all required attributes", {
+    g <- make_graph("Tetrahedral")
     set.seed(1)
-    spgraph <- as.spgraph(make_graph("Tetrahedral"))
+    spgraph <- as.spgraph(g)
     expect_true(is.spgraph(spgraph))
     expect_equal(V(spgraph)$name[1], "A")
     expect_equal(E(spgraph)$weight[1], 1)
