@@ -12,16 +12,16 @@ graph %<>%
     setVertexSets("unknown")
 
     steps = list()
-    graph = as.directed(graph)
+    directedGraph = as.directed(graph)
 # Step 2: Relax all edges |V| - 1 times. A simple shortest
 # path from src to any other vertex can have at-most |V| - 1 edges
     for(i in 1:(vcount(graph)))
     {
-        for (edge in E(graph))
+        for (edge in E(directedGraph))
         {
-            src = V(graph)[ends(graph,edge)[1,1]]
-            dest = V(graph)[ends(graph,edge)[1,2]]
-            weight = E(graph)[edge]$weight
+            src = V(graph)[ends(directedGraph,edge)[1,1]]
+            dest = V(graph)[ends(directedGraph,edge)[1,2]]
+            weight = E(directedGraph)[edge]$weight
 
             current_dist = graph$min_dists[1,dest]
             dist_over_edge = graph$min_dists[1,src] + weight
