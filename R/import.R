@@ -2,6 +2,7 @@
 #' @importFrom magrittr %<>%
 #' @importFrom wesanderson wes_palette
 #' @importFrom stats runif
+#' @importFrom utils capture.output
 NULL
 
 # https://github.com/smbache/magrittr/issues/29

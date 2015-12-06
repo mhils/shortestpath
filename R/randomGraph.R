@@ -58,7 +58,7 @@ randomGraph <- function(no.of.nodes=12, k=2.5, euclidean=FALSE) {
         as.spgraph()
 
     if(euclidean == TRUE) {
-        g %>% setVertexCoordinatesFromLayout() %>% setEuclideanEdgeWeights()
+        g %>% setEuclideanEdgeWeights()
     } else {
         g %>% setRandomEdgeWeights()
     }
