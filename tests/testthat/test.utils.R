@@ -53,3 +53,17 @@ test_that("get.vertex correctly selects vertices by their id", {
     g <- make_graph('Tetrahedral') %>% setAlphabeticalVertexNames()
     expect_equal(V(g)[2], get.vertex(g, "B"))
 })
+
+test_that("is_edge_intersection correctly determines intersections", {
+    set.seed(1)
+    g <- as.spgraph(make_graph("HouseX"))
+    # e1 and e2 intersect
+    e1 <- E(g)["A" %--% "C"]
+    e2 <- E(g)["B" %--% "D"]
+    e3 <- E(g)["D" %--% "E"]
+
+    expect_true(is_intersecting_edge(g, e1, e2))
+    expect_false(is_intersecting_edge(g, e1, e3))
+    expect_false(is_intersecting_edge(g, e2, e3))
+
+})

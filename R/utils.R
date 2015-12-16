@@ -42,3 +42,28 @@ get.vertex <- function(graph, identifier){
         v
     }
 }
+
+
+is_edge_intersection <- function(g, e1, e2){
+    point_names <- ends(g,c(e1,e2))
+    points <- apply(point_names, c(1,2), function(x_) {
+        v <- V(g)[x_]
+        c(v$x, v$y)
+    })
+    # Convert lines to parametric form: x = u + s*v
+    u1 <- points[,1,1]
+    x1 <- points[,1,2]
+    v1 <- x1 - u1
+    u2 <- points[,2,1]
+    x2 <- points[,2,2]
+    v2 <- x2 - u2
+    # Find intersection
+    # u1 + s1*v1 = u2 + s2*v2 <=>
+    # s1*v1 - s2*v2 = u2 - u1
+    # Solve linear equation:
+    s <- try(solve(cbind(v1,-v2), u2-u1), silent=TRUE)
+    # If 0 < s < 1, the intersection is still on the line.
+    # If 0 == s || 1 == s, the edges share one vertex as an end.
+    # We do not want to treat this as an intersection.
+    !inherits(s, "try-error") && all(0 < s & s < 1)
+}
