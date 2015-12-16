@@ -156,7 +156,7 @@ nice_vertex_labels <- function(graph) {
     dists <- graph$min_dists[graph$from$name,]
     dists <- vapply(dists, function(x) {
         if(x == Inf){
-            Encoding("\u221e")
+            "?" # Encoding("\u221e")
         } else {
             as.character(x)
         }

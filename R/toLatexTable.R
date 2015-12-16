@@ -1,6 +1,3 @@
-library(igraph)
-
-
 #' This function creates the LaTeX code out of a given object
 #' @param x The \code{spgraph} object
 #' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
@@ -81,14 +78,3 @@ createDistMatrix = function(spgraph, nodes, numCol){
   mDist = matrix(unlist(dist),ncol = numCol, byrow = T)
   mDist
 }
-
-#if(is.spresults(data)){
-#  lapply(data, function (x) stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE))
-#}
-#stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE)
-
-
-
-
-
-
