@@ -10,10 +10,13 @@ Authors@R: c(person("Dennis", "Motzke", email = "d_motz02@uni-muenster.de", role
 URL: https://github.com/mhils/shortestpath
 BugReports: https://github.com/mhils/shortestpath/issues
 License: MIT + file LICENSE
-Imports:
+Imports: 
     wesanderson,
     igraph,
     magrittr
-Suggests:
-    testthat
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
