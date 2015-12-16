@@ -62,8 +62,8 @@ test_that("is_edge_intersection correctly determines intersections", {
     e2 <- E(g)["B" %--% "D"]
     e3 <- E(g)["D" %--% "E"]
 
-    expect_true(is_intersecting_edge(g, e1, e2))
-    expect_false(is_intersecting_edge(g, e1, e3))
-    expect_false(is_intersecting_edge(g, e2, e3))
+    expect_true(is_edge_intersection(g, e1, e2))
+    expect_false(is_edge_intersection(g, e1, e3))
+    expect_false(is_edge_intersection(g, e2, e3))
 
 })
