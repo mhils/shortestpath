@@ -45,6 +45,45 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
     g
 }
 
+removeOverlappingEdges <- function(graph) {
+    repeat {
+        edges <- sample(E(graph))
+        edge_pairs <- combn(edges, 2)
+        #edge_ends <- apply(edge_pairs, c(1,2), function(x) ends(graph, x))
+        for(i in seq_len(ncol(edge_pairs))) {
+            e1 <- edge_pairs[1,i]
+            e2 <- edge_pairs[2,i]
+            if(is_edge_intersection(graph, e1, e2)){
+                edge_to_remove <- sample(c(e1,e2), 1)
+                g2 <- delete_edges(graph, edge_to_remove)
+                if(no.clusters(g2) > 1){
+                    next
+                }
+
+                    # add edge (that does not overlap)
+                    repeat {
+                        new_vertex_ends <- sample(V(graph), 2)
+                        g2_ends <- ends(g2, E(g2))
+                        # g2 <- add_edges(g2, vertex_ends)
+                        for(i in seq_len(nrow(g2_ends))) {
+                            if(is_edge_intersection(
+                                g2,
+                                cbind(new_vertex_ends, g2_ends[,i])
+                            )) {
+                                next
+                            }
+                        }
+                        graph <- add_edges(g2, new_vertex_ends)
+                        break
+                    }
+
+                }
+            }
+
+        }
+    }
+}
+
 #' Random Graph Generation
 #'
 #' This method generates a random graph suitable for exercises.

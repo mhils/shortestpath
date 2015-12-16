@@ -62,8 +62,10 @@ test_that("is_edge_intersection correctly determines intersections", {
     e2 <- E(g)["B" %--% "D"]
     e3 <- E(g)["D" %--% "E"]
 
-    expect_true(is_edge_intersection(g, e1, e2))
-    expect_false(is_edge_intersection(g, e1, e3))
-    expect_false(is_edge_intersection(g, e2, e3))
+    expect_true(is_edge_intersection(g, c(e1, e2)))
+    expect_false(is_edge_intersection(g, c(e1, e3)))
+    expect_false(is_edge_intersection(g, c(e2, e3)))
 
+    m <- matrix(c("A","C","B","D"), ncol=2, byrow=T)
+    expect_true(is_edge_intersection(g, m))
 })

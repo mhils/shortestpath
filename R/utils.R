@@ -44,8 +44,12 @@ get.vertex <- function(graph, identifier){
 }
 
 
-is_edge_intersection <- function(g, e1, e2){
-    point_names <- ends(g,c(e1,e2))
+is_edge_intersection <- function(g, edges_or_vertices) {
+    if(inherits(edges_or_vertices, "igraph.es")) {
+        point_names <- ends(g, edges_or_vertices)
+    } else {
+        point_names <- edges_or_vertices
+    }
     points <- apply(point_names, c(1,2), function(x_) {
         v <- V(g)[x_]
         c(v$x, v$y)
