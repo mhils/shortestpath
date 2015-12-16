@@ -38,12 +38,15 @@ Thus, an edge weight of zero indicates that there exist no edge between
 the two vertices.
 }
 \examples{
-g <- randomGraph(6,
-  euclidean=False) d <- aStarSearch(g)
+  g <- randomGraph(6,euclidean=False)
 
-  plot(d)
+  fw <- floydWarshall(g)
 
-  for(step in d){ print(step$min_dists) }
+  plot(fw)
+
+  for(step in fw){
+  print(step$min_dists)
+  }
 
 }
 

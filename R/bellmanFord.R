@@ -49,6 +49,7 @@ graph %<>%
 
             current_dist = graph$min_dists[1,dest]
             dist_over_edge = graph$min_dists[1,src] + weight
+            # path over front is better than best known path
             if(graph$min_dists[1,src] != Inf &&
                    dist_over_edge < current_dist )
             {

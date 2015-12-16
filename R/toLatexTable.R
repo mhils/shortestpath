@@ -1,6 +1,15 @@
-#' This function creates the LaTeX code out of a given object
+#'toLatexTable
+#'
+#'Use the toLatexTable function to create a LaTeX code out of a single \code{spgraph}
+#'or out of a \code{spresults} list
+#'
 #' @param x The \code{spgraph} object
 #' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
+#' @examples
+#' g <- randomGraph(6)
+#' d <- dijkstra(g, "A", "F")
+#'
+#' toLatexTable(d)
 #' @export
 toLatexTable <- function(x) UseMethod("toLatexTable")
 
