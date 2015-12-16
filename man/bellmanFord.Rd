@@ -2,7 +2,7 @@
 % Please edit documentation in R/bellmanFord.R
 \name{bellmanFord}
 \alias{bellmanFord}
-\title{Calculates the shortest path from a source vertex to a target vertex in a graph}
+\title{Bellman-Ford Algorithm}
 \usage{
 bellmanFord(graph, from, to)
 }
@@ -14,6 +14,26 @@ bellmanFord(graph, from, to)
 \item{to}{Target node}
 }
 \description{
-Calculates the shortest path from a source vertex to a target vertex in a graph
+Use the Bellman-Ford algorithm to calculate the shortest path from a source vertex
+to a target vertex in a directed, weighted graph
+}
+\details{
+The Bellman-Ford algorithm is a single source algorithm which can in
+contrast to the Dijkstra's and A*-Search algorithms deal with negative edge
+weights (Note in order to find the right shortest path it is required that
+no negative-weight cycle exist in the graph).
+The algorithm automatically detects negative-weight cycles and shows a corresponding error message.
+
+Like Dijkstra, the algorithm is based on the principle of the relaxation.
+Wheres Dijkstra greedily select the closest vertex, the Bellman<U+2013>Ford algorithm simply relaxes
+all the edges (|V|-1 times). Thus, Bellman-Ford has a runtime of V*E(number of edges of a graph)
+}
+\examples{
+g <- randomGraph(6,
+  euclidean=False) d <- aStarSearch(g)
+
+  plot(d)
+
+  for(step in d){ print(step$min_dists) }
 }
 
