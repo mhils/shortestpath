@@ -1,9 +1,15 @@
-library(igraph)
-
-
-#' This function creates the LaTeX code out of a given object
+#'toLatexTable
+#'
+#'Use the toLatexTable function to create a LaTeX code out of a single \code{spgraph}
+#'or out of a \code{spresults} list
+#'
 #' @param x The \code{spgraph} object
 #' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
+#' @examples
+#' g <- randomGraph(6)
+#' d <- dijkstra(g, "A", "F")
+#'
+#' toLatexTable(d)
 #' @export
 toLatexTable <- function(x) UseMethod("toLatexTable")
 
@@ -81,14 +87,3 @@ createDistMatrix = function(spgraph, nodes, numCol){
   mDist = matrix(unlist(dist),ncol = numCol, byrow = T)
   mDist
 }
-
-#if(is.spresults(data)){
-#  lapply(data, function (x) stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE))
-#}
-#stargazer(as.data.frame(x),title = title, type = "latex", summary = FALSE, align=TRUE,header = FALSE)
-
-
-
-
-
-
