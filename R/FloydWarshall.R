@@ -13,7 +13,7 @@ floydWarshall <- function(graph, weight.attr="weight") {
     # Take all direct connections from the adjacency matrix and update the graph's min_dists and
     # shortest path predecessors from it.
     am <- get.adjacency(graph, attr = weight.attr, sparse = FALSE)
-    direct_connections <- which(am > 0, arr.ind = TRUE)
+    direct_connections <- which(am != 0, arr.ind = TRUE)
     direct_min_dists <- replace(graph$min_dists, direct_connections, am[direct_connections])
     direct_spp <- replace(graph$shortest_path_predecessors, direct_connections, direct_connections[, 1])
 
@@ -36,7 +36,7 @@ floydWarshall <- function(graph, weight.attr="weight") {
         for (i in nVertices) {
             # Pick all vertices as destination for the above picked source
             for (j in nVertices) {
-                if (i == k || j == k || i == j) {
+                if (i == k || j == k) {
                     next
                 }
                 min_dist_current <- min_dists[i, j]
@@ -64,6 +64,9 @@ floydWarshall <- function(graph, weight.attr="weight") {
             set_graph_attr("min_dists", min_dists) %>%
             set_graph_attr("shortest_path_predecessors", shortest_path_predecessors)
         steps = c(steps, list(graph))
+    }
+    if(any(diag(min_dists) < 0)){
+        stop("graph has a negative cycle ")
     }
     spresults(steps)
 }
