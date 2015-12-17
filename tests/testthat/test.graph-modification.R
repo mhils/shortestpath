@@ -36,7 +36,7 @@ test_that("setEuclideanEdgeWeights works as expected", {
     g <- make_graph('Tetrahedral') %>%
         setVertexCoordinatesFromLayout() %>%
         setEuclideanEdgeWeights()
-    expect_equal(E(g)$weight, c(1,2,1,1,1,2))
+    expect_equal(E(g)$weight, c(1,1,2,2,1,1))
 })
 
 test_that("setEuclideanEdgeWeights stops if no vertex coordinates are given", {

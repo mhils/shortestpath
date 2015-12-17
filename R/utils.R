@@ -45,15 +45,24 @@ get.vertex <- function(graph, identifier){
 
 
 is_edge_intersection <- function(g, edges_or_vertices) {
-    if(inherits(edges_or_vertices, "igraph.es")) {
+    if(!has.vertex.coordinates(g)){
+        stop("Cannot determine edge intersections without vertex coordinates")
+    }
+    if(length(edges_or_vertices) == 2) {
         point_names <- ends(g, edges_or_vertices)
-    } else {
+    } else if(length(edges_or_vertices) == 4) {
         point_names <- edges_or_vertices
+    } else {
+        stop(paste("Invalid edges_or_vertices:", edges_or_vertices))
     }
     points <- apply(point_names, c(1,2), function(x_) {
         v <- V(g)[x_]
         c(v$x, v$y)
     })
+    if(all(points[,1,] == points[,2,]) ||
+       all(points[,1,] == points[,2,2:1])){
+        return(TRUE)
+    }
     # Convert lines to parametric form: x = u + s*v
     u1 <- points[,1,1]
     x1 <- points[,1,2]
@@ -69,5 +78,5 @@ is_edge_intersection <- function(g, edges_or_vertices) {
     # If 0 < s < 1, the intersection is still on the line.
     # If 0 == s || 1 == s, the edges share one vertex as an end.
     # We do not want to treat this as an intersection.
-    !inherits(s, "try-error") && all(0 < s & s < 1)
+    !inherits(s, "try-error") && all(0.01 < s & s < 0.99)
 }
