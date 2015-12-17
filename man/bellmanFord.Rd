@@ -25,11 +25,11 @@ no negative-weight cycle exist in the graph).
 The algorithm automatically detects negative-weight cycles and shows a corresponding error message.
 
 Like Dijkstra, the algorithm is based on the principle of the relaxation.
-Wheres Dijkstra greedily select the closest vertex, the Bellman<U+2013>Ford algorithm simply relaxes
+Wheres Dijkstra greedily select the closest vertex, the Bellman–Ford algorithm simply relaxes
 all the edges (|V|-1 times). Thus, Bellman-Ford has a runtime of V*E(number of edges of a graph)
 }
 \examples{
-  g <- randomGraph(6,euclidean=False)
+  g <- randomGraph(6,euclidean=FALSE)
 
   bf <- bellmanFord(g)
 
