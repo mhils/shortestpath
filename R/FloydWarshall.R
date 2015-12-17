@@ -29,13 +29,14 @@
 #'   plot(fw)
 #'
 #'   for(step in fw){
-#'   print(step$min_dists)
+#'      print(step$min_dists)
 #'   }
 #'
 #' @return A list of \code{spgraph} objects. Each \code{spgraph} object contains
 #'   information about a certain step in the optimization process representing
 #'   by its attributes
 #' @import igraph
+#' @export
 #'
 floydWarshall <- function(graph, weight.attr="weight") {
     graph <- as.spgraph(graph)

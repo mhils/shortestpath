@@ -90,5 +90,5 @@ test_that("setAlphabeticalVertexNames works as expected", {
 test_that("setAlphabeticalVertexNames handles graphs with >26 vertices", {
     g <- make_graph('Tutte') %>%
         setAlphabeticalVertexNames()
-    expect_equal(vertex.attributes(g)$name, 1:46)
+    expect_equal(vertex.attributes(g)$name, as.character(1:46))
 })

@@ -45,7 +45,7 @@ the two vertices.
   plot(fw)
 
   for(step in fw){
-  print(step$min_dists)
+     print(step$min_dists)
   }
 
 }
