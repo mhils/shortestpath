@@ -3,6 +3,7 @@
 #' @export
 toLatexGraph <- function(x) UseMethod("toLatexGraph")
 
+#' @export
 toLatexGraph.spgraph <- function(x){
     graph = x
 
@@ -43,6 +44,7 @@ toLatexGraph.spgraph <- function(x){
     cat("\\end{tikzpicture}")
 }
 
+#' @export
 toLatexGraph.spresults <- function(x){
     toLatexGraph(x[[1]])
 }

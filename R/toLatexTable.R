@@ -17,6 +17,7 @@ toLatexTable <- function(x) UseMethod("toLatexTable")
 #' @param x The \code{spgraph} object
 #' @param title The Title of the latex table
 #' @param includeCommand Additional arguments passed to \code{toLatexTable.spgraph}
+#' @export
 toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE){
   spgraph = x
   nodes = V(spgraph)$name
@@ -61,6 +62,7 @@ toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE){
 
 }
 
+#' @export
 toLatexTable.spresults = function(x){
     steps = x
     for(i in 1:length(steps)){

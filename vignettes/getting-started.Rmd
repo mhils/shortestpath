@@ -9,6 +9,7 @@ vignette: >
 ---
 ```{r, echo =FALSE, message=FALSE}
 library(shortestpath)
+library(igraph)
 library(knitr)
 set.seed(22)
 ```
@@ -20,14 +21,16 @@ the tabular and graphical visualization of the shortest path optimization steps.
 ## Create a Graph
 As a first step the function randomGraph() can be used in order to create a undirected graph "g" with positive edge weights. 
 ```{r}
-g <- randomGraph(5, euclidean=FALSE)
+g <- make_ring(4) %>%
+    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
+    as.spgraph()
 ```
-The parameter "5" indicates the number of vertices of the randomly generated graph. In addition, a boolean paramter "euclidean" (default = FALSE) can be set in order to signify if the graph should include euclidean distances (This is only needed for the A*Search algorithm). 
+The parameter "4" indicates the number of vertices of the generated graph.
 
 ## Dijkstra algorithm 
-Use the Dijkstra algrithm to find the shortest path between the two vertices "A" and "E" in the graph "g".
+Use the Dijkstra algrithm to find the shortest path between the two vertices "A" and "C" in the graph "g".
 ```{r}
-d <- dijkstra(g, "A", "E")
+d <- dijkstra(g, "A", "C")
 ```
 The variable "d" contains a list of igraphs. These igraphs have additional attributes and are therefore called shortest path graphs (spgraphs). Each spgraph represents one optimization step of the Dijkstra algorithm.
 

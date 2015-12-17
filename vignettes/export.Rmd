@@ -1,0 +1,36 @@
+---
+title: "Export"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, echo =FALSE, message=FALSE}
+library(shortestpath)
+library(knitr)
+library(igraph)
+set.seed(22)
+```
+The shortest path package provides functions to create LaTeX code (tables and tikz plots) out of spgraphs.  
+
+## toLatexTable
+The toLatexTable function creates LaTeX code consisting of the minimum distances and shortest path predecessors table for each step of the Dijkstra algorithm
+
+```{r,fig.width=7, fig.height=6, comment = NA}
+par(mar=c(0,0,0,0),mfrow = c(2, 2))
+g <- make_ring(4) %>%
+    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
+    as.spgraph()
+
+d <- dijkstra(g, "A", "C")
+plot(d)
+
+toLatexTable(d)
+```
+
+## toLatexGraph
+The toLatexGraph functions creates LaTeX code (tikz plot) consisting of the spgraph.
+```{r,fig.width=7, fig.height=6,comment = NA}
+toLatexGraph(d)
+```
