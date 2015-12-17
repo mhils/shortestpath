@@ -29,7 +29,7 @@ Wheres Dijkstra greedily select the closest vertex, the Bellman<U+2013>Ford algo
 all the edges (|V|-1 times). Thus, Bellman-Ford has a runtime of V*E(number of edges of a graph)
 }
 \examples{
-  g <- randomGraph(6,euclidean=False)
+  g <- randomGraph(6,euclidean=FALSE)
 
   bf <- bellmanFord(g)
 

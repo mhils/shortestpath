@@ -38,7 +38,7 @@ Thus, an edge weight of zero indicates that there exist no edge between
 the two vertices.
 }
 \examples{
-  g <- randomGraph(6,euclidean=False)
+  g <- randomGraph(6,euclidean=FALSE)
 
   fw <- floydWarshall(g)
 

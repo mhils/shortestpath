@@ -1,5 +1,5 @@
 ---
-title: "generating graphs"
+title: "Generating graphs"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
@@ -20,7 +20,10 @@ The igraph package provides a function "make_graph", which creates an igraph gra
 
 ```{r,fig.width=4, fig.height=3}
 par(mar=c(0,0,0,0))
-g <- make_graph("House")
+g <-
+    make_graph("House") %>%
+    as.spgraph()
+
 plot(g)
 ```
   
@@ -37,10 +40,8 @@ square <- matrix(c(
     0,1,0,1,
     1,0,1,0
     ), nrow=4) %>%
-graph_from_adjacency_matrix(mode="undirected", weighted=TRUE)
-V(square)$name <- LETTERS[1:4]
-V(square)$x <- c(0, 1, 1, 0)
-V(square)$y <- c(0, 0, 1, 1)
+    graph_from_adjacency_matrix(mode="undirected", weighted=TRUE) %>%
+    as.spgraph()
 plot(square)
 ```
 
@@ -49,7 +50,8 @@ This method generates a random graph only by specyfing the number of nodes and t
 
 ```{r,fig.width=4, fig.height=3}
 par(mar=c(0,0,0,0))
-g = randomGraph(no.of.nodes = 6, k = 2.5, euclidean = FALSE)
+g <- randomGraph(no.of.nodes = 6, k = 2.5, euclidean = FALSE) 
+
 plot(g)
 ```
   
