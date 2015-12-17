@@ -32,11 +32,12 @@ test_that("setVertexCoordinatesFromLayout works as expected", {
 })
 
 test_that("setEuclideanEdgeWeights works as expected", {
-    set.seed(1)
-    g <- make_graph('Tetrahedral') %>%
-        setVertexCoordinatesFromLayout() %>%
+    g <- make_ring(4) %>%
+        as.spgraph() %>%
+        set_vertex_attr("x",value=c(1,4,4,1)) %>%
+        set_vertex_attr("y",value=c(1,1,0,0)) %>%
         setEuclideanEdgeWeights()
-    expect_equal(E(g)$weight, c(1,1,2,2,1,1))
+    expect_equal(E(g)$weight, c(3,1,3,1))
 })
 
 test_that("setEuclideanEdgeWeights stops if no vertex coordinates are given", {
