@@ -23,6 +23,7 @@ par(mar=c(0,0,0,0))
 g <- make_graph("House")
 plot(g)
 ```
+  
 In this example the notable graph "House" is used. A list of notable graphs can be found in the R documentation of igraphh.  
 
 ## igraphs's graph_from_adjacency_matrix
@@ -44,17 +45,16 @@ plot(square)
 ```
 
 ## shortestpath's randomGraph
-This method generates a random graph only by specyfing the number of nodes and the connectivity (k). The result is a not too  graph which is appropriate for exercises
+This method generates a random graph only by specyfing the number of nodes and the connectivity (k). The result is a not too degenerated graph which is suitable for exercises
 
 ```{r,fig.width=4, fig.height=3}
 par(mar=c(0,0,0,0))
 g = randomGraph(no.of.nodes = 6, k = 2.5, euclidean = FALSE)
 plot(g)
 ```
-The result of the function looking graphs, which are not too generated and therefore suitable for exercises
+  
+In order to create a suitable random graph, the algorithm is able to solve the following challenges:
+TO DO
 
-To get "nice" random graphs, we create a sample_k_regular graph
-    # with a degree of k*2 and then randomly remove edges. This creates graphs
-    # which aren't too degenerated.
 
 
