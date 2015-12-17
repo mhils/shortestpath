@@ -18,7 +18,7 @@
 #' @param from Source node
 #' @param to Target node
 #' @examples
-#'   g <- randomGraph(6,euclidean=False)
+#'   g <- randomGraph(6,euclidean=FALSE)
 #'
 #'   bf <- bellmanFord(g)
 #'
