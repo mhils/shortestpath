@@ -22,7 +22,7 @@
 #' @param weight.attr Either \code{NULL} or a character string giving an edge
 #'   attribute name for the edge cost.
 #' @examples
-#'   g <- randomGraph(6,euclidean=False)
+#'   g <- randomGraph(6,euclidean=FALSE)
 #'
 #'   fw <- floydWarshall(g)
 #'
