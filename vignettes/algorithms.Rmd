@@ -1,0 +1,78 @@
+---
+title: "Shortest Path Algorithms"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Shortest Path Algorithms}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, echo =FALSE, message=FALSE}
+library(shortestpath)
+set.seed(1)
+```
+
+In its current version, *shortestpath* supports the following algorithms:
+
+|                | Running-Time Complexity   | Type                             | Supports Negative Edge Weights | Command         |
+|----------------|---------------------------|----------------------------------|--------------------------------|-----------------|
+| Dijkstra       | O(#V² + #E)               | single source, multiple target   | ✘                              | `dijkstra`      |
+| A* Search      | O(#V² + #E) (- heuristic) | single source, single target     | ✘                              | `aStarSearch`   |
+| Bellman-Ford   | O(#V * #E)                | single source, multiple target   | ✔                              | `bellmanFord`   |
+| Floyd-Warshall | O(#V³)                    | multiple source, multiple target | ✔                              | `floydWarshall` |
+
+All algorithms are textbook implementations, that is no special optimizations have been applied. In general, the performance is significantly worse than an optimized implementation, albeit the complexity is the same. For Bellman-Ford and Floyd-Warshall, we skip further steps if an iteration does not yield any improvements at all.
+
+## Comparing A* Search and Dijkstra
+
+One of the more interesting relations is the one between A* Search and Dijkstra, where the latter can be seen as a special case of the former one (with an empty heuristics function). To illustrate their behaviour, we try to find the shortest path on a grid with euclidean distances:
+
+```{r, message=FALSE}
+library(igraph)
+N <- 5
+grid <- make_lattice(length = N, dim = 2) %>%
+    as.spgraph() %>%
+    # make_lattice does not assign x,y coordinates to vertices. We add them manually.
+    setVertexCoordinatesFromLayout(
+        layout=on_grid(width=N,height=N)
+    )
+plot(grid)
+```
+
+While Dijkstra always takes the node with the lowest minimum cost next, A\* search also incorporates a minimum distance heuristic: Exploring *L* when going from *M* to *T* isn't useful, because we can already say that even the direct distance between *L* and *T* is quite long. First, we look at *N*, which has a considerably better best case. On euclidean problem instances, A* search can thus vastly outperform Dijkstra:
+
+```{r}
+from <- "M"
+to <- "T"
+d <- dijkstra(grid, from, to)
+a <- aStarSearch(grid, from, to)
+
+# Dijkstra
+print(d)
+# A*-Search
+print(a)
+# Dijkstra
+plot(d[[length(d)]])
+# A*-Search
+plot(a[[length(a)]])
+```
+
+However, A*-Search will still run into traps:
+```{r}
+grid <- make_lattice(length = 7, dim = 2) %>%
+    delete_edges(c(seq(21,25,2),seq(37,63,13),seq(60,64,2))) %>%
+    as.spgraph() %>%
+    # make_lattice does not assign x,y coordinates to vertices. We add them manually.
+    setVertexCoordinatesFromLayout(
+        layout=on_grid(width=7, height=7)
+    )
+plot(grid, vertex.label="", edge.label="")
+
+# We use a more optimistic heuristic here.
+# This is not guaranteed to find the optimal solution, but works
+# considerably faster.
+a <- aStarSearch(
+    grid, "22", "28", 
+    distance.heuristic =  function(...) euclidean.vertex.distance(...) ** 2)
+plot(a[[length(a)]], vertex.label="", edge.label="")
+
+```

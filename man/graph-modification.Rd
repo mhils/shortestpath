@@ -18,8 +18,8 @@ setInfiniteMinDists(graph, overwrite = TRUE)
 
 setRandomVertexCoordinates(graph, overwrite = TRUE)
 
-setVertexCoordinatesFromLayout(graph, layout = layout_nicely,
-  layout_args = list(niter = 2000), overwrite = TRUE)
+setVertexCoordinatesFromLayout(graph, layout = nicely(niter = 2000),
+  overwrite = TRUE)
 
 setEuclideanEdgeWeights(graph, overwrite = TRUE)
 
@@ -43,8 +43,6 @@ setAlphabeticalVertexNames(graph, overwrite = TRUE)
 be updated.}
 
 \item{layout}{An igraph layout function. See \code{igraph::\link[igraph]{layout}}.}
-
-\item{layout_args}{Additional arguments passed to \code{layout}}
 
 \item{dist.fun}{A function that accepts the required vector length as an argument
 and returns a vector of weights of the given length.}

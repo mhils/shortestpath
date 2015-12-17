@@ -58,7 +58,7 @@ plot.spgraph <- function(x,
 
     # You almost always want 0 margins with igraph, so we set this by default.
     if(default.margins == TRUE){
-        par(mar=c(0,0,0,0))
+        par(mar=c(1,1,1,1))
     }
 
     # We need to do this, otherwhise R's lazy-eval screws it up.
