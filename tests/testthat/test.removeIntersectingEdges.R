@@ -2,9 +2,12 @@ context("removeIntersectingEdges")
 
 test_that("removeIntersectingEdges runs without errors", {
     r <- make_graph("Cubical") %>%
-        as.spgraph() %>%
-        removeIntersectingEdges()
-    expect_is(r,"spgraph")
+        as.spgraph()
+
+    r1 <- removeIntersectingEdges(r)
+    expect_is(r1,"spgraph")
+    r2 <- removeIntersectingEdges(r, relayout = TRUE)
+    expect_is(r2,"spgraph")
 })
 
 test_that("addNonIntersectingEdge gives up at some point", {
