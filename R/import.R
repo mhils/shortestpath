@@ -3,6 +3,7 @@
 #' @importFrom wesanderson wes_palette
 #' @importFrom stats runif
 #' @importFrom utils capture.output
+#' @importFrom utils combn
 NULL
 
 # https://github.com/smbache/magrittr/issues/29

@@ -62,8 +62,36 @@ test_that("is_edge_intersection correctly determines intersections", {
     e2 <- E(g)["B" %--% "D"]
     e3 <- E(g)["D" %--% "E"]
 
-    expect_true(is_edge_intersection(g, e1, e2))
-    expect_false(is_edge_intersection(g, e1, e3))
-    expect_false(is_edge_intersection(g, e2, e3))
+    expect_true(is_edge_intersection(g, c(e1, e2)))
+    expect_false(is_edge_intersection(g, c(e1, e3)))
+    expect_false(is_edge_intersection(g, c(e2, e3)))
+})
 
+test_that("is_edge_intersection detects direct overlaps", {
+    g <- as.spgraph(make_graph("HouseX"))
+    e1 <- E(g)[1]
+    expect_true(is_edge_intersection(g, c(e1, e1)))
+
+    expect_true(is_edge_intersection(g, matrix(ncol=2, c(
+        V(g)[1],V(g)[2],
+        V(g)[2],V(g)[1]))
+    )
+    )
+})
+
+test_that("is_edge_intersection works for vertex matrices", {
+    g <- as.spgraph(make_graph("HouseX"))
+    m <- matrix(c("A","C","B","D"), ncol=2, byrow=T)
+    expect_true(is_edge_intersection(g, m))
+})
+
+test_that("is_edge_intersection fails without vertex  coordinates", {
+    g <- make_graph("HouseX")
+    e1 <- E(g)[1]
+    expect_error(is_edge_intersection(g, c(e1, e1)), "without vertex coordinates")
+})
+
+test_that("is_edge_intersection fails for invalid edges_or_vertices", {
+    g <- as.spgraph(make_graph("HouseX"))
+    expect_error(is_edge_intersection(g, NULL), "Invalid edges_or_vertices")
 })

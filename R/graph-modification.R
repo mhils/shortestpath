@@ -64,7 +64,7 @@ setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
 #' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout}}.
 #' @param layout_args Additional arguments passed to \code{layout}
 #' @export
-setVertexCoordinatesFromLayout <- function(graph, layout=layout_nicely, layout_args=list(), overwrite = TRUE) {
+setVertexCoordinatesFromLayout <- function(graph, layout=layout_nicely, layout_args=list(niter = 2000), overwrite = TRUE) {
     p <- do.call(layout, c(list(graph), layout_args))
     graph %>%
         setAttr("vertex", "x", function(graph) {

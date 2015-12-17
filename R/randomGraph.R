@@ -31,7 +31,7 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
         if(no.clusters(g) == 1){
             break
         }
-        # Slightly increasae sample_k to increase odds of a single connected component.
+        # Slightly increase sample_k to increase odds of a single connected component.
         sample_k <- sample_k + 1/no.of.nodes
     }
 
