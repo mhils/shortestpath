@@ -1,12 +1,11 @@
 ---
-title: "Getting Started"
+title: "Getting Started with shortestpath"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{knitr,shortestpath}
- 
 ---
 ```{r, echo =FALSE, message=FALSE}
 library(shortestpath)
