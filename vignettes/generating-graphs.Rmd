@@ -55,7 +55,7 @@ g <- randomGraph(no.of.nodes = 6, k = 2.5, euclidean = FALSE)
 plot(g)
 ```
   
-In order to create a suitable random graph, the algorithm is able to solve the following challenges:
+In order to create a suitable random graph, the algorithm is able to solve the following challenges:  
 TO DO
 
 
