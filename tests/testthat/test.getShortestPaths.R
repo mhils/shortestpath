@@ -18,7 +18,7 @@ test_that("getShortestPaths handles incomplete instances", {
 test_that("getShortestPaths returns valid results", {
     set.seed(20)
     graph <- randomGraph() %>%
-        setVertexCoordinatesFromLayout(layout.fruchterman.reingold, list(niter=10000)) %>%
+        setVertexCoordinatesFromLayout() %>%
         setEuclideanEdgeWeights()
 
     #?aStarSearch
