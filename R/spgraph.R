@@ -7,6 +7,7 @@
 as.spgraph <- function(x) UseMethod("as.spgraph")
 
 #' @describeIn as.spgraph Convert an igraph to an spgraph
+#' @export
 as.spgraph.igraph <- function(x) {
     x %>%
         setAlphabeticalVertexNames(overwrite = FALSE) %>%
