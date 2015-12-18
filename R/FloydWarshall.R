@@ -43,6 +43,9 @@ floydWarshall <- function(graph, weight.attr="weight") {
 
     # Take all direct connections from the adjacency matrix and update the graph's min_dists and
     # shortest path predecessors from it.
+    if(ecount(graph) == 0){
+        weight.attr <- NULL # Otherwise this will throw an error.
+    }
     am <- get.adjacency(graph, attr = weight.attr, sparse = FALSE)
     direct_connections <- which(am != 0, arr.ind = TRUE)
     direct_min_dists <- replace(graph$min_dists, direct_connections, am[direct_connections])

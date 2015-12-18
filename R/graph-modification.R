@@ -38,7 +38,7 @@ setAttr <- function(graph, type = c("graph", "vertex", "edge"), name, fun, overw
 #' @export
 setInfiniteMinDists <- function(graph, overwrite = TRUE) {
     setAttr(graph, "graph", "min_dists", function(graph) {
-        n <- length(V(graph))
+        n <- vcount(graph)
         mat <- matrix(Inf, ncol = n, nrow = n)
         diag(mat) <- c(0)
         colnames(mat) <- V(graph)$name
@@ -52,10 +52,10 @@ setInfiniteMinDists <- function(graph, overwrite = TRUE) {
 setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
     graph %>%
         setAttr("vertex", "x", function(graph) {
-            runif(length(V(graph)), 0, 10)
+            runif(vcount(graph), 0, 10)
         }, overwrite) %>%
         setAttr("vertex", "y", function(graph) {
-            runif(length(V(graph)), 0, 10)
+            runif(vcount(graph), 0, 10)
         }, overwrite)
 }
 
@@ -63,7 +63,7 @@ setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
 #' and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
 #' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout}}.
 #' @export
-setVertexCoordinatesFromLayout <- function(graph, layout=nicely(niter = 2000), overwrite = TRUE) {
+setVertexCoordinatesFromLayout <- function(graph, layout=nicely(), overwrite = TRUE) {
     p <- layout_(graph, layout)
     graph %>%
         setAttr("vertex", "x", function(graph) {
@@ -94,7 +94,7 @@ setEuclideanEdgeWeights <- function(graph, overwrite = TRUE) {
 #' @export
 setRandomEdgeWeights <- function(graph, dist.fun = function(n) ceiling(runif(n, 0, 10)), overwrite = TRUE) {
     setAttr(graph, "edge", "weight", function(graph) {
-        dist.fun(length(E(graph)))
+        dist.fun(ecount(graph))
     }, overwrite)
 }
 
@@ -102,7 +102,7 @@ setRandomEdgeWeights <- function(graph, dist.fun = function(n) ceiling(runif(n, 
 #' @export
 setUniformEdgeWeights <- function(graph, overwrite = TRUE) {
     setAttr(graph, "edge", "weight", function(graph) {
-        rep(1, length(E(graph)))
+        rep(1, ecount(graph))
     }, overwrite)
 }
 
@@ -111,7 +111,7 @@ setUniformEdgeWeights <- function(graph, overwrite = TRUE) {
 #' @export
 setEmptyShortestPathPredecessors <- function(graph, overwrite = TRUE) {
     setAttr(graph, "graph", "shortest_path_predecessors", function(graph) {
-        n <- length(V(graph))
+        n <- vcount(graph)
         mat <- matrix(list(), ncol = n, nrow = n)
         colnames(mat) <- V(graph)$name
         rownames(mat) <- V(graph)$name
@@ -149,7 +149,7 @@ setRoute <- function(graph, from, to) {
 #' @export
 setVertexSets <- function(graph, val=NA, overwrite = TRUE) {
     setAttr(graph, "vertex", "set", function(graph) {
-        rep(val, length(V(graph)))
+        rep(val, vcount(graph))
     }, overwrite)
 }
 
@@ -159,11 +159,27 @@ setVertexSets <- function(graph, val=NA, overwrite = TRUE) {
 #' @export
 setAlphabeticalVertexNames <- function(graph, overwrite = TRUE) {
     setAttr(graph, "vertex", "name", function(graph) {
-        n <- length(V(graph))
+        n <- vcount(graph)
         if (n > 26) {
             as.character(1:n)
         } else {
             LETTERS[1:n]
         }
     }, overwrite)
+}
+
+#' @describeIn graph-modification Permute both vertex and edge ids.
+#' This is useful so that e.g. Bellman-Ford cannot exploit the artifical graph's structure.
+#'
+#' @export
+permuteGraph <- function(graph) {
+    edges <- as_edgelist(graph)
+    edge_attributes <- edge.attributes(graph)
+    edge_permut <- sample(nrow(edges))
+    graph %<>%
+        delete_edges(., seq_len(ecount(.))) %>%
+        add_edges(as.vector(t(edges[edge_permut,]))) %>%
+        permute(., sample(vcount(.)))
+    edge.attributes(graph) <- edge_attributes
+    graph
 }

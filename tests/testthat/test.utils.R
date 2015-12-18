@@ -80,8 +80,11 @@ test_that("is_edge_intersection detects direct overlaps", {
 })
 
 test_that("is_edge_intersection works for vertex matrices", {
-    g <- as.spgraph(make_graph("HouseX"))
-    m <- matrix(c("A","C","B","D"), ncol=2, byrow=T)
+    g <- make_graph("HouseX") %>%
+        set_vertex_attr("x", value=c(0,1,0,1,0.5)) %>%
+        set_vertex_attr("y", value=c(0,0,1,1,1.5)) %>%
+        as.spgraph()
+    m <- matrix(c("A","D","B","C"), ncol=2, byrow=T)
     expect_true(is_edge_intersection(g, m))
 })
 
