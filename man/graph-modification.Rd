@@ -2,6 +2,7 @@
 % Please edit documentation in R/graph-modification.R
 \name{Graph Modification}
 \alias{Graph Modification}
+\alias{permuteGraph}
 \alias{setAlphabeticalVertexNames}
 \alias{setEmptyShortestPathPredecessors}
 \alias{setEuclideanEdgeWeights}
@@ -18,8 +19,7 @@ setInfiniteMinDists(graph, overwrite = TRUE)
 
 setRandomVertexCoordinates(graph, overwrite = TRUE)
 
-setVertexCoordinatesFromLayout(graph, layout = nicely(niter = 2000),
-  overwrite = TRUE)
+setVertexCoordinatesFromLayout(graph, layout = nicely(), overwrite = TRUE)
 
 setEuclideanEdgeWeights(graph, overwrite = TRUE)
 
@@ -35,6 +35,8 @@ setRoute(graph, from, to)
 setVertexSets(graph, val = NA, overwrite = TRUE)
 
 setAlphabeticalVertexNames(graph, overwrite = TRUE)
+
+permuteGraph(graph)
 }
 \arguments{
 \item{graph}{The original graph object. Will not be modified.}
@@ -86,6 +88,9 @@ matrices to the specified source.
 
 \item \code{setAlphabeticalVertexNames}: Set vertex names as A-Z. For graphs with more than
 26 vertices, vertices will be numbered 1 to N.
+
+\item \code{permuteGraph}: Permute both vertex and edge ids.
+This is useful so that e.g. Bellman-Ford cannot exploit the artifical graph's structure.
 }}
 \examples{
 

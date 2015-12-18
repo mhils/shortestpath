@@ -171,7 +171,6 @@ setAlphabeticalVertexNames <- function(graph, overwrite = TRUE) {
 #' @describeIn graph-modification Permute both vertex and edge ids.
 #' This is useful so that e.g. Bellman-Ford cannot exploit the artifical graph's structure.
 #'
-#' @param graph The graph object.
 #' @export
 permuteGraph <- function(graph) {
     edges <- as_edgelist(graph)
