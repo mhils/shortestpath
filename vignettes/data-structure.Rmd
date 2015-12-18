@@ -51,7 +51,7 @@ d$shortest_path_predecessors
 
 
 ##Graph Modification
-The shortestpath package provides various graph modification functions that are used internally.
+The shortestpath package provides various graph modification functions for spgraphs and igraphs that are used internally.
 
 ```{r,fig.width=4, fig.height=3}
 g <- random.graph.game(10, 0.5) %>%
@@ -60,5 +60,6 @@ g <- random.graph.game(10, 0.5) %>%
 
 plot(g)
 E(g)$weight
-?graphModification
 ```
+  
+Further details can be found in the R documentation: `?graphModification`
