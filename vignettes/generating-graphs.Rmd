@@ -19,7 +19,6 @@ There are more than one way to create a proper graph in R.
 The igraph package provides a function `make_graph()`, which creates an igraph graph from a list of edges, or notable graph. By simply calling the `as.spgraph()` function the igraph graph can be simply type casted to an spgraph.
 
 ```{r,fig.width=4, fig.height=3}
-par(mar=c(0,0,0,0))
 g <-
     make_graph("House") %>%
     as.spgraph()
@@ -33,7 +32,6 @@ In this example the notable graph "House" is used. A list of notable graphs can 
 Another function of igraph `graph_from_adjancency_matrix()` creates a graph out of an adjancency matrix. 
 
 ```{r,fig.width=4, fig.height=3}
-par(mar=c(0,0,0,0))
 square <- matrix(c(
     0,1,0,1,
     1,0,1,0,
@@ -49,14 +47,30 @@ plot(square)
 This method generates a random graph only by specyfing the number of nodes and the connectivity (k). The result is a not too degenerated graph which is suitable for exercises
 
 ```{r,fig.width=4, fig.height=3}
-par(mar=c(0,0,0,0))
 g <- randomGraph(no.of.nodes = 6, k = 2.5, euclidean = FALSE) 
 
 plot(g)
 ```
   
-In order to create a suitable random graph, the algorithm is able to solve the following challenges:  
-TO DO
+## Avoid overlapping edges
+By creating a new graph with the above mentioned functions it can happen that some vertices are placed in such a position in the layout that their edges overlap with some other edges. In order to avoid this "visualization flaw" the function `removeIntersectingEdges()` of the shortestpath package can be used.  
+The function tries to eliminate edge intersections in a graph by removing intersected edges and re-adding new edges (that do not intersect any other edges). Newly added edges will not have any edge attributes.
+
+
+```{r,fig.width=4, fig.height=3}
+    g <- make_graph("Cubical") %>%
+        as.spgraph()
+    plot(g)
+
+    gNew <- removeIntersectingEdges(g, relayout = FALSE)
+    plot(gNew)
+```
+  
+If the `relayout` parameter is `TRUE`, the Fruchterman-Reingold layout algorithm is re-applied after removing edges. This may introduce new intersections, but generally improves the quality of the graph.
+  
+It is important to know that this is a fuzzy algorithm, there is no guarantee that all intersections are removed. If relayout is FALSE, however, it is guaranteed that a warning will be emitted in this case
+
+
 
 
 
