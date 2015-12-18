@@ -4,7 +4,7 @@
 \alias{toLatexTable}
 \title{toLatexTable}
 \usage{
-toLatexTable(x)
+toLatexTable(x, ...)
 }
 \arguments{
 \item{x}{The \code{spgraph} object}
@@ -20,5 +20,6 @@ g <- randomGraph(6)
 d <- dijkstra(g, "A", "F")
 
 toLatexTable(d)
+
 }
 

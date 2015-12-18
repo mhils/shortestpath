@@ -4,7 +4,7 @@
 \alias{toLatexTable.spgraph}
 \title{This function creates the LaTeX code out of a spgraph}
 \usage{
-\method{toLatexTable}{spgraph}(x, title = "", includeCommand = TRUE)
+\method{toLatexTable}{spgraph}(x, title = "", includeCommand = TRUE, ...)
 }
 \arguments{
 \item{x}{The \code{spgraph} object}
@@ -12,6 +12,8 @@
 \item{title}{The Title of the latex table}
 
 \item{includeCommand}{Additional arguments passed to \code{toLatexTable.spgraph}}
+
+\item{...}{Further Parameters are ignored}
 }
 \description{
 This function creates the LaTeX code out of a spgraph

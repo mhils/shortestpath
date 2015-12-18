@@ -25,6 +25,15 @@ test_that("spresults$name<- throws an error", {
     expect_error(results$name <- "Bull", "Cannot modify spresults objects")
 })
 
+test_that("spresults$first/spresults$last give the first/last graph", {
+    a <- as.spgraph(make_graph("Tetrahedral"))
+    b <- as.spgraph(make_graph("Bull"))
+    steps <- list(a,b)
+    results <- spresults(steps)
+    expect_equal(results$first, a)
+    expect_equal(results$last, b)
+})
+
 test_that("is.spresults is working as expected", {
     steps <- list(as.spgraph(make_graph("Bull")))
     results <- spresults(steps)

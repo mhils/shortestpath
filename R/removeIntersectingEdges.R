@@ -69,8 +69,7 @@ removeIntersectingEdges <- function(graph, relayout=FALSE) {
     if(relayout == TRUE){
         final_graph %<>% setVertexCoordinatesFromLayout(
             .,
-            layout_with_fr,
-            layout_args=list(coords=layout_nicely(.), niter=2000)
+            with_fr(coords=layout_nicely(.), niter=2000)
         )
     }
     final_graph

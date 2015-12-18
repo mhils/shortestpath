@@ -2,6 +2,7 @@
 #' @param graph The igraph object
 #' @param v1 The first vertice vector
 #' @param v2 The second vertice vector.
+#' @export
 euclidean.vertex.distance <- function(graph, v1, v2) {
     if(!has.vertex.coordinates(graph)) {
         stop("Cannot compute euclidean distance for vertices without position.")

@@ -10,8 +10,8 @@
 #' The algorithm automatically detects negative-weight cycles and shows a corresponding error message.
 #'
 #' Like Dijkstra, the algorithm is based on the principle of the relaxation.
-#' Wheres Dijkstra greedily select the closest vertex, the Bellman–Ford algorithm simply relaxes
-#' all the edges (|V|-1 times). Thus, Bellman-Ford has a runtime of V*E(number of edges of a graph)
+#' Wheres Dijkstra greedily select the closest vertex, the Bellman-Ford algorithm simply relaxes
+#' all the edges (#V-1 times). Thus, Bellman-Ford has a runtime of #V * #E.
 #'
 #'
 #' @param graph The \code{igraph} object.
@@ -20,12 +20,12 @@
 #' @examples
 #'   g <- randomGraph(6,euclidean=FALSE)
 #'
-#'   bf <- bellmanFord(g)
+#'   bf <- bellmanFord(g,"A","F")
 #'
 #'   plot(bf)
 #'
 #'   for(step in bf){
-#'   print(step$min_dists)
+#'      print(step$min_dists)
 #'   }
 #' @export
 bellmanFord = function(graph,from,to){
@@ -55,7 +55,7 @@ graph %<>%
             {
                 #identify negative cycles
                 if(i == vcount(graph)){
-                    stop("graph has a negative cycle ")
+                    stop("graph has a negative cycle")
                 }
                 graph$min_dists[1,dest] = dist_over_edge
                 graph$shortest_path_predecessors[[1, dest]] <- as.numeric(src)
@@ -68,15 +68,12 @@ graph %<>%
                         c(graph$shortest_path_predecessors[[1, dest]],as.numeric(src))
                     }
                 }
-        }
-      steps <- c(steps, list(graph))
-      #stop criterion = if nothing changes to the loop before
-      if(i > 1 && all(steps[[i-1]]$min_dists == graph$min_dists)){
+            }
+        steps <- c(steps, list(graph))
+        #stop criterion = if nothing changes to the loop before
+        if(i > 1 && all(steps[[i-1]]$min_dists == graph$min_dists)){
             break
         }
-      }
-spresults(steps)
+    }
+    spresults(steps)
 }
-
-
-

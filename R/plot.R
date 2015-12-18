@@ -22,6 +22,7 @@
 #' @param vertex.label.cex See \code{\link{igraph.plotting}}
 #' @param vertex.label.family See \code{\link{igraph.plotting}}
 #' @param vertex.label.degree See \code{\link{igraph.plotting}}
+#' @param default.margins If \code{TRUE}, plot margins will be zeroed.
 #' @param ... All other parameters are passed to \code{\link{plot.igraph}} as is.
 #'
 #' @examples
@@ -51,8 +52,14 @@ plot.spgraph <- function(x,
                          vertex.label.cex = 0.8,
                          vertex.label.family="sans",
                          vertex.label.degree = -pi/7,
+                         default.margins = TRUE,
                          ...) {
     graph <- x
+
+    # You almost always want 0 margins with igraph, so we set this by default.
+    if(default.margins == TRUE){
+        par(mar=c(1,1,1,1))
+    }
 
     # We need to do this, otherwhise R's lazy-eval screws it up.
     vertex.color.by <- match.arg(vertex.color.by)

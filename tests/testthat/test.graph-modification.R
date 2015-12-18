@@ -26,9 +26,9 @@ test_that("setRandomVertexCoordinates works as expected", {
 test_that("setVertexCoordinatesFromLayout works as expected", {
     set.seed(1)
     g <- make_graph('Tetrahedral') %>%
-        setVertexCoordinatesFromLayout(layout=function(...) matrix(1:8, ncol=2))
-    expect_equal(V(g)$x, 1:4)
-    expect_equal(V(g)$y, 5:8)
+        setVertexCoordinatesFromLayout(layout=with_fr(niter=4))
+    expect_true(is.numeric(V(g)$x))
+    expect_true(is.numeric(V(g)$y))
 })
 
 test_that("setEuclideanEdgeWeights works as expected", {
@@ -90,5 +90,5 @@ test_that("setAlphabeticalVertexNames works as expected", {
 test_that("setAlphabeticalVertexNames handles graphs with >26 vertices", {
     g <- make_graph('Tutte') %>%
         setAlphabeticalVertexNames()
-    expect_equal(vertex.attributes(g)$name, 1:46)
+    expect_equal(vertex.attributes(g)$name, as.character(1:46))
 })

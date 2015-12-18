@@ -15,7 +15,8 @@
   edge.label.color = "#444444", edge.label.cex = 0.75,
   vertex.label.color = nice_vertex_label_colors(x),
   vertex.label.dist = 1.25, vertex.label.cex = 0.8,
-  vertex.label.family = "sans", vertex.label.degree = -pi/7, ...)
+  vertex.label.family = "sans", vertex.label.degree = -pi/7,
+  default.margins = TRUE, ...)
 }
 \arguments{
 \item{x}{The graph to plot.}
@@ -55,6 +56,8 @@
 \item{vertex.label.family}{See \code{\link{igraph.plotting}}}
 
 \item{vertex.label.degree}{See \code{\link{igraph.plotting}}}
+
+\item{default.margins}{If \code{TRUE}, plot margins will be zeroed.}
 
 \item{...}{All other parameters are passed to \code{\link{plot.igraph}} as is.}
 }
