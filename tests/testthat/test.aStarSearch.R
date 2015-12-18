@@ -73,3 +73,8 @@ test_that("aStarSearch produces valid shortest_path_predecessors", {
     ref[[1,3]] <- c(V(square)[[2]],V(square)[[4]])
     expect_equivalent(spp, ref)
 })
+
+test_that("aStarSearch handles graphs without edges", {
+    graph <- make_ring(3) %>% delete_edges(1:3)
+    expect_is(aStarSearch(graph,"A","C", function(...) 0), "spresults")
+})

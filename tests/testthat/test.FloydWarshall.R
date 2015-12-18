@@ -68,3 +68,8 @@ test_that("floydWarshall detects negative cycles", {
     graph <- graph_from_adjacency_matrix(adj, weighted=T)
     expect_error(floydWarshall(graph),"graph has a negative cycle")
 })
+
+test_that("floydWarshall handles graphs without edges", {
+    graph <- make_ring(3) %>% delete_edges(1:3)
+    expect_is(floydWarshall(graph), "spresults")
+})

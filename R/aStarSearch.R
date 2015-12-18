@@ -28,6 +28,10 @@
 #' \code{\link{euclidean.vertex.distance}} for the default distance heuristic.
 aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.distance){
 
+    if(identical(distance.heuristic, euclidean.vertex.distance) && !has.vertex.coordinates(graph)) {
+        stop("Cannot compute euclidean distance for vertices without position.")
+    }
+
     graph %<>%
         as.spgraph() %>%
         setRoute(from, to) %>%
