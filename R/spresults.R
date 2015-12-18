@@ -9,11 +9,19 @@ spresults <- function(lst=list()){
     lst
 }
 
+#' @export
 `$.spresults` <- function(x, name) {
-    graph <- x[[length(x)]]
-    graph_attr(graph, name)
+    if(name == "first"){
+        x[[1]]
+    } else if(name == "last") {
+        x[[length(x)]]
+    } else {
+        graph <- x[[length(x)]]
+        graph_attr(graph, name)
+    }
 }
 
+#' @export
 `$<-.spresults` <- function(x, name, value) {
     stop("Cannot modify spresults objects - please work with the underlying spgraphs directly.")
 }

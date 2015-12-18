@@ -51,9 +51,9 @@ print(d)
 # A*-Search
 print(a)
 # Dijkstra
-plot(d[[length(d)]])
+plot(d$last)
 # A*-Search
-plot(a[[length(a)]])
+plot(a$last)
 ```
 
 However, A*-Search will still run into traps:
@@ -73,6 +73,6 @@ plot(grid, vertex.label="", edge.label="")
 a <- aStarSearch(
     grid, "22", "28", 
     distance.heuristic =  function(...) euclidean.vertex.distance(...) ** 2)
-plot(a[[length(a)]], vertex.label="", edge.label="")
+plot(a$last, vertex.label="", edge.label="")
 
 ```
