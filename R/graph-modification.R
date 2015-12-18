@@ -18,8 +18,8 @@
 #' @param overwrite If \code{FALSE}, graphs with an existing attribute will not
 #' be updated.
 #' @return The updated graph object.
-#' @name Graph Modification
-#' @rdname graph-modification
+#' @name graphModification
+#' @rdname graphModification
 NULL
 
 # This function does the actual object modification by calling igraph's [set_](graph|vertex|edge)_attr.
@@ -34,7 +34,7 @@ setAttr <- function(graph, type = c("graph", "vertex", "edge"), name, fun, overw
     graph
 }
 
-#' @describeIn graph-modification Set the minimum distance matrix to infinity.
+#' @describeIn graphModification Set the minimum distance matrix to infinity.
 #' @export
 setInfiniteMinDists <- function(graph, overwrite = TRUE) {
     setAttr(graph, "graph", "min_dists", function(graph) {
@@ -47,7 +47,7 @@ setInfiniteMinDists <- function(graph, overwrite = TRUE) {
     }, overwrite)
 }
 
-#' @describeIn graph-modification Set random vertex positions for euclidean algorithms.
+#' @describeIn graphModification Set random vertex positions for euclidean algorithms.
 #' @export
 setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
     graph %>%
@@ -59,7 +59,7 @@ setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
         }, overwrite)
 }
 
-#' @describeIn graph-modification Run the given layout algorithm,
+#' @describeIn graphModification Run the given layout algorithm,
 #' and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
 #' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout}}.
 #' @export
@@ -74,7 +74,7 @@ setVertexCoordinatesFromLayout <- function(graph, layout=nicely(), overwrite = T
         }, overwrite)
 }
 
-#' @describeIn graph-modification Set rounded euclidean edge weights
+#' @describeIn graphModification Set rounded euclidean edge weights
 #' @export
 setEuclideanEdgeWeights <- function(graph, overwrite = TRUE) {
     if(!has.vertex.coordinates(graph)){
@@ -90,7 +90,7 @@ setEuclideanEdgeWeights <- function(graph, overwrite = TRUE) {
 
 #' @param dist.fun A function that accepts the required vector length as an argument
 #' and returns a vector of weights of the given length.
-#' @describeIn graph-modification Set random edge weights.
+#' @describeIn graphModification Set random edge weights.
 #' @export
 setRandomEdgeWeights <- function(graph, dist.fun = function(n) ceiling(runif(n, 0, 10)), overwrite = TRUE) {
     setAttr(graph, "edge", "weight", function(graph) {
@@ -98,7 +98,7 @@ setRandomEdgeWeights <- function(graph, dist.fun = function(n) ceiling(runif(n, 
     }, overwrite)
 }
 
-#' @describeIn graph-modification Set each edge weight to 1.
+#' @describeIn graphModification Set each edge weight to 1.
 #' @export
 setUniformEdgeWeights <- function(graph, overwrite = TRUE) {
     setAttr(graph, "edge", "weight", function(graph) {
@@ -107,7 +107,7 @@ setUniformEdgeWeights <- function(graph, overwrite = TRUE) {
 }
 
 
-#' @describeIn graph-modification Initialize an empty predecessor matrix.
+#' @describeIn graphModification Initialize an empty predecessor matrix.
 #' @export
 setEmptyShortestPathPredecessors <- function(graph, overwrite = TRUE) {
     setAttr(graph, "graph", "shortest_path_predecessors", function(graph) {
@@ -123,7 +123,7 @@ setEmptyShortestPathPredecessors <- function(graph, overwrite = TRUE) {
 #' For all-shortest-paths algorithms, \code{FALSE} should be passed.
 #' @param to The graph's target vertex for single-source algorithms.
 #' For all-shortest-paths algorithms, \code{FALSE} should be passed.
-#' @describeIn graph-modification Set \code{from} and \code{to} and
+#' @describeIn graphModification Set \code{from} and \code{to} and
 #' truncate both \code{min_dists} and \code{shortest_path_predecessors}
 #' matrices to the specified source.
 #' @export
@@ -144,7 +144,7 @@ setRoute <- function(graph, from, to) {
         set_graph_attr("to", to)
 }
 
-#' @describeIn graph-modification Initialize each vertex front as \code{val}.
+#' @describeIn graphModification Initialize each vertex front as \code{val}.
 #' @param val the default vertex set value.
 #' @export
 setVertexSets <- function(graph, val=NA, overwrite = TRUE) {
@@ -154,7 +154,7 @@ setVertexSets <- function(graph, val=NA, overwrite = TRUE) {
 }
 
 
-#' @describeIn graph-modification Set vertex names as A-Z. For graphs with more than
+#' @describeIn graphModification Set vertex names as A-Z. For graphs with more than
 #' 26 vertices, vertices will be numbered 1 to N.
 #' @export
 setAlphabeticalVertexNames <- function(graph, overwrite = TRUE) {
@@ -168,7 +168,7 @@ setAlphabeticalVertexNames <- function(graph, overwrite = TRUE) {
     }, overwrite)
 }
 
-#' @describeIn graph-modification Permute both vertex and edge ids.
+#' @describeIn graphModification Permute both vertex and edge ids.
 #' This is useful so that e.g. Bellman-Ford cannot exploit the artifical graph's structure.
 #'
 #' @export
