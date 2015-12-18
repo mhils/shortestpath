@@ -37,7 +37,7 @@ The variable `d` contains a list of igraphs (called spresults). These igraphs ha
 ## Plot the graph 
 Use the normal `plot()` function to print all the steps of the Dijkstra algorithm. 
 ```{r,fig.width=7, fig.height=6}
-par(mar=c(0,0,0,0),mfrow = c(2, 2))
+par(mfrow = c(2, 2))
 plot(d)
 ```
 A detailed explanation of the single optimization steps and the `plot()` can be read in the processing and export vignette.  

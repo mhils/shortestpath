@@ -48,3 +48,17 @@ d[[1]]$shortest_path_predecessors
 #shortest path predecessors of the last optimization step
 d$shortest_path_predecessors
 ```
+
+
+##Graph Modification
+The shortestpath package provides various graph modification functions that are used internally.
+
+```{r,fig.width=4, fig.height=3}
+g <- random.graph.game(10, 0.5) %>%
+  setAlphabeticalVertexNames %>%
+  setRandomEdgeWeights()
+
+plot(g)
+E(g)$weight
+?graphModification
+```
