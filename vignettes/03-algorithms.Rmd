@@ -1,17 +1,21 @@
 ---
-title: "Shortest Path Algorithms"
+title: "Running Shortest Path Algorithms on Graphs"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Shortest Path Algorithms}
+  %\VignetteIndexEntry{Running Shortest Path Algorithms on Graphs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-```{r, echo =FALSE, message=FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(shortestpath)
+library(knitr)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
 set.seed(1)
 ```
 
-In its current version, *shortestpath* supports the following algorithms:
+In its current version, **shortestpath** supports the following algorithms:
 
 |                | Running-Time Complexity   | Type                             | Supports Negative Edge Weights | Command         |
 |----------------|---------------------------|----------------------------------|--------------------------------|-----------------|
@@ -20,7 +24,7 @@ In its current version, *shortestpath* supports the following algorithms:
 | Bellman-Ford   | O(#V * #E)                | single source, multiple target   | ✔                              | `bellmanFord`   |
 | Floyd-Warshall | O(#V³)                    | multiple source, multiple target | ✔                              | `floydWarshall` |
 
-All algorithms are textbook implementations, that is no special optimizations have been applied. In general, the performance is significantly worse than an optimized implementation, albeit the complexity is the same. For Bellman-Ford and Floyd-Warshall, we skip further steps if an iteration does not yield any improvements at all.
+All algorithms are textbook implementations, that is no special optimizations have been applied. In general, the performance is significantly worse than an optimized implementation, albeit the asymptotic complexity is the same. For Bellman-Ford and Floyd-Warshall, we skip further steps if an iteration does not yield any improvements at all.
 
 ## Comparing A* Search and Dijkstra
 

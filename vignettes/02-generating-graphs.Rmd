@@ -2,15 +2,17 @@
 title: "Generating graphs"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Generating Graphs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{knitr,shortestpath}
 ---
-```{r, echo =FALSE, message=FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(shortestpath)
 library(knitr)
-library(igraph)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
 set.seed(30)
 ```
 There are more than one way to create a proper graph in R.
@@ -18,7 +20,8 @@ There are more than one way to create a proper graph in R.
 ## igraphs's make_graph
 The igraph package provides a function `make_graph()`, which creates an igraph graph from a list of edges, or notable graph. By simply calling the `as.spgraph()` function the igraph graph can be simply type casted to an spgraph.
 
-```{r,fig.width=4, fig.height=3}
+```{r,fig.width=4, fig.height=3, message=FALSE}
+library(igraph)
 g <-
     make_graph("House") %>%
     as.spgraph()

@@ -1,26 +1,30 @@
 ---
-title: "Data Structure"
+title: "Data Structures"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Data Structures}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{knitr,shortestpath}
 ---
-```{r, echo =FALSE, message=FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(shortestpath)
-library(igraph)
 library(knitr)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
 set.seed(22)
-graph <- make_ring(4) %>%
-    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
-    as.spgraph()
 ```
 The data structure within the shortest path package is based on the igraph package. However, additional attributes have been added to the igraph graph in order to show the steps of finding a shortest path by the corresponding algorithm. The resulting object is called spgraph.
 
 ##spgraph
 The spgraph is an igraph graph with the following attributes:
-```{r}
+```{r, message=FALSE}
+library(igraph)
+graph <- make_ring(4) %>%
+    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
+    as.spgraph()
+
 d <- dijkstra(graph, "A", "C")
 d
 ```

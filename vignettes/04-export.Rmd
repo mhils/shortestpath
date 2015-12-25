@@ -1,28 +1,30 @@
 ---
-title: "Export"
+title: "Exporting Results"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Exporting Results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-```{r, echo =FALSE, message=FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(shortestpath)
 library(knitr)
-library(igraph)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
 set.seed(22)
-
-graph <- make_ring(4) %>%
-    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
-    as.spgraph()
-
 ```
 The shortest path package offers different functions to visualize the optimization steps of each algorithm. Moreover, it also provides features to export the results by creating LaTeX code (tables and tikz plots) out of spgraphs.
 
 ## plot function
 By simply plotting an object of class spgraph with the normal `plot()` function, the `plot.spgraph()` will be called automatically. The `plot.spgraph()` is a wrapper around `plot.igraph()` providing convenience features for shortest path graph plotting. Amongst other things it allows the user to set characteristics and corresponding values for the vertices and eges within the graph.
 
-```{r,fig.width=4, fig.height=3, comment = NA}
+```{r,fig.width=4, fig.height=3, comment = NA, message=FALSE}
+library(igraph)
+graph <- make_ring(4) %>%
+    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
+    as.spgraph()
+
 d <- dijkstra(graph, "A", "C")
 
 plot(d$last, 
