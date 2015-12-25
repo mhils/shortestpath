@@ -10,7 +10,6 @@ NULL
 #' The shortestpath package
 #'
 #' shortestpath is a library and R package for shortest path algorithm visualization.
-#'
 #' %TODO: Description
 #'
 #' @name shortestpath

@@ -20,7 +20,7 @@ set.seed(22)
 The shortestpath package provides a set of functions to execute and visualize algorithms that solve shortest path problems. For example, shortestpath can plot individual steps of Dijkstra or A*-Search; print distance tables for each step of the Floyd-Warshall or Bellman-Ford algorithm or export graphs to human-readable TikZ.
 
 ## Create a Graph
-As a first step a graph need to be created. There are many ways to create graph, which are explained in detail in generating-graphs vignette. For a quick example, we use the igraph function [`make_ring()`](http://igraph.org/r/doc/make_ring.html) to create an undirected ring graph `g` with positive edge weights. Next, `as.spgraph()` converts the graph into a shortest path graph. An spgraph is still a valid igraph, but it is also guaranteed to have a limited set of additional attributes (e.g. fixed vertex position, so that plots render consistently over optimization steps).
+As a first step a graph need to be created. There are many ways to create graph, which are explained in detail in generating-graphs vignette. For a quick example, we use the igraph function [`make_ring()`](http://igraph.org/r/doc/make_ring.html) to create an undirected ring graph `g` with positive edge weights. Next, `as.spgraph()` converts the graph into a shortest path graph. An spgraph is still a valid igraph, but it is also guaranteed to have a limited set of additional attributes (e.g. fixed vertex positions, so that plots render consistently over optimization steps).
 
 ```{r, message=FALSE}
 library(igraph)

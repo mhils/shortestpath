@@ -5,8 +5,6 @@
 \title{The shortestpath package}
 \description{
 shortestpath is a library and R package for shortest path algorithm visualization.
-}
-\details{
 %TODO: Description
 }
 
