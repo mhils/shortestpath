@@ -16,44 +16,55 @@ opts_chunk$set(dev = "svg")
 set.seed(22)
 ```
 
-##Intro
+## Intro
 The shortestpath package provides a set of functions to execute and visualize algorithms that solve shortest path problems. For example, shortestpath can plot individual steps of Dijkstra or A*-Search; print distance tables for each step of the Floyd-Warshall or Bellman-Ford algorithm or export graphs to human-readable TikZ.
 
+Before we start, there are a two important bits to know. First, shortestpath heavily integrates into the existing R ecosystem: Our graph data structures are based on (and interoperable with) the excellent [igraph](http://igraph.org/) library, so if you know igraph, you'll notice lots of familiarities. We also make heavy use of [magrittr](https://github.com/smbache/magrittr)'s `%>%` pipes to structure our examples - please check out their very short [introduction](https://github.com/smbache/magrittr) first if you never used magrittr before.
+
+## The Big Picture
+
+Your shortestpath workflow will generally look as follows:
+
+1. Graph Import/Generation
+2. Running a Shortest Path Algorithm
+3. Results Visualization/Export
+
+We will walk through each of these steps here - for more details, each step has a dedicated vignette!
+
 ## Create a Graph
-As a first step a graph need to be created. There are many ways to create graph, which are explained in detail in generating-graphs vignette. For a quick example, we use the igraph function [`make_ring()`](http://igraph.org/r/doc/make_ring.html) to create an undirected ring graph `g` with positive edge weights. Next, `as.spgraph()` converts the graph into a shortest path graph. An spgraph is still a valid igraph, but it is also guaranteed to have a limited set of additional attributes (e.g. fixed vertex positions, so that plots render consistently over optimization steps).
+Before we start finding shortest paths, we need a graph! There are many ways to create graphs which are explained in detail in generating-graphs vignette. For a quick example, we use the igraph function [`make_ring()`](http://igraph.org/r/doc/make_ring.html) to create an undirected ring graph `g` with positive edge weights. Next, `as.spgraph()` converts the graph into a shortest path graph. An spgraph is still a valid igraph, but it is also guaranteed to have a limited set of additional attributes (e.g. fixed vertex positions, so that plots render consistently over optimization steps).
 
 ```{r, message=FALSE}
 library(igraph)
 
 g <- make_ring(4) %>%
-    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
+    set_edge_attr("weight", value = c(4,1,3,3) ) %>%
     as.spgraph()
 
 plot(g)
 ```
 
-## Find the shortest path using Dijkstra 
+## Find the shortest path using Dijkstra's algorithm
 We now want to find the the shortest path from "A" to "C" using Dijkstra's algorithm.
 ```{r}
 d <- dijkstra(g, "A", "C")
 print(d)
 ```
 
-Dijsktra (and all other algorithms) returns an `spresults` object. In a nutshell (we will discuss them in more detail later on), an *spresults* object is a list of *spgraphs*, with each entry representing a single step of your algorithm. Details of the data structure can be found in the data-structures vignette.
+Dijsktra (and all other algorithms) returns an `spresults` object. In a nutshell (we will discuss them in more detail in the data-structures vignette), an ``spresults`` object is a list of ``spgraph``s, with each entry representing a single step of your algorithm.
 
 ## Plot the graph 
 Use the normal `plot()` function to print all the steps of the Dijkstra algorithm. 
-```{r,fig.width=7, fig.height=6}
+```{r}
 par(mfrow = c(2, 2))
 plot(d)
 ```
-A detailed explanation of the single optimization steps and the `plot()` can be read in the processing and export vignette.  
 
-<br> 
-Additionally, the minimum distance table can be printed by calling the attribute `min_dists` of each step (spgraph).
+The plot command can be configured with a wide range of settings - we will discuss this in the vignette on exporting results!
+
+Of course, you can also work with the returned datastructure manually: In the following example, we obtain the minimum distance table after each step of Dijkstra.
 ```{r}
- for(step in d){ 
-   print(step$min_dists)
-   cat("\n")
-   }
+lapply(d, function(step) {
+    step$min_dists
+})
 ```
