@@ -20,10 +20,6 @@ toLatexTable(x, ...)
 \item{title}{The Title of the latex table}
 
 \item{includeCommand}{Additional arguments passed to \code{toLatexTable.spgraph}}
-
-\item{x}{The \code{spgraph} object}
-
-\item{...}{Further Parameters are ignored}
 }
 \description{
 Use the toLatexTable function to create LaTeX tables from of a single \code{spgraph}

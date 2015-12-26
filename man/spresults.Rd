@@ -6,6 +6,9 @@
 \usage{
 spresults(lst = list())
 }
+\arguments{
+\item{lst}{A list of spgraphs}
+}
 \description{
 Convert a list of graphs into an spresults object.
 }

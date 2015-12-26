@@ -1,4 +1,5 @@
 #' Convert a list of graphs into an spresults object.
+#' @param lst A list of spgraphs
 #' @export
 spresults <- function(lst=list()){
     for(i in lst){

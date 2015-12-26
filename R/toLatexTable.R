@@ -15,10 +15,8 @@
 toLatexTable <- function(x, ...) UseMethod("toLatexTable")
 
 #' This function creates the LaTeX code out of a spgraph
-#' @param x The \code{spgraph} object
 #' @param title The Title of the latex table
 #' @param includeCommand Additional arguments passed to \code{toLatexTable.spgraph}
-#' @param ... Further Parameters are ignored
 #' @describeIn toLatexTable Create a table for the graph's state.
 #' @export
 toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE, ...){
