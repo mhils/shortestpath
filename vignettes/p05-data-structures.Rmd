@@ -15,49 +15,60 @@ opts_chunk$set(dev = "svg")
 ```{r, echo = FALSE}
 set.seed(22)
 ```
-The data structure within the shortest path package is based on the igraph package. However, additional attributes have been added to the igraph graph in order to show the steps of finding a shortest path by the corresponding algorithm. The resulting object is called spgraph.
+The shortestpath package uses igraph's graph objects to represent graphs. However, additional attributes are added to the igraph graph in order to show the steps of finding a shortest path by the corresponding algorithm. The resulting object is called spgraph. In other words, spgraph is a subclass of igraph with required additional attributes.
 
-##spgraph
-The spgraph is an igraph graph with the following attributes:
+## spgraph
+The spgraph is an igraph graph with the following additional attributes:
 ```{r, message=FALSE}
 library(igraph)
-graph <- make_ring(4) %>%
-    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
+graph <- make_graph("House") %>%
     as.spgraph()
 
-d <- dijkstra(graph, "A", "C")
-d
+print(graph)
 ```
-Each algorithm (in this case dijkstra) returns a list of spgraphs, which is called spresults (details will follow).  
-<br><br>
-The important additional attributes are `min\_dists` and `shortest\_path_predecessors`.
+
+## spresults
+
+Each algorithm (in this case dijkstra) returns an spresults object. An spresults object is a list of spgraphs, with each graph depicting a single iteration of the algorithm.
+
 ```{r}
-d$min_dists
-d$shortest_path_predecessors
+results <- dijkstra(graph, "A", "D")
+print(results)
+str(results, list.len=2)
+head(lapply(results, function(step) step$min_dists), 3)
 ```
-The shortest path predecessors is a matrix of `igraph.vs` lists, which allows us to reconstruct the actual path of vertices representing the shortest path. Each algorithm is able to indentfy <u>all</u> shortest paths (see example vertex C has more than one predecessor).  
-<br><br>
-The data of the list can be accessed by the following:
+
+As a convenience, you can access graph attributes of the last iteration using `spresults$attr`:
+```{r, results = "hide"}
+# These are equivalent:
+results[[length(results)]]$min_dists == results$min_dists
+```
+
+Probably the most interesting attributes are `min_dists` and `shortest_path_predecessors`:
+
 ```{r}
-d$shortest_path_predecessors[[3]]
+results$min_dists
+results$shortest_path_predecessors
 ```
-Further explanation of the data type matrix of lists can be found <a href="http://stackoverflow.com/questions/30007890/how-to-create-a-matrix-of-lists-in-r" tabindex="4">here</a>.
+The shortest path predecessors matrix consists of `igraph.vs` lists, which allows to reconstruct the actual shortest path. Each algorithm is able to indentfy *all* shortest paths: In the example above, there are two shortest paths from A to D.  
 
-##spresults
-The object spresults is a list of spgraphs, each representing one optimization step of the corresponding shortest path algorithm. By simply calling the object `d`, without an index it will always return the last spgraph in the list. 
+To access individual elements of a matrix of lists in R, [you have to use double brackets](http://stackoverflow.com/questions/30007890/how-to-create-a-matrix-of-lists-in-r):
 ```{r}
-#shortest path predecessors of the first optimization step
-d[[1]]$shortest_path_predecessors
-
-#shortest path predecessors of the last optimization step
-d$shortest_path_predecessors
+results$shortest_path_predecessors[["A","D"]]
 ```
 
+### Getting all shortest paths
 
-##Graph Modification
-The shortestpath package provides various graph modification functions for spgraphs and igraphs that are used internally.
+You can use shortestpath's `getShortestPaths()` method to get a list of all shortest paths:
 
-```{r,fig.width=4, fig.height=3}
+```{r}
+getShortestPaths(results)
+```
+
+## Graph Modification
+The shortestpath package provides many graph modification functions for spgraphs and igraphs that are used internally. Further details can be found in the R documentation: `?graphModification`
+
+```{r}
 par(mar = c(0,0,0,0))
 g <- random.graph.game(10, 0.5) %>%
   setAlphabeticalVertexNames %>%
@@ -67,4 +78,3 @@ plot(g)
 E(g)$weight
 ```
   
-Further details can be found in the R documentation: `?graphModification`

@@ -14,44 +14,70 @@ opts_chunk$set(dev = "svg")
 ```{r, echo = FALSE}
 set.seed(22)
 ```
-The shortest path package offers different functions to visualize the optimization steps of each algorithm. Moreover, it also provides features to export the results by creating LaTeX code (tables and tikz plots) out of spgraphs.
+The shortest path package offers different functions to visualize the optimization steps of each algorithm. Moreover, it also provides features to export the results to LaTeX tables and TikZ plots.
 
 ## plot function
-By simply plotting an object of class spgraph with the normal `plot()` function, the `plot.spgraph()` will be called automatically. The `plot.spgraph()` is a wrapper around `plot.igraph()` providing convenience features for shortest path graph plotting. Amongst other things it allows the user to set characteristics and corresponding values for the vertices and eges within the graph.
+spgraph and spresults objects can be plotted using R's builtin `plot()` function (which internally calls `plot.spgraph()`). `plot.spgraph()` is a wrapper around `plot.igraph()`, providing additional features for shortest path graph plotting and a generally more visually appealing output. Amongst other things, it allows the user to set vertex/edge visuals depending on the underlying graph characteristics:
 
-```{r,fig.width=4, fig.height=3, comment = NA, message=FALSE}
+- `vertex.color.by` denotes which attribute should be used to set the visual
+- `vertex.color` specifies the color palette, or, if `.by` is `"manual"`, a color for each vertex.
+
+For example, setting `vertex.color.by="set"` for an A*-Search graph colors each vertex by its current set (processed/at the current front/unknown).
+
+```{r, message=FALSE}
 library(igraph)
 graph <- make_ring(4) %>%
-    set_edge_attr("weight", value = c(2,2,3,1) ) %>%
-    as.spgraph()
+    as.spgraph() %>%
+    setRandomEdgeWeights()
 
 d <- dijkstra(graph, "A", "C")
 
 plot(d$last, 
-     vertex.color.by = "type", vertex.color = rainbow(3),
-     vertex.frame.color.by = "set", vertex.frame.color = rainbow(3),
-     edge.color.by = "manual", edge.color = c("darkgreen","pink","black","blue")
+     vertex.color.by = "type", 
+     vertex.color = heat.colors(3),
+     vertex.frame.color.by = "manual", 
+     vertex.frame.color = c("darkgreen","pink","black","blue"),
+     edge.color.by = "shortestpath", 
+     edge.color = c("gray","green")
      )
 ```  
   
-In order to set the attributes for the vertices and edges we first have to define based on which characteristics the different values should be assigned to the corresponding graph elements. It is important to know that each graph element can have different characteristics.   
-In this example the vertex characteristics can be seperated into "set","type" and "manual". The characteristic "set" is based on the vertex attribute "set", which consist of the values "known", "unknown" and "front".   
-Whereas for the characteristics of the edges we can only choose "shortest path" or "manual".  
-The next parameter defines which colors should be used.
-  
-Further explanation and an overview of the different parameters can be found in the R documentation `plot.spgraph` of the shortestpath package.
+An overview of the different parameters can be found in the R help for `plot.spgraph`.
+
+### Animations
+
+It is also very useful to create animated GIFs, videos or LaTeX plots using the R `animation` package. In the following example, we use it in combination with `Cairo` to obtain a high-quality antialiased video of A*-Search.
+
+```{r, eval=FALSE}
+library(Cairo)
+library(animation)
+
+grid_search <- make_lattice(length = 7, dim = 2) %>%
+    delete_edges(c(seq(21,25,2),seq(37,63,13),seq(60,64,2))) %>%
+    as.spgraph() %>%
+    setVertexCoordinatesFromLayout(
+        layout=on_grid(width=7, height=7)
+    ) %>%
+    aStarSearch("22", "28", 
+        distance.heuristic = function(...) euclidean.vertex.distance(...) ** 2
+    )
+
+saveVideo({
+    CairoPNG(filename = ani.options('img.fmt'))
+    plot(grid_search, vertex.label="", edge.label="")
+    dev.off()
+}, video.name="a-star.mp4", use.dev=FALSE, ani.type="png")
+```
 
 ## toLatexTable
 The toLatexTable function creates LaTeX code consisting of the minimum distances and shortest path predecessors table for each step of the Dijkstra algorithm  
 
-```{r,fig.width=7, fig.height=6, comment = NA}
-par(mfrow = c(2, 2))
-plot(d)
+```{r, comment = NA}
 toLatexTable(d)
 ```
 
 ## toLatexGraph
-The toLatexGraph functions creates LaTeX code (tikz plot) consisting of the spgraph.  
-```{r,fig.width=7, fig.height=6,comment = NA}
+The toLatexGraph functions creates a human-readable TikZ plot of the spgraph. The emphasis of this function is to provide (in contrast to R's TikZ plot device) readable TikZ code. 
+```{r, comment = NA}
 toLatexGraph(d)
 ```

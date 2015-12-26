@@ -36,7 +36,7 @@ plot.spgraph <- function(x,
                          vertex.color.by = c("set", "type", "manual"),
                          vertex.color = wes_palette("Royal1")[c(3,4,1)],
                          vertex.frame.color.by = c("type", "set", "manual"),
-                         vertex.frame.color = wes_palette("Rushmore")[c(4,3,5)],
+                         vertex.frame.color = wes_palette("Rushmore")[3:5],
                          vertex.size.by = c("type", "set", "manual"),
                          vertex.size = c(15, 25, 25),
                          edge.color.by = c("shortestpath", "manual"),
@@ -92,8 +92,8 @@ plot.spgraph <- function(x,
 set_vertex_attr_by <- function(graph, name, by=c("type", "set", "manual"), value) {
     if(match.arg(by) == "type") {
         graph %>%
-            set_vertex_attr(name, value=value[1]) %>%
-            set_vertex_attr(name, graph$from, value[2]) %>%
+            set_vertex_attr(name, value=value[2]) %>%
+            set_vertex_attr(name, graph$from, value[1]) %>%
             set_vertex_attr(name, graph$to, value[3])
     } else if(match.arg(by) == "set") {
         graph %>%
