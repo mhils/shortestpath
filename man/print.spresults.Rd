@@ -2,16 +2,16 @@
 % Please edit documentation in R/spresults.R
 \name{print.spresults}
 \alias{print.spresults}
-\title{Print graphs to the terminal}
+\title{Print spresults to the terminal}
 \usage{
 \method{print}{spresults}(x, ...)
 }
 \arguments{
-\item{x}{The graph to print.}
+\item{x}{The results to print.}
 
 \item{...}{Further arguments passed to \code{\link[igraph]{print.igraph}}}
 }
 \description{
-Print graphs to the terminal
+Print spresults to the terminal
 }
 

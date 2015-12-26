@@ -19,7 +19,7 @@ The shortest path package offers different functions to visualize the optimizati
 ## plot function
 spgraph and spresults objects can be plotted using R's builtin `plot()` function (which internally calls `plot.spgraph()`). `plot.spgraph()` is a wrapper around `plot.igraph()`, providing additional features for shortest path graph plotting and a generally more visually appealing output. Amongst other things, it allows the user to set vertex/edge visuals depending on the underlying graph characteristics:
 
-- `vertex.color.by` denotes which attribute should be used to set the visual
+- `vertex.color.by` denotes which attribute should be used to set the vertex color
 - `vertex.color` specifies the color palette, or, if `.by` is `"manual"`, a color for each vertex.
 
 For example, setting `vertex.color.by="set"` for an A*-Search graph colors each vertex by its current set (processed/at the current front/unknown).

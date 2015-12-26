@@ -18,7 +18,7 @@ Use Dijkstra's algorithm to solve a shortest path problem.
 }
 \details{
 Dijkstra is a single-source algorithm which cannot deal with negative edge weights.
-Technically, it is a special case of A*-Search (\code{\link{aStarSearch}}) where the heuristics is zero.
+Technically, it is a special case of A*-Search (\code{\link{aStarSearch}}) where the heuristic function is zero.
 }
 \examples{
 g <- randomGraph(6)

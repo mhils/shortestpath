@@ -1,7 +1,8 @@
+#' euclidean.vertex.distance
 #' Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
-#' @param graph The igraph object
-#' @param v1 The first vertice vector
-#' @param v2 The second vertice vector.
+#' @param graph The corresponding graph object
+#' @param v1 The first vertex
+#' @param v2 The second vertex.
 #' @export
 euclidean.vertex.distance <- function(graph, v1, v2) {
     if(!has.vertex.coordinates(graph)) {
@@ -14,6 +15,8 @@ euclidean.vertex.distance <- function(graph, v1, v2) {
     sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
 }
 
+#' has.vertex.coordinates
+#'
 #' Returns \code{TRUE} if the graph's vertices have non-null coordinates.
 #' @param graph The graph to check
 has.vertex.coordinates <- function(graph){
@@ -24,6 +27,8 @@ has.vertex.coordinates <- function(graph){
     )
 }
 
+#' get.vertex
+#'
 #' Convenience function that returns the vertex object associated with the
 #' given identifier, which is either the vertex object itself or a vertex id.
 #' @param graph The igraph object
@@ -44,8 +49,15 @@ get.vertex <- function(graph, identifier){
     }
 }
 
-
-is_edge_intersection <- function(g, edges_or_vertices) {
+#' is.edge.intersection
+#'
+#' Determine if two edges intersect.
+#' @param g The graph object
+#' @param edges_or_vertices Either a vector containing two edges or a matrix
+#' containing four vertices (as edge endpoints).
+#' @return \code{TRUE} if both edges intersect, \code{FALSE} otherwise.
+#' @export
+is.edge.intersection <- function(g, edges_or_vertices) {
     if(!has.vertex.coordinates(g)){
         stop("Cannot determine edge intersections without vertex coordinates")
     }

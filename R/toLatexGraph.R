@@ -1,5 +1,10 @@
-#' Export spgraphs as TikZ graphs
-#' @param x The object to export.
+#' Export spgraphs as human-readable TikZ graphs.
+#'
+#' This method focuses on a minimal TikZ output that provides a base
+#' for manual modification. For extensive plot customization, see
+#' \code{\link{plot.spgraph}}.
+#'
+#' @param x The graph to export.
 #' @export
 toLatexGraph <- function(x) UseMethod("toLatexGraph")
 

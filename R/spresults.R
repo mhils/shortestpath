@@ -1,3 +1,5 @@
+#' Convert a list of graphs into an spresults object.
+#' @export
 spresults <- function(lst=list()){
     for(i in lst){
         if(!is.spgraph(i)){
@@ -35,12 +37,12 @@ is.spresults <- function(x) {
     "spresults" %in% class(x)
 }
 
-#' Print graphs to the terminal
-#' @param x The graph to print.
+#' Print spresults to the terminal
+#' @param x The results to print.
 #' @param ... Further arguments passed to \code{\link[igraph]{print.igraph}}
 #' @export
 print.spresults <- function(x, ...) {
-    graph <- x[[length(x)]]
+    graph <- x$last
     single_source <- graph$from != FALSE
     single_target <- graph$to != FALSE
 

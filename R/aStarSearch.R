@@ -11,6 +11,7 @@
 #' @param from The source vertex
 #' @param to The target vertex
 #' @param distance.heuristic The A* distance heuristic.
+#' @return An \code{\link{spresults}} object.
 #' @examples
 #' g <- randomGraph(6, euclidean=TRUE)
 #' d <- aStarSearch(g, "A", "F")

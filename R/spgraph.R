@@ -1,7 +1,6 @@
 #' Coerce to a shortest path graph
 #'
-#' You usually do not need to call this function directly.
-#' Instead, supply an igraph to one of the algorithms, which then outputs suitable spgraph objects.
+#' This method can be used to convert objects into spgraphs.
 #' @export
 #' @param x Object to coerce
 as.spgraph <- function(x) UseMethod("as.spgraph")
@@ -41,6 +40,10 @@ print.spgraph <- function(x, ...) {
     invisible(x)
 }
 
+#' summary.spgraph
+#' @param object The graph object which should be summarized
+#' @param ... Further arguments passed to \code{\link[igraph]{print.igraph}}
+#' @export
 summary.spgraph <- function(object, ...) {
     # summary.igraph is currently not exported.
     out <- capture.output(print.igraph(object, full=F, ...))

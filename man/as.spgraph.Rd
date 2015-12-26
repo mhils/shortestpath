@@ -13,8 +13,7 @@ as.spgraph(x)
 \item{x}{Object to coerce}
 }
 \description{
-You usually do not need to call this function directly.
-Instead, supply an igraph to one of the algorithms, which then outputs suitable spgraph objects.
+This method can be used to convert objects into spgraphs.
 }
 \section{Methods (by class)}{
 \itemize{

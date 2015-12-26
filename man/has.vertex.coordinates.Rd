@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{has.vertex.coordinates}
 \alias{has.vertex.coordinates}
-\title{Returns \code{TRUE} if the graph's vertices have non-null coordinates.}
+\title{has.vertex.coordinates}
 \usage{
 has.vertex.coordinates(graph)
 }

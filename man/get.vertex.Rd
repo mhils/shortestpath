@@ -2,8 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{get.vertex}
 \alias{get.vertex}
-\title{Convenience function that returns the vertex object associated with the
-given identifier, which is either the vertex object itself or a vertex id.}
+\title{get.vertex}
 \usage{
 get.vertex(graph, identifier)
 }

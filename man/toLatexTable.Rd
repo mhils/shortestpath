@@ -2,19 +2,41 @@
 % Please edit documentation in R/toLatexTable.R
 \name{toLatexTable}
 \alias{toLatexTable}
+\alias{toLatexTable.spgraph}
+\alias{toLatexTable.spresults}
 \title{toLatexTable}
 \usage{
 toLatexTable(x, ...)
+
+\method{toLatexTable}{spgraph}(x, title = "", includeCommand = TRUE, ...)
+
+\method{toLatexTable}{spresults}(x, ...)
 }
 \arguments{
+\item{x}{The graph object}
+
+\item{...}{Additional arguments passed to \code{\link{getShortestPaths.spgraph}}}
+
+\item{title}{The Title of the latex table}
+
+\item{includeCommand}{Additional arguments passed to \code{toLatexTable.spgraph}}
+
 \item{x}{The \code{spgraph} object}
 
-\item{...}{Additional arguments passed to \code{getShortestPaths.spgraph}}
+\item{...}{Further Parameters are ignored}
 }
 \description{
-Use the toLatexTable function to create a LaTeX code out of a single \code{spgraph}
-or out of a \code{spresults} list
+Use the toLatexTable function to create LaTeX tables from of a single \code{spgraph}
+or an \code{spresults} object
+
+This function creates the LaTeX code out of a spgraph
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{spgraph}: Create a table for the graph's state.
+
+\item \code{spresults}: Export a table for each step
+}}
 \examples{
 g <- randomGraph(6)
 d <- dijkstra(g, "A", "F")

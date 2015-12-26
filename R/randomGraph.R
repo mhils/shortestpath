@@ -47,7 +47,8 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
 
 #' Random Graph Generation
 #'
-#' This method generates a random graph suitable for exercises.
+#' This method generates a random graph with the given number of nodes and average connectivity.
+#' The result is a graph that is neither too uniform nor too degenerated and suitable for exercises.
 #'
 #' @param euclidean Set to \code{TRUE} if (rounded) euclidean distances should be used.
 #' @inheritParams sample_average_k_connected_graph

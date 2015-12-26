@@ -1,10 +1,10 @@
-#'toLatexTable
+#' toLatexTable
 #'
-#'Use the toLatexTable function to create a LaTeX code out of a single \code{spgraph}
-#'or out of a \code{spresults} list
+#' Use the toLatexTable function to create LaTeX tables from of a single \code{spgraph}
+#' or an \code{spresults} object
 #'
-#' @param x The \code{spgraph} object
-#' @param ... Additional arguments passed to \code{getShortestPaths.spgraph}
+#' @param x The graph object
+#' @param ... Additional arguments passed to \code{\link{getShortestPaths.spgraph}}
 #' @examples
 #' g <- randomGraph(6)
 #' d <- dijkstra(g, "A", "F")
@@ -19,6 +19,7 @@ toLatexTable <- function(x, ...) UseMethod("toLatexTable")
 #' @param title The Title of the latex table
 #' @param includeCommand Additional arguments passed to \code{toLatexTable.spgraph}
 #' @param ... Further Parameters are ignored
+#' @describeIn toLatexTable Create a table for the graph's state.
 #' @export
 toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE, ...){
   spgraph = x
@@ -64,6 +65,7 @@ toLatexTable.spgraph = function(x,title = "", includeCommand = TRUE, ...){
 
 }
 
+#' @describeIn toLatexTable Export a table for each step
 #' @export
 toLatexTable.spresults = function(x, ...){
     steps = x

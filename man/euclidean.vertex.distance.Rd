@@ -2,18 +2,20 @@
 % Please edit documentation in R/utils.R
 \name{euclidean.vertex.distance}
 \alias{euclidean.vertex.distance}
-\title{Euclidean distance computation for vertices with \code{x} and \code{y} attributes.}
+\title{euclidean.vertex.distance
+Euclidean distance computation for vertices with \code{x} and \code{y} attributes.}
 \usage{
 euclidean.vertex.distance(graph, v1, v2)
 }
 \arguments{
-\item{graph}{The igraph object}
+\item{graph}{The corresponding graph object}
 
-\item{v1}{The first vertice vector}
+\item{v1}{The first vertex}
 
-\item{v2}{The second vertice vector.}
+\item{v2}{The second vertex.}
 }
 \description{
+euclidean.vertex.distance
 Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
 }
 
