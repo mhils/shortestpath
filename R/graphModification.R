@@ -155,7 +155,7 @@ setVertexSets <- function(graph, val=NA, overwrite = TRUE) {
 
 
 #' @describeIn graphModification Set vertex names as A-Z. For graphs with more than
-#' 26 vertices, vertices will be numbered 1 to N.
+#' 26 vertices, vertices will be numbered 1 to N (as characters).
 #' @export
 setAlphabeticalVertexNames <- function(graph, overwrite = TRUE) {
     setAttr(graph, "vertex", "name", function(graph) {
@@ -169,7 +169,7 @@ setAlphabeticalVertexNames <- function(graph, overwrite = TRUE) {
 }
 
 #' @describeIn graphModification Permute both vertex and edge ids.
-#' This is useful so that e.g. Bellman-Ford cannot exploit the artifical graph's structure.
+#' This is useful so that e.g. Bellman-Ford cannot exploit a graph's artifical structure.
 #'
 #' @export
 permuteGraph <- function(graph) {

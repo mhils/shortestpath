@@ -14,7 +14,7 @@ addNonIntersectingEdge <- function(graph) {
         }
         no_overlaps <- TRUE
         for(i in seq_len(nrow(graph_ends))) {
-            if(is_edge_intersection(
+            if(is.edge.intersection(
                 graph,
                 rbind(new_vertex_ends, graph_ends[i,])
             )) {
@@ -53,7 +53,7 @@ removeIntersectingEdges <- function(graph, relayout=FALSE) {
 
     for(i in seq_len(ncol(edge_pairs))) {
         edge_pair <- edge_pairs[,i]
-        if(is_edge_intersection(graph, edge_pair)){
+        if(is.edge.intersection(graph, edge_pair)){
             g2 <- delete_edges(final_graph, edge_pair[1])
             if(no.clusters(g2) > 1){
                 g2 <- delete_edges(final_graph, edge_pair[2])

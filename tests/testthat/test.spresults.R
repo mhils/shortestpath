@@ -48,3 +48,17 @@ test_that("print.spresults is working as expected", {
     fw <- floydWarshall(make_graph("Bull"))
     expect_output(print(fw), "all shortest paths")
 })
+
+test_that("print.spresults displays the shortest path", {
+    g <- make_ring(4) %>% set_edge_attr("weight", value=1:4)
+    d <- dijkstra(g, "A", "C")
+    expect_output(print(d), "path: A->B->C")
+
+    g %<>% set_edge_attr("weight",value=1)
+    d <- dijkstra(g, "A", "C")
+    expect_output(print(d), "(+1 alternatives)")
+
+    g %<>% delete_edges(1:4)
+    d <- dijkstra(g, "A", "C")
+    expect_output(print(d), "(no path found)")
+})

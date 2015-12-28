@@ -2,14 +2,16 @@
 % Please edit documentation in R/toLatexGraph.R
 \name{toLatexGraph}
 \alias{toLatexGraph}
-\title{Export spgraphs as TikZ graphs}
+\title{Export spgraphs as human-readable TikZ graphs.}
 \usage{
 toLatexGraph(x)
 }
 \arguments{
-\item{x}{The object to export.}
+\item{x}{The graph to export.}
 }
 \description{
-Export spgraphs as TikZ graphs
+This method focuses on a minimal TikZ output that provides a base
+for manual modification. For extensive plot customization, see
+\code{\link{plot.spgraph}}.
 }
 

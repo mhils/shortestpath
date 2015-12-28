@@ -1,3 +1,6 @@
+#' Convert a list of graphs into an spresults object.
+#' @param lst A list of spgraphs
+#' @export
 spresults <- function(lst=list()){
     for(i in lst){
         if(!is.spgraph(i)){
@@ -35,20 +38,22 @@ is.spresults <- function(x) {
     "spresults" %in% class(x)
 }
 
-#' Print graphs to the terminal
-#' @param x The graph to print.
+#' Print spresults to the terminal
+#' @param x The results to print.
 #' @param ... Further arguments passed to \code{\link[igraph]{print.igraph}}
 #' @export
 print.spresults <- function(x, ...) {
-    graph <- x[[length(x)]]
+    graph <- x$last
+    single_source <- graph$from != FALSE
+    single_target <- graph$to != FALSE
 
     title <- "Shortest Path Results "
-    if(graph$from != FALSE || graph$to != FALSE){
-        if(graph$from != FALSE) {
+    if(single_source || single_target){
+        if(single_source) {
             title <- paste0(title, graph$from$name)
         }
         title <- paste0(title,"->")
-        if(graph$to != FALSE) {
+        if(single_target) {
             title <- paste0(title, graph$to$name)
         }
     } else {
@@ -57,7 +62,7 @@ print.spresults <- function(x, ...) {
 
     title <- paste0(title, " (")
 
-    if(graph$from != FALSE && graph$to != FALSE) {
+    if(single_source && single_target) {
         title <- paste0(
             title,
             "min dist: ",
@@ -66,8 +71,24 @@ print.spresults <- function(x, ...) {
         )
     }
 
-    title <- paste0(title, "steps: ",length(x), ")\r\n+ graph: ")
+    title <- paste0(title, "alg.steps: ",length(x), ")\r\n")
     cat(title)
+
+    if(single_source && single_target){
+        paths <- getShortestPaths(graph)
+        nPaths <- length(paths)
+        if(nPaths == 0){
+            path <- "(no path found)"
+        } else {
+            path <- paste0(paths[[1]]$vertices$name, collapse="->")
+        }
+        if(nPaths > 1){
+            path <- paste0(path," (+",(nPaths-1)," alternatives)")
+        }
+        path <- paste0("+ path: ",path,"\r\n")
+        cat(path)
+    }
+    cat("+ graph: ")
     summary(graph, ...)
     invisible(x)
 }

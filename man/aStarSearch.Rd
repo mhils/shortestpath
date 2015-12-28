@@ -15,6 +15,9 @@ aStarSearch(graph, from, to, distance.heuristic = euclidean.vertex.distance)
 
 \item{distance.heuristic}{The A* distance heuristic.}
 }
+\value{
+An \code{\link{spresults}} object.
+}
 \description{
 Use the A*-Search algorithm to solve a shortest path problem.
 }

@@ -1,0 +1,83 @@
+---
+title: "Exporting Results"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Exporting Results}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, echo = FALSE, message = FALSE}
+library(shortestpath)
+library(knitr)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
+set.seed(22)
+```
+The shortest path package offers different functions to visualize the optimization steps of each algorithm. Moreover, it also provides features to export the results to LaTeX tables and TikZ plots.
+
+## plot function
+spgraph and spresults objects can be plotted using R's builtin `plot()` function (which internally calls `plot.spgraph()`). `plot.spgraph()` is a wrapper around `plot.igraph()`, providing additional features for shortest path graph plotting and a generally more visually appealing output. Amongst other things, it allows the user to set vertex/edge visuals depending on the underlying graph characteristics:
+
+- `vertex.color.by` denotes which attribute should be used to set the vertex color
+- `vertex.color` specifies the color palette, or, if `.by` is `"manual"`, a color for each vertex.
+
+For example, setting `vertex.color.by="set"` for an A*-Search graph colors each vertex by its current set (processed/at the current front/unknown).
+
+```{r, message=FALSE}
+library(igraph)
+graph <- make_ring(4) %>%
+    as.spgraph() %>%
+    setRandomEdgeWeights()
+
+d <- dijkstra(graph, "A", "C")
+
+plot(d$last, 
+     vertex.color.by = "type", 
+     vertex.color = heat.colors(3),
+     vertex.frame.color.by = "manual", 
+     vertex.frame.color = c("darkgreen","pink","black","blue"),
+     edge.color.by = "shortestpath", 
+     edge.color = c("gray","green")
+     )
+```  
+  
+An overview of the different parameters can be found in the R help for `plot.spgraph`.
+
+### Animations
+
+It is also very useful to create animated GIFs, videos or LaTeX plots using the R `animation` package. In the following example, we use it in combination with `Cairo` to obtain a high-quality antialiased video of A*-Search.
+
+```{r, eval=FALSE}
+library(Cairo)
+library(animation)
+
+grid_search <- make_lattice(length = 7, dim = 2) %>%
+    delete_edges(c(seq(21,25,2),seq(37,63,13),seq(60,64,2))) %>%
+    as.spgraph() %>%
+    setVertexCoordinatesFromLayout(
+        layout=on_grid(width=7, height=7)
+    ) %>%
+    aStarSearch("22", "28", 
+        distance.heuristic = function(...) euclidean.vertex.distance(...) ** 2
+    )
+
+saveVideo({
+    CairoPNG(filename = ani.options('img.fmt'))
+    plot(grid_search, vertex.label="", edge.label="")
+    dev.off()
+}, video.name="a-star.mp4", use.dev=FALSE, ani.type="png")
+```
+
+## toLatexTable
+The toLatexTable function creates LaTeX code consisting of the minimum distances and shortest path predecessors table for each step of the Dijkstra algorithm  
+
+```{r, comment = NA}
+toLatexTable(d)
+```
+
+## toLatexGraph
+The toLatexGraph functions creates a human-readable TikZ plot of the spgraph. The emphasis of this function is to provide (in contrast to R's TikZ plot device) readable TikZ code. 
+```{r, comment = NA}
+toLatexGraph(d)
+```

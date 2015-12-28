@@ -7,7 +7,7 @@
 \method{plot}{spgraph}(x, vertex.color.by = c("set", "type", "manual"),
   vertex.color = wes_palette("Royal1")[c(3, 4, 1)],
   vertex.frame.color.by = c("type", "set", "manual"),
-  vertex.frame.color = wes_palette("Rushmore")[c(4, 3, 5)],
+  vertex.frame.color = wes_palette("Rushmore")[3:5],
   vertex.size.by = c("type", "set", "manual"), vertex.size = c(15, 25, 25),
   edge.color.by = c("shortestpath", "manual"), edge.color = c("darkgrey",
   wes_palette("Darjeeling")[4]), vertex.label = nice_vertex_labels(x),
@@ -64,6 +64,26 @@
 \description{
 \code{plot.spgraph} is a wrapper around \code{\link{plot.igraph}} providing
 convenience features for shortest path graph plotting.
+}
+\details{
+Vertex/edge visuals depending on the underlying graph characteristics:
+
+\describe{
+ \item{\code{vertex.color.by}}{ denotes which attribute should be used to set the vertex color}
+ \item{\code{vertex.color}}{ specifies the color palette, or, if \code{.by} is \code{"manual"}, a color for each vertex.}
+}
+Available vertex characteristics:
+\itemize{
+ \item{\code{set}}{ The set to which the vertex belongs: processed/front/unknown}
+ \item{\code{type}}{ start node/normal/destination node}
+ \item{\code{manual}}{ A color for each vertex is provided manually}
+}
+
+Available edge characteristics:
+\itemize{
+ \item{\code{shortestpath}}{ edge is not on the shortest path / edge is on the shortest path}
+ \item{\code{manual}}{ A color for each edge is provided manualy}
+}
 }
 \examples{
 g <- randomGraph()

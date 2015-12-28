@@ -13,6 +13,9 @@ bellmanFord(graph, from, to)
 
 \item{to}{Target node}
 }
+\value{
+An \code{\link{spresults}} object.
+}
 \description{
 Use the Bellman-Ford algorithm to calculate the shortest path from a source vertex
 to a target vertex in a directed, weighted graph
@@ -22,21 +25,21 @@ The Bellman-Ford algorithm is a single source algorithm which can in
 contrast to the Dijkstra's and A*-Search algorithms deal with negative edge
 weights (Note in order to find the right shortest path it is required that
 no negative-weight cycle exist in the graph).
-The algorithm automatically detects negative-weight cycles and shows a corresponding error message.
+The algorithm automatically detects cycles with a negative weight and shows a corresponding error message.
 
-Like Dijkstra, the algorithm is based on the principle of the relaxation.
-Wheres Dijkstra greedily select the closest vertex, the Bellman-Ford algorithm simply relaxes
+Like Dijkstra, the algorithm is based on the principle of relaxation.
+While Dijkstra selects the vertex with the minimum distance, the Bellman-Ford algorithm simply relaxes
 all the edges (#V-1 times). Thus, Bellman-Ford has a runtime of #V * #E.
 }
 \examples{
-  g <- randomGraph(6,euclidean=FALSE)
+g <- randomGraph(6, euclidean=FALSE)
 
-  bf <- bellmanFord(g,"A","F")
+bf <- bellmanFord(g, "A", "F")
 
-  plot(bf)
+plot(bf)
 
-  for(step in bf){
+for(step in bf){
      print(step$min_dists)
-  }
+}
 }
 

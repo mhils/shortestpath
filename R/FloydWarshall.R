@@ -1,48 +1,42 @@
 #' Floyd-Warshall Algorithm
 #'
 #' Use the Floyd-Warshall algorithm to calculate the shortest path between
-#' all pairs of vertices in a directed, weighted graph
+#' all pairs of vertices in a directed, weighted graph.
 #'
-#' The Floyd-Warshall algorithm is a multi-source algorithm which can in
-#' contrast to the Dijkstra's and A*-Search algorithms deal with negative edge
-#' weights. (Note in order to find the right shortest path it is required that
-#' no negative-weight cycle exist in the graph) The algorithm automatically
+#' The Floyd-Warshall algorithm is a multi-source algorithm which can (in
+#' contrast to Dijkstra and A*-Search) deal with negative edge
+#' weights. Note that in order to find the right shortest path, it is required that
+#' no negative-weight cycle exist in the graph. The algorithm automatically
 #' detects negative-weight cycles and shows a corresponding error message.
 #'
-#' The algorithm consist of a single looping structure containing of tree nested
-#' loops and occurs in V(number of vertices in the graph) passes. Thus, the
-#' running time of the algorithm is V^3 (In contrast Dijkstra and Bellman-Ford
-#' has a running time of V^2 and V*E(number of edges of a graph) )
+#' The algorithm updates the minimal distance of each vertex pair #V number of times.
+#' Thus, the running time complexity of the algorithm is #V^3.
 #'
-#' Important: The computation of the distances is based on an adjacency matrix.
-#' Thus, an edge weight of zero indicates that there exist no edge between
-#' the two vertices.
+#' Caveat: The computation of the distances is based on an adjacency matrix.
+#' A limitation in igraph mandates that an edge weight of zero indicates
+#' that there exist no edge between two vertices.
 #'
 #' @param graph The \code{igraph} object.
-#' @param weight.attr Either \code{NULL} or a character string giving an edge
-#'   attribute name for the edge cost.
 #' @examples
-#'   g <- randomGraph(6,euclidean=FALSE)
+#' g <- randomGraph(6,euclidean=FALSE)
 #'
-#'   fw <- floydWarshall(g)
+#' fw <- floydWarshall(g)
 #'
-#'   plot(fw)
+#' plot(fw)
 #'
-#'   for(step in fw){
-#'      print(step$min_dists)
-#'   }
+#' for(step in fw){
+#'    print(step$min_dists)
+#' }
 #'
-#' @return A list of \code{spgraph} objects. Each \code{spgraph} object contains
-#'   information about a certain step in the optimization process representing
-#'   by its attributes
-#' @import igraph
+#' @return An \code{\link{spresults}} object.
 #' @export
 #'
-floydWarshall <- function(graph, weight.attr="weight") {
+floydWarshall <- function(graph) {
     graph <- as.spgraph(graph)
 
     # Take all direct connections from the adjacency matrix and update the graph's min_dists and
     # shortest path predecessors from it.
+    weight.attr <- "weight"
     if(ecount(graph) == 0){
         weight.attr <- NULL # Otherwise this will throw an error.
     }

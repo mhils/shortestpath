@@ -1,0 +1,79 @@
+---
+title: "Generating graphs"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Generating Graphs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{knitr,shortestpath}
+---
+```{r, echo = FALSE, message = FALSE}
+library(shortestpath)
+library(knitr)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
+set.seed(30)
+```
+
+To leverage the existing R ecosystem for graphs, shortestpath is closely coupled with igraph and accepts any valid igraph object as input. Additionally, we provide a configurable random graph generation function that is particularly suited for exercises.
+
+In this vignette, we will first walk through the three most common ways to generate graphs and then show how to remove intersecting edges for visually appealing graphs.
+
+## igraphs's make_graph
+The igraph package provides a function `make_graph()`, which can be used to create an igraph from a list of edges or a string specifying a well-defined notable graph. Calling `as.spgraph()` casts the igraph to an spgraph. This adds alphabetical vertex names, uniform edge weights and fixed vertex coordinates by default.
+
+```{r, message=FALSE}
+library(igraph)
+g <- make_graph("House") %>%
+    as.spgraph()
+
+plot(g)
+```
+  
+A list of predefined graphs can be found in the documentation of `make_graph()`.  
+
+## igraphs's graph_from_adjacency_matrix
+igraph's `graph_from_adjancency_matrix()` creates a graph from an adjancency matrix. 
+
+```{r}
+square <- matrix(c(
+    0,1,0,1,
+    1,0,1,0,
+    0,1,0,1,
+    1,0,1,0
+    ), nrow=4) %>%
+    graph_from_adjacency_matrix(mode="undirected") %>%
+    as.spgraph()
+plot(square)
+```
+
+## shortestpath's randomGraph
+This method generates a random graph only by specifying the number of nodes and the average connectivity. The result is a graph that is neither too uniform nor too degenerated and suitable for exercises.
+
+```{r}
+g <- randomGraph(no.of.nodes = 6, k = 2.5, euclidean = FALSE) 
+plot(g)
+```
+  
+## Remove overlapping edges
+By creating a new graph with the above mentioned functions it can happen that some vertices are placed in such a position in the layout that their edges intersect. In order to create visually appealing graphs, shortestpath's `removeIntersectingEdges()` can be used.  
+The function tries to eliminate edge intersections in a graph by replacing overlapping edges with new -- non-overlapping -- ones. Newly added edges will not have any edge attributes.
+
+```{r, echo = FALSE}
+set.seed(1)
+```
+```{r}
+g <- make_graph("Cubical") %>%
+    as.spgraph()
+plot(g)
+
+g <- g %>%
+    removeIntersectingEdges(relayout = FALSE) %>%
+    setUniformEdgeWeights()
+plot(g)
+```
+  
+If the `relayout` parameter is `TRUE`, the Fruchterman-Reingold layout algorithm is re-applied after removing edges. This may introduce new intersections, but generally improves the quality of the graph.
+  
+It is important to know that this is a fuzzy algorithm, there is no guarantee that all intersections are (or can be) removed. If relayout is set to `FALSE`, however, it is guaranteed that a warning will be emitted if not all intersections could be removed.

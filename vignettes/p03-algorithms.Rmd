@@ -1,17 +1,21 @@
 ---
-title: "Shortest Path Algorithms"
+title: "Running Shortest Path Algorithms on Graphs"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Shortest Path Algorithms}
+  %\VignetteIndexEntry{Running Shortest Path Algorithms on Graphs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-```{r, echo =FALSE, message=FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(shortestpath)
+library(knitr)
+opts_chunk$set(dev = "svg")
+```
+```{r, echo = FALSE}
 set.seed(1)
 ```
 
-In its current version, *shortestpath* supports the following algorithms:
+In its current version, **shortestpath** supports the following algorithms:
 
 |                | Running-Time Complexity   | Type                             | Supports Negative Edge Weights | Command         |
 |----------------|---------------------------|----------------------------------|--------------------------------|-----------------|
@@ -20,18 +24,19 @@ In its current version, *shortestpath* supports the following algorithms:
 | Bellman-Ford   | O(#V * #E)                | single source, multiple target   | ✔                              | `bellmanFord`   |
 | Floyd-Warshall | O(#V³)                    | multiple source, multiple target | ✔                              | `floydWarshall` |
 
-All algorithms are textbook implementations, that is no special optimizations have been applied. In general, the performance is significantly worse than an optimized implementation, albeit the complexity is the same. For Bellman-Ford and Floyd-Warshall, we skip further steps if an iteration does not yield any improvements at all.
+All algorithms are textbook implementations, that is no special optimizations have been applied. In general, the performance is significantly worse than an optimized implementation, albeit the asymptotic complexity is the same. For Bellman-Ford and Floyd-Warshall, we skip further steps if an iteration does not yield any improvements at all.
 
 ## Comparing A* Search and Dijkstra
 
-One of the more interesting relations is the one between A* Search and Dijkstra, where the latter can be seen as a special case of the former one (with an empty heuristics function). To illustrate their behaviour, we try to find the shortest path on a grid with euclidean distances:
+One of the more interesting relations is the one between A* Search and Dijkstra, where the latter can be seen as a special case of the former one (with a zero heuristics function). To illustrate their behaviour, we try to find the shortest path on a grid with euclidean distances:
 
 ```{r, message=FALSE}
 library(igraph)
 N <- 5
 grid <- make_lattice(length = N, dim = 2) %>%
     as.spgraph() %>%
-    # make_lattice does not assign x,y coordinates to vertices. We add them manually.
+    # make_lattice does not assign x,y coordinates to vertices. 
+    # We add them manually.
     setVertexCoordinatesFromLayout(
         layout=on_grid(width=N,height=N)
     )
@@ -67,7 +72,7 @@ grid <- make_lattice(length = 7, dim = 2) %>%
     )
 plot(grid, vertex.label="", edge.label="")
 
-# We use a more optimistic heuristic here.
+# We use an heuristic that favors best-first search here.
 # This is not guaranteed to find the optimal solution, but works
 # considerably faster.
 a <- aStarSearch(
