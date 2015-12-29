@@ -23,26 +23,26 @@
 #' }
 #'
 #' @param x The graph to plot.
-#' @param vertex.color.by Characteristic which should be used to color vertices
-#' @param vertex.color Color palette for the vertices
-#' @param vertex.frame.color.by Characteristic which should be used to color vertex frames
+#' @param vertex.color.by Characteristic which should be used to color vertices.
+#' @param vertex.color Color palette for the vertices.
+#' @param vertex.frame.color.by Characteristic which should be used to color vertex frames.
 #' @param vertex.frame.color Color palette for the vertices' frame.
-#' @param vertex.size.by Characteristic which should be used to determine vertex sizes
-#' @param vertex.size The size options
-#' @param edge.color.by Characteristic which should be used to color edges
-#' @param edge.color Color palette for the edges
+#' @param vertex.size.by Characteristic which should be used to determine vertex sizes.
+#' @param vertex.size The size options.
+#' @param edge.color.by Characteristic which should be used to color edges.
+#' @param edge.color Color palette for the edges.
 #' @param vertex.label The vertex label.
 #' @param edge.label The edge label.
-#' @param edge.label.family See \code{\link{igraph.plotting}}
-#' @param edge.label.color See \code{\link{igraph.plotting}}
-#' @param edge.label.cex See \code{\link{igraph.plotting}}
-#' @param vertex.label.color See \code{\link{igraph.plotting}},
-#' @param vertex.label.dist See \code{\link{igraph.plotting}}
-#' @param vertex.label.cex See \code{\link{igraph.plotting}}
-#' @param vertex.label.family See \code{\link{igraph.plotting}}
-#' @param vertex.label.degree See \code{\link{igraph.plotting}}
+#' @param edge.label.family See \code{\link{igraph.plotting}}.
+#' @param edge.label.color See \code{\link{igraph.plotting}}.
+#' @param edge.label.cex See \code{\link{igraph.plotting}}.
+#' @param vertex.label.color See \code{\link{igraph.plotting}}.
+#' @param vertex.label.dist See \code{\link{igraph.plotting}}.
+#' @param vertex.label.cex See \code{\link{igraph.plotting}}.
+#' @param vertex.label.family See \code{\link{igraph.plotting}}.
+#' @param vertex.label.degree See \code{\link{igraph.plotting}}.
 #' @param default.margins If \code{TRUE}, plot margins will be zeroed.
-#' @param ... All other parameters are passed to \code{\link{plot.igraph}} as is.
+#' @param ... All other parameters are passed to \code{\link{plot.igraph}}. as is.
 #'
 #' @examples
 #' g <- randomGraph()

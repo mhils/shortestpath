@@ -2,7 +2,7 @@
 title: "Exporting Results"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Exporting Results}
+  %\VignetteIndexEntry{04 Exporting Results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

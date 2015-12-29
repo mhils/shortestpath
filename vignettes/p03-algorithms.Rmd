@@ -2,7 +2,7 @@
 title: "Running Shortest Path Algorithms on Graphs"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Running Shortest Path Algorithms on Graphs}
+  %\VignetteIndexEntry{03 Running Shortest Path Algorithms on Graphs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

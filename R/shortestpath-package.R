@@ -9,9 +9,47 @@ NULL
 
 #' The shortestpath package
 #'
-#' shortestpath is a library and R package for shortest path algorithm visualization.
-#' %TODO: Description
+#' The shortestpath package provides a set of functions to execute and visualize algorithms
+#' that solve shortest path problems.
 #'
+#' @section Creating random graphs:
+#' To create random graphs, which are neither too uniform nor too degenerated,
+#' shortestpath's function \code{\link{randomGraph()}} can be used. This method generates a random graph
+#' only by specifying the number of nodes and the average connectivity.
+#'
+#' @section Algorithms:
+#' The package supports the following algorithms:
+#' \itemize{
+#' \item{Dijkstra (\code{\link{dijkstra}})}
+#' \item{A* Search (\code{\link{aStarSearch}})}
+#' \item{Bellman-Ford (\code{\link{bellmanFord}})}
+#' \item{Floyd-Warshall (\code{\link{floydWarshall}})}
+#' }
+#'
+#' @section Visualization:
+#' The R's builtin \code{plot()} function can be used to plot the optimization steps of each algorithm.
+#' By using \code{plot()} the internal \code{\link{plot.spgraph()}} function, which is a wrapper around \code{\link{plot.igraph()}}
+#' but provides additional features, will be called automatically.
+#'
+#' Moreover, it also provides features to export the results to LaTeX tables (\code{\link{toLatexTable()}})
+#' and TikZ plots (\code{\link{toLatexGraph()}}).
+#'
+#' @section Detailed information:
+#' A more detailed documentation of the package in the form of a tutorial can be found by \code{browseVignettes("shortestpath")}.
+#'
+#' See
+#' \itemize{
+#'  \item{\code{vignette("p01-getting-started", package = "shortestpath")}}
+#'  {for an introduction and initial overview,}
+#'  \item{\code{vignette("p02-generating-graphs", package = "shortestpath")}}
+#'  {for getting to know different functions to generate graphs,}
+#'  \item{\code{vignette("p03-algorithms", package = "shortestpath")}}
+#'  {for detailed information about each of the algorithm and how they differ,}
+#'  \item{\code{vignette("p04-export", package = "shortestpath")}}
+#'  {for becoming familiar with the packages's functions to visualize the optimization steps and}
+#'  \item{\code{vignette("p05-data-structures", package = "shortestpath")}}
+#'  {for learning more details about the structure and functions of spgraph and spresult objects}
+#'  }
 #' @name shortestpath
 NULL
 

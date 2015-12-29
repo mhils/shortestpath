@@ -2,7 +2,7 @@
 title: "Data Structures"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Data Structures}
+  %\VignetteIndexEntry{05 Data Structures}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{knitr,shortestpath}

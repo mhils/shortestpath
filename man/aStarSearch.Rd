@@ -23,7 +23,7 @@ Use the A*-Search algorithm to solve a shortest path problem.
 }
 \details{
 A*-Search is a single-source algorithm which cannot deal with negative edge weights.
-Compared to Dijkstra's algorithm, it uses an euclidean distance heuristic to estimate
+Compared to Dijkstra's algorithm (\code{\link{dijkstra}}), it uses an euclidean distance heuristic to estimate
 the minimum distance to the target vertex and thereby rule out solutions.
 Thus, it is usually vastly faster than Dijkstra, but requires an euclidean problem instance.
 }

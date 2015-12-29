@@ -74,7 +74,7 @@ setVertexCoordinatesFromLayout <- function(graph, layout=nicely(), overwrite = T
         }, overwrite)
 }
 
-#' @describeIn graphModification Set rounded euclidean edge weights
+#' @describeIn graphModification Set rounded euclidean edge weights.
 #' @export
 setEuclideanEdgeWeights <- function(graph, overwrite = TRUE) {
     if(!has.vertex.coordinates(graph)){

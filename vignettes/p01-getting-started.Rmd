@@ -2,7 +2,7 @@
 title: "Getting Started with shortestpath"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting Started with shortestpath}
+  %\VignetteIndexEntry{01 Getting Started with shortestpath}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{knitr,shortestpath}
@@ -32,7 +32,7 @@ Your shortestpath workflow will generally look as follows:
 We will walk through each of these steps here - for more details, each step has a dedicated vignette!
 
 ## Create a Graph
-Before we start finding shortest paths, we need a graph! There are many ways to create graphs which are explained in detail in generating-graphs vignette. For a quick example, we use the igraph function [`make_ring()`](http://igraph.org/r/doc/make_ring.html) to create an undirected ring graph `g` with positive edge weights. Next, `as.spgraph()` converts the graph into a shortest path graph. An spgraph is still a valid igraph, but it is also guaranteed to have a limited set of additional attributes (e.g. fixed vertex positions, so that plots render consistently over optimization steps).
+Before we start finding shortest paths, we need a graph! There are many ways to create graphs which are explained in detail in the 'Generating Graphs' vignette. For a quick example, we use the igraph function [`make_ring()`](http://igraph.org/r/doc/make_ring.html) to create an undirected ring graph `g` with positive edge weights. Next, `as.spgraph()` converts the graph into a shortest path graph. An spgraph is still a valid igraph, but it is also guaranteed to have a limited set of additional attributes (e.g. fixed vertex positions, so that plots render consistently over optimization steps).
 
 ```{r, message=FALSE}
 library(igraph)
@@ -45,13 +45,13 @@ plot(g)
 ```
 
 ## Find the shortest path using Dijkstra's algorithm
-We now want to find the the shortest path from "A" to "C" using Dijkstra's algorithm.
+We now want to find the the shortest path from A to C using Dijkstra's algorithm.
 ```{r}
 d <- dijkstra(g, "A", "C")
 print(d)
 ```
 
-Dijsktra (and all other algorithms) returns an `spresults` object. In a nutshell (we will discuss them in more detail in the data-structures vignette), an ``spresults`` object is a list of ``spgraph``s, with each entry representing a single step of your algorithm.
+Dijsktra (and all other algorithms) returns an `spresults` object. In a nutshell (we will discuss them in more detail in the 'Data Structures' vignette), an ``spresults`` object is a list of ``spgraph``s, with each entry representing a single step of your algorithm.
 
 ## Plot the graph 
 Use the normal `plot()` function to print all the steps of the Dijkstra algorithm. 
@@ -60,7 +60,7 @@ par(mfrow = c(2, 2))
 plot(d)
 ```
 
-The plot command can be configured with a wide range of settings - we will discuss this in the vignette on exporting results!
+The plot command can be configured with a wide range of settings - we will discuss this in the vignette 'Exporting Results'!
 
 Of course, you can also work with the returned datastructure manually: In the following example, we obtain the minimum distance table after each step of Dijkstra.
 ```{r}

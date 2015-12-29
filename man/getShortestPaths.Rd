@@ -4,7 +4,7 @@
 \alias{getShortestPaths}
 \alias{getShortestPaths.spgraph}
 \alias{getShortestPaths.spresults}
-\title{Get the shortest path between two nodes.}
+\title{Get the shortest path between two vertices.}
 \usage{
 getShortestPaths(x, from = x$from, to = x$to)
 
@@ -15,12 +15,12 @@ getShortestPaths(x, from = x$from, to = x$to)
 \arguments{
 \item{x}{A spgraph or a spresults object.}
 
-\item{from}{Source node}
+\item{from}{the source vertex}
 
-\item{to}{Target node}
+\item{to}{the target vertex}
 }
 \description{
-Get the shortest path between two nodes.
+Get the shortest path between two vertices.
 }
 \section{Methods (by class)}{
 \itemize{

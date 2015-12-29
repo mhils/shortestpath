@@ -1,7 +1,7 @@
-#' Get the shortest path between two nodes.
+#' Get the shortest path between two vertices.
 #' @param x A spgraph or a spresults object.
-#' @param from Source node
-#' @param to Target node
+#' @param from the source vertex
+#' @param to the target vertex
 #' @export
 getShortestPaths <- function(x, from=x$from, to=x$to) UseMethod("getShortestPaths")
 

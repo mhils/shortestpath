@@ -2,7 +2,7 @@
 title: "Generating graphs"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Generating Graphs}
+  %\VignetteIndexEntry{02 Generating Graphs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{knitr,shortestpath}
