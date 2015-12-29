@@ -21,45 +21,45 @@
 \arguments{
 \item{x}{The graph to plot.}
 
-\item{vertex.color.by}{Characteristic which should be used to color vertices}
+\item{vertex.color.by}{Characteristic which should be used to color vertices.}
 
-\item{vertex.color}{Color palette for the vertices}
+\item{vertex.color}{Color palette for the vertices.}
 
-\item{vertex.frame.color.by}{Characteristic which should be used to color vertex frames}
+\item{vertex.frame.color.by}{Characteristic which should be used to color vertex frames.}
 
 \item{vertex.frame.color}{Color palette for the vertices' frame.}
 
-\item{vertex.size.by}{Characteristic which should be used to determine vertex sizes}
+\item{vertex.size.by}{Characteristic which should be used to determine vertex sizes.}
 
-\item{vertex.size}{The size options}
+\item{vertex.size}{The size options.}
 
-\item{edge.color.by}{Characteristic which should be used to color edges}
+\item{edge.color.by}{Characteristic which should be used to color edges.}
 
-\item{edge.color}{Color palette for the edges}
+\item{edge.color}{Color palette for the edges.}
 
 \item{vertex.label}{The vertex label.}
 
 \item{edge.label}{The edge label.}
 
-\item{edge.label.family}{See \code{\link{igraph.plotting}}}
+\item{edge.label.family}{See \code{\link{igraph.plotting}}.}
 
-\item{edge.label.color}{See \code{\link{igraph.plotting}}}
+\item{edge.label.color}{See \code{\link{igraph.plotting}}.}
 
-\item{edge.label.cex}{See \code{\link{igraph.plotting}}}
+\item{edge.label.cex}{See \code{\link{igraph.plotting}}.}
 
-\item{vertex.label.color}{See \code{\link{igraph.plotting}},}
+\item{vertex.label.color}{See \code{\link{igraph.plotting}}.}
 
-\item{vertex.label.dist}{See \code{\link{igraph.plotting}}}
+\item{vertex.label.dist}{See \code{\link{igraph.plotting}}.}
 
-\item{vertex.label.cex}{See \code{\link{igraph.plotting}}}
+\item{vertex.label.cex}{See \code{\link{igraph.plotting}}.}
 
-\item{vertex.label.family}{See \code{\link{igraph.plotting}}}
+\item{vertex.label.family}{See \code{\link{igraph.plotting}}.}
 
-\item{vertex.label.degree}{See \code{\link{igraph.plotting}}}
+\item{vertex.label.degree}{See \code{\link{igraph.plotting}}.}
 
 \item{default.margins}{If \code{TRUE}, plot margins will be zeroed.}
 
-\item{...}{All other parameters are passed to \code{\link{plot.igraph}} as is.}
+\item{...}{All other parameters are passed to \code{\link{plot.igraph}}. as is.}
 }
 \description{
 \code{plot.spgraph} is a wrapper around \code{\link{plot.igraph}} providing

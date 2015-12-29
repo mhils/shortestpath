@@ -72,7 +72,7 @@ shortestpath provides various graph modification functions that are used interna
 \item \code{setVertexCoordinatesFromLayout}: Run the given layout algorithm,
 and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
 
-\item \code{setEuclideanEdgeWeights}: Set rounded euclidean edge weights
+\item \code{setEuclideanEdgeWeights}: Set rounded euclidean edge weights.
 
 \item \code{setRandomEdgeWeights}: Set random edge weights.
 

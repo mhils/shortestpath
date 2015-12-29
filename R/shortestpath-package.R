@@ -14,7 +14,7 @@ NULL
 #'
 #' @section Creating random graphs:
 #' To create random graphs, which are neither too uniform nor too degenerated,
-#' shortestpath's function \code{\link{randomGraph()}} can be used. This method generates a random graph
+#' shortestpath's function \code{\link{randomGraph}} can be used. This method generates a random graph
 #' only by specifying the number of nodes and the average connectivity.
 #'
 #' @section Algorithms:
@@ -28,11 +28,11 @@ NULL
 #'
 #' @section Visualization:
 #' The R's builtin \code{plot()} function can be used to plot the optimization steps of each algorithm.
-#' By using \code{plot()} the internal \code{\link{plot.spgraph()}} function, which is a wrapper around \code{\link{plot.igraph()}}
+#' By using \code{plot()} the internal \code{\link{plot.spgraph}} function, which is a wrapper around \code{\link{plot.igraph}}
 #' but provides additional features, will be called automatically.
 #'
-#' Moreover, it also provides features to export the results to LaTeX tables (\code{\link{toLatexTable()}})
-#' and TikZ plots (\code{\link{toLatexGraph()}}).
+#' Moreover, it also provides features to export the results to LaTeX tables (\code{\link{toLatexTable}})
+#' and TikZ plots (\code{\link{toLatexGraph}}).
 #'
 #' @section Detailed information:
 #' A more detailed documentation of the package in the form of a tutorial can be found by \code{browseVignettes("shortestpath")}.

@@ -28,7 +28,7 @@ The package supports the following algorithms:
 \section{Visualization}{
 
 The R's builtin \code{plot()} function can be used to plot the optimization steps of each algorithm.
-By using \code{plot()} the internal \code{\link{plot.spgraph()}} function, which is a wrapper around \code{\link{plot.igraph()}}
+By using \code{plot()} the internal \code{\link{plot.spgraph}} function, which is a wrapper around \code{\link{plot.igraph}}
 but provides additional features, will be called automatically.
 
 Moreover, it also provides features to export the results to LaTeX tables (\code{\link{toLatexTable}})
