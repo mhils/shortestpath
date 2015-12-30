@@ -3,7 +3,6 @@
 #' Generate a "nice" random graph with a fixed average vertex degree
 #' and at most one cluster.
 #'
-#'
 #' @param k The average degree of each vertex in the graph
 #' @inheritParams igraph::sample_k_regular
 #' @seealso \code{\link{randomGraph}} for a high-level interface.

@@ -31,7 +31,7 @@ The package implements the following algorithms:
 
 R's builtin \code{plot()} and \code{print()} functions can be used to
 visualize the results and intermediate steps of each algorithm.
-There is a multitude of settings that can be used to configure plot visuals (see \code{\link{plot.spgraph}}).
+There is a multitude of settings to configure plot visuals (see \code{\link{plot.spgraph}}).
 
 Moreover, the package also provides features to export the results to LaTeX tables (\code{\link{toLatexTable}})
 and TikZ plots (\code{\link{toLatexGraph}}).
