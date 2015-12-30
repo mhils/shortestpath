@@ -92,3 +92,16 @@ test_that("setAlphabeticalVertexNames handles graphs with >26 vertices", {
         setAlphabeticalVertexNames()
     expect_equal(vertex.attributes(g)$name, as.character(1:46))
 })
+
+test_that("permuteGraph works as expected", {
+    g <- make_graph("House") %>%
+        setAlphabeticalVertexNames()
+    E(g)$name <- "/"
+    E(g)["A" %--% "B"]$name <- "X"
+    expect_equal(E(g)[1]$name, "X")
+    set.seed(1)
+    g %<>% permuteGraph()
+    expect_false(V(g)[1]$name == "A")
+    expect_equal(E(g)[1]$name, "/")
+    expect_equal(E(g)["A" %--% "B"]$name, "X")
+})

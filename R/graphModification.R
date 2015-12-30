@@ -180,6 +180,6 @@ permuteGraph <- function(graph) {
         delete_edges(., seq_len(ecount(.))) %>%
         add_edges(as.vector(t(edges[edge_permut,]))) %>%
         permute(., sample(vcount(.)))
-    edge.attributes(graph) <- edge_attributes
+    edge.attributes(graph) <- lapply(edge_attributes, function(attr) attr[edge_permut])
     graph
 }
