@@ -78,3 +78,8 @@ test_that("aStarSearch handles graphs without edges", {
     graph <- make_ring(3) %>% delete_edges(1:3)
     expect_is(aStarSearch(graph,"A","C", function(...) 0), "spresults")
 })
+
+test_that("aStarSearch stops if euclidean distances are chosen without vertex coordinates", {
+    graph <- make_ring(3)
+    expect_error(aStarSearch(graph, "A", "C"), "Cannot compute euclidean distance")
+})
