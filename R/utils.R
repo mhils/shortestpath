@@ -1,4 +1,5 @@
 #' euclidean.vertex.distance
+#'
 #' Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
 #' @param graph The corresponding graph object
 #' @param v1 The first vertex

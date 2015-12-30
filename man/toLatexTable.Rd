@@ -23,9 +23,7 @@ toLatexTable(x, ...)
 }
 \description{
 Use the toLatexTable function to create LaTeX tables from of a single \code{spgraph}
-or an \code{spresults} object
-
-This function creates the LaTeX code out of a spgraph
+or an \code{spresults} object.
 }
 \section{Methods (by class)}{
 \itemize{

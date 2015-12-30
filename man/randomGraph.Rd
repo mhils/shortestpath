@@ -18,4 +18,7 @@ graph.}
 This method generates a random graph with the given number of nodes and average connectivity.
 The result is a graph that is neither too uniform nor too degenerated and suitable for exercises.
 }
+\seealso{
+\code{\link{removeIntersectingEdges}} to remove intersecting edges.
+}
 

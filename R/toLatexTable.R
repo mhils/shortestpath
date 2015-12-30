@@ -1,7 +1,7 @@
 #' toLatexTable
 #'
 #' Use the toLatexTable function to create LaTeX tables from of a single \code{spgraph}
-#' or an \code{spresults} object
+#' or an \code{spresults} object.
 #'
 #' @param x The graph object
 #' @param ... Additional arguments passed to \code{\link{getShortestPaths.spgraph}}
@@ -14,7 +14,6 @@
 #' @export
 toLatexTable <- function(x, ...) UseMethod("toLatexTable")
 
-#' This function creates the LaTeX code out of a spgraph
 #' @param title The Title of the latex table
 #' @param includeCommand Additional arguments passed to \code{toLatexTable.spgraph}
 #' @describeIn toLatexTable Create a table for the graph's state.

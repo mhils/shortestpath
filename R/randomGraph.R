@@ -3,8 +3,10 @@
 #' Generate a "nice" random graph with a fixed average vertex degree
 #' and at most one cluster.
 #'
+#'
 #' @param k The average degree of each vertex in the graph
 #' @inheritParams igraph::sample_k_regular
+#' @seealso \code{\link{randomGraph}} for a high-level interface.
 #' @export
 sample_average_k_connected_graph <- function(no.of.nodes, k){
     # To get "nice" random graphs, we create a sample_k_regular graph
@@ -52,6 +54,7 @@ sample_average_k_connected_graph <- function(no.of.nodes, k){
 #'
 #' @param euclidean Set to \code{TRUE} if (rounded) euclidean distances should be used.
 #' @inheritParams sample_average_k_connected_graph
+#' @seealso \code{\link{removeIntersectingEdges}} to remove intersecting edges.
 #' @export
 randomGraph <- function(no.of.nodes=12, k=2.5, euclidean=FALSE) {
 

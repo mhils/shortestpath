@@ -12,13 +12,15 @@ NULL
 #' The shortestpath package provides a set of functions to execute and visualize algorithms
 #' that solve shortest path problems.
 #'
-#' @section Creating random graphs:
+#' @section Creating graphs:
 #' To create random graphs, which are neither too uniform nor too degenerated,
-#' shortestpath's function \code{\link{randomGraph}} can be used. This method generates a random graph
-#' only by specifying the number of nodes and the average connectivity.
+#' shortestpath's \code{\link{randomGraph}} function can be used. This method generates a random graph
+#' with the given number of nodes and average connectivity.
+#'
+#' All shortest path algorithms also accept regular \link[igraph]{igraph} graph objects as input.
 #'
 #' @section Algorithms:
-#' The package supports the following algorithms:
+#' The package implements the following algorithms:
 #' \itemize{
 #' \item{Dijkstra (\code{\link{dijkstra}})}
 #' \item{A* Search (\code{\link{aStarSearch}})}
@@ -27,15 +29,15 @@ NULL
 #' }
 #'
 #' @section Visualization:
-#' The R's builtin \code{plot()} function can be used to plot the optimization steps of each algorithm.
-#' By using \code{plot()} the internal \code{\link{plot.spgraph}} function, which is a wrapper around \code{\link{plot.igraph}}
-#' but provides additional features, will be called automatically.
+#' R's builtin \code{plot()} and \code{print()} functions can be used to
+#' visualize the results and intermediate steps of each algorithm.
+#' There is a multitude of settings to configure plot visuals (see \code{\link{plot.spgraph}}).
 #'
-#' Moreover, it also provides features to export the results to LaTeX tables (\code{\link{toLatexTable}})
+#' Moreover, the package also provides features to export the results to LaTeX tables (\code{\link{toLatexTable}})
 #' and TikZ plots (\code{\link{toLatexGraph}}).
 #'
 #' @section Detailed information:
-#' A more detailed documentation of the package in the form of a tutorial can be found by \code{browseVignettes("shortestpath")}.
+#' A more detailed documentation of the package in the form of R vignette can be accessed by running \code{browseVignettes("shortestpath")}.
 #'
 #' See
 #' \itemize{
