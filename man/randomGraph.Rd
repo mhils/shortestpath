@@ -21,4 +21,3 @@ The result is a graph that is neither too uniform nor too degenerated and suitab
 \seealso{
 \code{\link{removeIntersectingEdges}} to remove intersecting edges.
 }
-

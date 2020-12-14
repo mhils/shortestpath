@@ -42,4 +42,3 @@ for(step in bf){
      print(step$min_dists)
 }
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/getShortestPaths.R
 \name{getShortestPaths}
 \alias{getShortestPaths}
-\alias{getShortestPaths.spgraph}
 \alias{getShortestPaths.spresults}
+\alias{getShortestPaths.spgraph}
 \title{Get the shortest path between two vertices.}
 \usage{
 getShortestPaths(x, from = x$from, to = x$to)

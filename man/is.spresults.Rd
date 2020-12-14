@@ -15,4 +15,3 @@ is.spresults(x)
 \description{
 Check whether an object is a shortest path result object
 }
-

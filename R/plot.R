@@ -18,7 +18,9 @@
 #'
 #' Available edge characteristics:
 #' \itemize{
-#'  \item{\code{shortestpath}}{ edge is not on the shortest path / edge is on the shortest path}
+#'  \item{\code{shortestpath}}{ edge is not on the first shortest path / edge is on the first shortest path}
+#'  \item{\code{shortestpaths}}{ edge is not on any shortest path / edge is on any shortest path}
+#'  \item{\code{spanningtree}}{ edge is not on the minimum spanning tree / edge is on minimum spanning tree}
 #'  \item{\code{manual}}{ A color for each edge is provided manualy}
 #' }
 #'
@@ -55,11 +57,11 @@ plot.spgraph <- function(x,
                          vertex.color.by = c("set", "type", "manual"),
                          vertex.color = wes_palette("Royal1")[c(3,4,1)],
                          vertex.frame.color.by = c("type", "set", "manual"),
-                         vertex.frame.color = wes_palette("Rushmore")[3:5],
+                         vertex.frame.color = wes_palette("Rushmore1")[3:5],
                          vertex.size.by = c("type", "set", "manual"),
                          vertex.size = c(15, 25, 25),
-                         edge.color.by = c("shortestpath", "manual"),
-                         edge.color = c("darkgrey", wes_palette("Darjeeling")[4]),
+                         edge.color.by = c("shortestpaths", "shortestpath", "spanningtree", "manual"),
+                         edge.color = c("darkgrey", wes_palette("Darjeeling1")[4]),
                          vertex.label = nice_vertex_labels(x),
                          edge.label = E(graph)$weight,
                          # Reasonable defaults for igraph builtins.
@@ -125,19 +127,35 @@ set_vertex_attr_by <- function(graph, name, by=c("type", "set", "manual"), value
     }
 }
 
-set_edge_attr_by <- function(graph, attr, by=c("shortestpath", "manual"), value) {
-    if(match.arg(by) == "shortestpath") {
+set_edge_attr_by <- function(graph, attr, by=c("shortestpaths", "shortestpath", "spanningtree", "manual"), value) {
+    if(match.arg(by) == "shortestpaths" || match.arg(by) == "shortestpath") {
         sp_edges = c()
 
         if(graph$from != FALSE){
             for(shortest_path in getShortestPaths(graph)){
                 sp_edges <- c(sp_edges, shortest_path$edges)
+                if(match.arg(by) == "shortestpath") {
+                    break
+                }
             }
         }
 
         graph %>%
             set_edge_attr(attr, value=value[1]) %>%
             set_edge_attr(attr, E(graph)[sp_edges], value[2])
+
+    } else if(match.arg(by) == "spanningtree") {
+        tree_edges = c()
+        if(graph$from != FALSE){
+            spps = graph$shortest_path_predecessors[graph$from$name,]
+            tree_edges = lapply(names(spps), function(x){
+                pred = spps[[x]]$name[1]
+                E(graph)[pred %->% x]
+            }) %>% unlist(use.names = FALSE)
+        }
+        graph %>%
+            set_edge_attr(attr, value=value[1]) %>%
+            set_edge_attr(attr, E(graph)[tree_edges], value[2])
 
     } else {
         graph %>%

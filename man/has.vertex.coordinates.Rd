@@ -12,4 +12,3 @@ has.vertex.coordinates(graph)
 \description{
 Returns \code{TRUE} if the graph's vertices have non-null coordinates.
 }
-

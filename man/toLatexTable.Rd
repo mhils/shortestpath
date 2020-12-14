@@ -31,6 +31,7 @@ or an \code{spresults} object.
 
 \item \code{spresults}: Export a table for each step
 }}
+
 \examples{
 g <- randomGraph(6)
 d <- dijkstra(g, "A", "F")
@@ -38,4 +39,3 @@ d <- dijkstra(g, "A", "F")
 toLatexTable(d)
 
 }
-

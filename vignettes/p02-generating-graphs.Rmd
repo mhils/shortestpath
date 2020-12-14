@@ -1,5 +1,5 @@
 ---
-title: "Generating graphs"
+title: "02 Generating Graphs"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{02 Generating Graphs}

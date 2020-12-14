@@ -43,4 +43,3 @@ for(step in d){
 to set vertex coordinates for a graph object.
 \code{\link{euclidean.vertex.distance}} for the default distance heuristic.
 }
-

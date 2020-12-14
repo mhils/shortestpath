@@ -22,4 +22,3 @@ intersect any other edges). Newly added edges will not have any edge attributes.
 This is a fuzzy algorithm, there is no guarantee that all intersections are removed.
 If \code{relayout} is \code{FALSE}, however, it is guaranteed that a warning will be emitted in this case.
 }
-

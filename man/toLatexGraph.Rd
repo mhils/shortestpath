@@ -14,4 +14,3 @@ This method focuses on a minimal TikZ output that provides a base
 for manual modification. For extensive plot customization, see
 \code{\link{plot.spgraph}}.
 }
-

@@ -15,4 +15,3 @@ get.vertex(graph, identifier)
 Convenience function that returns the vertex object associated with the
 given identifier, which is either the vertex object itself or a vertex id.
 }
-

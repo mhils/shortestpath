@@ -4,8 +4,11 @@
 \alias{nice_vertex_label_colors}
 \title{Produce a vector of suitable vector colors depending on the vertex' state.}
 \usage{
-nice_vertex_label_colors(graph, previous = NULL, colors = c("black",
-  "darkgray", wes_palette("Royal1")[2]))
+nice_vertex_label_colors(
+  graph,
+  previous = NULL,
+  colors = c("black", "darkgray", wes_palette("Royal1")[2])
+)
 }
 \arguments{
 \item{graph}{The spgraph object.}
@@ -18,4 +21,3 @@ will be highlighted.}
 \description{
 Produce a vector of suitable vector colors depending on the vertex' state.
 }
-

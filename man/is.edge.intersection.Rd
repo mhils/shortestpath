@@ -18,4 +18,3 @@ containing four vertices (as edge endpoints).}
 \description{
 Determine if two edges intersect.
 }
-

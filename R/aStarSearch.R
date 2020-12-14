@@ -32,6 +32,9 @@ aStarSearch <- function (graph, from, to, distance.heuristic=euclidean.vertex.di
     if(identical(distance.heuristic, euclidean.vertex.distance) && !has.vertex.coordinates(graph)) {
         stop("Cannot compute euclidean distance for vertices without position.")
     }
+    if(any(is.na(E(graph)$weight))) {
+        stop("Cannot perform a star search with some edge weights missing.")
+    }
 
     graph %<>%
         as.spgraph() %>%

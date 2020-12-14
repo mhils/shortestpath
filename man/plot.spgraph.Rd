@@ -4,19 +4,29 @@
 \alias{plot.spgraph}
 \title{Plotting of shortest path graphs}
 \usage{
-\method{plot}{spgraph}(x, vertex.color.by = c("set", "type", "manual"),
+\method{plot}{spgraph}(
+  x,
+  vertex.color.by = c("set", "type", "manual"),
   vertex.color = wes_palette("Royal1")[c(3, 4, 1)],
   vertex.frame.color.by = c("type", "set", "manual"),
-  vertex.frame.color = wes_palette("Rushmore")[3:5],
-  vertex.size.by = c("type", "set", "manual"), vertex.size = c(15, 25, 25),
-  edge.color.by = c("shortestpath", "manual"), edge.color = c("darkgrey",
-  wes_palette("Darjeeling")[4]), vertex.label = nice_vertex_labels(x),
-  edge.label = E(graph)$weight, edge.label.family = "sans",
-  edge.label.color = "#444444", edge.label.cex = 0.75,
+  vertex.frame.color = wes_palette("Rushmore1")[3:5],
+  vertex.size.by = c("type", "set", "manual"),
+  vertex.size = c(15, 25, 25),
+  edge.color.by = c("shortestpaths", "shortestpath", "spanningtree", "manual"),
+  edge.color = c("darkgrey", wes_palette("Darjeeling1")[4]),
+  vertex.label = nice_vertex_labels(x),
+  edge.label = E(graph)$weight,
+  edge.label.family = "sans",
+  edge.label.color = "#444444",
+  edge.label.cex = 0.75,
   vertex.label.color = nice_vertex_label_colors(x),
-  vertex.label.dist = 1.25, vertex.label.cex = 0.8,
-  vertex.label.family = "sans", vertex.label.degree = -pi/7,
-  default.margins = TRUE, ...)
+  vertex.label.dist = 1.25,
+  vertex.label.cex = 0.8,
+  vertex.label.family = "sans",
+  vertex.label.degree = -pi/7,
+  default.margins = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{The graph to plot.}
@@ -81,7 +91,9 @@ Available vertex characteristics:
 
 Available edge characteristics:
 \itemize{
- \item{\code{shortestpath}}{ edge is not on the shortest path / edge is on the shortest path}
+ \item{\code{shortestpath}}{ edge is not on the first shortest path / edge is on the first shortest path}
+ \item{\code{shortestpaths}}{ edge is not on any shortest path / edge is on any shortest path}
+ \item{\code{spanningtree}}{ edge is not on the minimum spanning tree / edge is on minimum spanning tree}
  \item{\code{manual}}{ A color for each edge is provided manualy}
 }
 }
@@ -91,4 +103,3 @@ d <- dijkstra(g, "A", "B")
 plot(d)
 
 }
-

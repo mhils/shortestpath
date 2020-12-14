@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with shortestpath"
+title: "01 Getting Started with shortestpath"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{01 Getting Started with shortestpath}

@@ -15,4 +15,3 @@ is.spgraph(x)
 \description{
 Check whether an object is a shortest path graph
 }
-

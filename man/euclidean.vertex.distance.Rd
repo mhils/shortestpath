@@ -16,4 +16,3 @@ euclidean.vertex.distance(graph, v1, v2)
 \description{
 Euclidean distance computation for vertices with \code{x} and \code{y} attributes.
 }
-

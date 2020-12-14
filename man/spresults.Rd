@@ -12,4 +12,3 @@ spresults(lst = list())
 \description{
 Convert a list of graphs into an spresults object.
 }
-

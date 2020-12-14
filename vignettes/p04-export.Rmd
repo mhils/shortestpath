@@ -1,5 +1,5 @@
 ---
-title: "Exporting Results"
+title: "04 Exporting Results"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{04 Exporting Results}

@@ -2,17 +2,17 @@
 % Please edit documentation in R/graphModification.R
 \name{graphModification}
 \alias{graphModification}
-\alias{permuteGraph}
-\alias{setAlphabeticalVertexNames}
-\alias{setEmptyShortestPathPredecessors}
-\alias{setEuclideanEdgeWeights}
 \alias{setInfiniteMinDists}
-\alias{setRandomEdgeWeights}
 \alias{setRandomVertexCoordinates}
-\alias{setRoute}
-\alias{setUniformEdgeWeights}
 \alias{setVertexCoordinatesFromLayout}
+\alias{setEuclideanEdgeWeights}
+\alias{setRandomEdgeWeights}
+\alias{setUniformEdgeWeights}
+\alias{setEmptyShortestPathPredecessors}
+\alias{setRoute}
 \alias{setVertexSets}
+\alias{setAlphabeticalVertexNames}
+\alias{permuteGraph}
 \title{Graph Modification}
 \usage{
 setInfiniteMinDists(graph, overwrite = TRUE)
@@ -23,8 +23,11 @@ setVertexCoordinatesFromLayout(graph, layout = nicely(), overwrite = TRUE)
 
 setEuclideanEdgeWeights(graph, overwrite = TRUE)
 
-setRandomEdgeWeights(graph, dist.fun = function(n) ceiling(runif(n, 0, 10)),
-  overwrite = TRUE)
+setRandomEdgeWeights(
+  graph,
+  dist.fun = function(n) ceiling(runif(n, 0, 10)),
+  overwrite = TRUE
+)
 
 setUniformEdgeWeights(graph, overwrite = TRUE)
 
@@ -44,7 +47,7 @@ permuteGraph(graph)
 \item{overwrite}{If \code{FALSE}, graphs with an existing attribute will not
 be updated.}
 
-\item{layout}{An igraph layout function. See \code{igraph::\link[igraph]{layout}}.}
+\item{layout}{An igraph layout function. See \code{igraph::\link[igraph]{layout_}}.}
 
 \item{dist.fun}{A function that accepts the required vector length as an argument
 and returns a vector of weights of the given length.}
@@ -92,6 +95,7 @@ matrices to the specified source.
 \item \code{permuteGraph}: Permute both vertex and edge ids.
 This is useful so that e.g. Bellman-Ford cannot exploit a graph's artifical structure.
 }}
+
 \examples{
 
 library(igraph)
@@ -105,4 +109,3 @@ E(g)$weight
 
 
 }
-

@@ -1,5 +1,5 @@
 ---
-title: "Data Structures"
+title: "05 Data Structures"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{05 Data Structures}

@@ -14,4 +14,3 @@
 \description{
 Print spresults to the terminal
 }
-

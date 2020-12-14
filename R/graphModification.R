@@ -61,7 +61,7 @@ setRandomVertexCoordinates <- function(graph, overwrite = TRUE) {
 
 #' @describeIn graphModification Run the given layout algorithm,
 #' and set the positioning suggested by the algorithm as vertex positions for euclidean algorithms.
-#' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout}}.
+#' @param layout An igraph layout function. See \code{igraph::\link[igraph]{layout_}}.
 #' @export
 setVertexCoordinatesFromLayout <- function(graph, layout=nicely(), overwrite = TRUE) {
     p <- layout_(graph, layout)

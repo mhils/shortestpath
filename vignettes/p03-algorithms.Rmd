@@ -1,5 +1,5 @@
 ---
-title: "Running Shortest Path Algorithms on Graphs"
+title: "03 Running Shortest Path Algorithms on Graphs"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{03 Running Shortest Path Algorithms on Graphs}

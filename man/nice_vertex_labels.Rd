@@ -12,4 +12,3 @@ nice_vertex_labels(graph)
 \description{
 Produce "name (current min dist)" labels for all vertices.
 }
-

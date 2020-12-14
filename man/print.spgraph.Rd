@@ -14,4 +14,3 @@
 \description{
 Print graphs to the terminal
 }
-

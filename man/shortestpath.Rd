@@ -13,7 +13,7 @@ To create random graphs, which are neither too uniform nor too degenerated,
 shortestpath's \code{\link{randomGraph}} function can be used. This method generates a random graph
 with the given number of nodes and average connectivity.
 
-All shortest path algorithms also accept regular \link[igraph]{igraph} graph objects as input.
+All shortest path algorithms also accept regular igraph graph objects as input.
 }
 
 \section{Algorithms}{
